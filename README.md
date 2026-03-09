@@ -2,7 +2,13 @@
 
 🏆 **Built for the Amazon Nova AI Hackathon 2026**
 
-**The Autonomous Financial Life Operating System powered by Amazon Nova reasoning, embeddings, and intelligent agents.**
+**NovaLedger AI is the first Autonomous Financial Life Operating System powered entirely by Amazon Nova.**
+
+*The Autonomous Financial Life Operating System powered by Amazon Nova reasoning, embeddings, and intelligent agents.*
+
+---
+
+**NovaLedger AI demonstrates how Amazon Nova can power real-world autonomous AI systems, not just chatbots.**
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.10.8-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.10.8-0175C2?logo=dart)](https://dart.dev)
@@ -26,6 +32,78 @@ NovaLedger AI is not just an expense tracker—it's a complete **Financial Life 
 - **Executes** safe financial actions autonomously via Nova Act
 - **Learns** continuously from every interaction
 - **Searches** financial knowledge using Nova multimodal embeddings
+
+---
+
+## 💡 Why This Matters Now
+
+Financial management today is fragmented across multiple tools:
+- Budgeting apps
+- Accounting software
+- Banking portals
+- Tax calculators
+- Investment trackers
+
+**NovaLedger AI unifies these into a single AI-driven financial operating system that can understand, reason, and act on behalf of users.**
+
+By leveraging Amazon Nova's reasoning models and agent automation, NovaLedger AI introduces a new paradigm:
+
+**Autonomous personal finance.**
+
+---
+
+## 🏗️ System Architecture
+
+```
+User (Mobile / Web)
+        │
+        ▼
+Flutter App (NovaLedger AI)
+        │
+        ▼
+AWS Amplify Backend
+        │
+        ▼
+Nova AI Layer
+ ├─ Nova 2 Lite (Reasoning)
+ ├─ Nova Multimodal Embeddings (Knowledge Retrieval)
+ ├─ Nova Act (Agent Automation)
+ └─ Nova Vision (Receipt OCR)
+        │
+        ▼
+Financial Intelligence Layer
+ ├─ NovaFinancialBrain
+ ├─ Budget Agent
+ ├─ Cashflow Agent
+ ├─ Tax Agent
+ └─ Execution Agent
+        │
+        ▼
+Data Layer
+ ├─ DynamoDB (financial data)
+ ├─ S3 (receipts & audit logs)
+ └─ Hive (local offline storage)
+```
+
+---
+
+## 🤔 Why Amazon Nova?
+
+NovaLedger AI specifically uses Amazon Nova because it provides:
+
+### High-Speed Reasoning
+**Nova 2 Lite** enables fast financial decision-making in real time, processing complex financial scenarios in milliseconds.
+
+### Agent Automation
+**Nova Act** allows AI systems to reliably interact with real-world interfaces, enabling autonomous bill payments and workflow execution.
+
+### Semantic Intelligence
+**Nova Multimodal Embeddings** power context-aware financial knowledge retrieval, understanding the nuances of tax policies and financial regulations.
+
+### Cloud-Native Scalability
+**AWS Bedrock** provides secure and scalable infrastructure, ensuring bank-grade security and unlimited scalability.
+
+**Together, these capabilities enable NovaLedger AI to function as an autonomous financial operating system.**
 
 ---
 
@@ -166,7 +244,7 @@ All powered by Amazon Nova reasoning and intelligent agents working together 24/
 
 ---
 
-## 🎬 Hackathon Demo Flow
+## 🎬 3-Minute Hackathon Demo
 
 **Experience NovaLedger AI in action:**
 
@@ -488,6 +566,12 @@ Each agent specializes in a domain while collaborating to achieve complex financ
 
 ---
 
+## 📸 Screenshots
+
+*Coming soon — demo screenshots of NovaLedger AI in action.*
+
+---
+
 ## 🎨 UI/UX Design
 
 ### Design Philosophy
@@ -662,7 +746,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎉 The Result
 
-NovaLedger AI is a **world-class AI-powered financial intelligence platform** that demonstrates the full power of Amazon Nova:
+NovaLedger AI is an **autonomous financial intelligence platform built on Amazon Nova** that demonstrates the full power of Amazon Nova:
 
 1. **Understands** finances with Nova 2 Lite reasoning
 2. **Predicts** outcomes with AI forecasting
@@ -676,6 +760,22 @@ NovaLedger AI is a **world-class AI-powered financial intelligence platform** th
 10. **Optimizes** financial decisions 24/7 on autopilot
 
 **It's not just an app—it's your personal Financial Life OS powered by Amazon Nova! 🚀**
+
+---
+
+## 🚀 Built for the Future of Autonomous AI
+
+NovaLedger AI demonstrates how Amazon Nova can power the next generation of intelligent systems.
+
+Instead of simply answering questions, NovaLedger AI:
+- **Understands** financial situations through multimodal analysis
+- **Reasons** about future outcomes using Nova 2 Lite
+- **Collaborates** through specialized agents working together
+- **Executes** actions safely in the real world via Nova Act
+
+**This project showcases how Amazon Nova can enable truly autonomous applications.**
+
+By combining Nova's reasoning, embeddings, and agent capabilities, NovaLedger AI represents a new paradigm in AI applications: systems that don't just assist users, but actively manage complex domains on their behalf.
 
 ---
 
