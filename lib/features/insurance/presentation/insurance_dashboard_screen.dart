@@ -46,7 +46,7 @@ class InsuranceDashboardScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           const Text('No insurance policies yet', style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
                           const SizedBox(height: 24),
-                          GhostActionButton(
+                          NovaActionButton(
                             label: 'Add Policy',
                             icon: Icons.add,
                             onPressed: () => _showAddPolicyDialog(context, ref),

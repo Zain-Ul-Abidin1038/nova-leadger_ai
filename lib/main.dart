@@ -58,7 +58,7 @@ void main() async {
 
     runApp(
       const ProviderScope(
-        child: GhostAccountantApp(),
+        child: NovaAccountantApp(),
       ),
     );
   } catch (e, stackTrace) {
@@ -67,7 +67,7 @@ void main() async {
     // Still try to run the app
     runApp(
       const ProviderScope(
-        child: GhostAccountantApp(),
+        child: NovaAccountantApp(),
       ),
     );
   }

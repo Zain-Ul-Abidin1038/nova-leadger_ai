@@ -47,7 +47,7 @@ class FamilyDashboardScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           const Text('Create your family account', style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
                           const SizedBox(height: 24),
-                          GhostActionButton(
+                          NovaActionButton(
                             label: 'Create Family',
                             icon: Icons.add,
                             baseColor: AppColors.softPurple,

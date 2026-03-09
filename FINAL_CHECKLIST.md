@@ -9,7 +9,7 @@
 
 ### Android ✅
 - [x] APK built successfully
-- [x] File: `release/ghost-accountant-v1.0.0-android.apk`
+- [x] File: `release/nova-accountant-v1.0.0-android.apk`
 - [x] Size: 73.7 MB (70M)
 - [x] SHA256 checksum generated
 - [x] Verification file created
@@ -46,7 +46,7 @@
 ### Release Package ✅
 - [x] release/README.md - Package overview
 - [x] release/checksums.txt - SHA256 verification
-- [x] release/ghost-accountant-v1.0.0-android.apk
+- [x] release/nova-accountant-v1.0.0-android.apk
 
 ---
 
@@ -123,8 +123,8 @@
 
 ### Release Assets (4 files)
 
-1. **ghost-accountant-v1.0.0-android.apk** (73.7 MB)
-   - Location: `release/ghost-accountant-v1.0.0-android.apk`
+1. **nova-accountant-v1.0.0-android.apk** (73.7 MB)
+   - Location: `release/nova-accountant-v1.0.0-android.apk`
    - Type: Android application package
    - Status: ✅ Ready
 
@@ -256,7 +256,7 @@
 - ✅ Wealth planning (10-year)
 - ✅ Life event detection
 - ✅ Continuous learning
-- ✅ Ghost Trace (AI reasoning)
+- ✅ Nova Trace (AI reasoning)
 
 ---
 
@@ -335,7 +335,7 @@
 ### Support Channels
 - **GitHub Issues** - Bug reports and feature requests
 - **GitHub Discussions** - Community support and Q&A
-- **Email** - support@ghostaccountant.com
+- **Email** - support@novaaccountant.com
 - **Discord** - Coming soon
 
 ### Response Times

@@ -84,7 +84,7 @@ git push -u origin main --force
 
 5. **Upload files:**
    - Drag and drop from `release/` folder:
-     - `ghost-accountant-v1.0.0-android.apk`
+     - `nova-accountant-v1.0.0-android.apk`
      - `checksums.txt`
    - Also upload:
      - `RELEASE_NOTES.md`
@@ -110,7 +110,7 @@ gh auth login
 gh release create v1.0.0 \
   --title "NovaLedger AI v1.0.0 - AI-Powered Financial Life OS" \
   --notes-file GITHUB_RELEASE.md \
-  release/ghost-accountant-v1.0.0-android.apk \
+  release/nova-accountant-v1.0.0-android.apk \
   release/checksums.txt \
   RELEASE_NOTES.md \
   INSTALLATION_GUIDE.md
@@ -243,7 +243,7 @@ git push -u origin main
 gh release create v1.0.0 \
   --title "NovaLedger AI v1.0.0" \
   --notes-file GITHUB_RELEASE.md \
-  release/ghost-accountant-v1.0.0-android.apk \
+  release/nova-accountant-v1.0.0-android.apk \
   release/checksums.txt \
   RELEASE_NOTES.md \
   INSTALLATION_GUIDE.md

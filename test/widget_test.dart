@@ -6,7 +6,7 @@ import 'package:nova_ledger_ai/app.dart';
 void main() {
   testWidgets('App loads successfully', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const ProviderScope(child: GhostAccountantApp()));
+    await tester.pumpWidget(const ProviderScope(child: NovaAccountantApp()));
 
     // Verify that the app loads
     await tester.pumpAndSettle();

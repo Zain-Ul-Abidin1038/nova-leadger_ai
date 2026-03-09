@@ -11,7 +11,7 @@
 
 #### Step 1: Download APK
 1. Go to [GitHub Releases](https://github.com/your-org/nova_ledger_ai/releases)
-2. Download `ghost-accountant-v1.0.0-android.apk` (73.7 MB)
+2. Download `nova-accountant-v1.0.0-android.apk` (73.7 MB)
 3. Save to your device
 
 #### Step 2: Enable Unknown Sources
@@ -25,7 +25,7 @@
 
 #### Step 3: Install APK
 1. Open your **File Manager** or **Downloads** app
-2. Locate `ghost-accountant-v1.0.0-android.apk`
+2. Locate `nova-accountant-v1.0.0-android.apk`
 3. Tap the APK file
 4. Tap **Install**
 5. Wait for installation to complete (10-30 seconds)
@@ -64,10 +64,10 @@ On first launch, the app will request permissions:
 cd ~/Downloads
 
 # Install APK via ADB
-adb install ghost-accountant-v1.0.0-android.apk
+adb install nova-accountant-v1.0.0-android.apk
 
 # Launch app
-adb shell am start -n com.example.ghostAccountant/.MainActivity
+adb shell am start -n com.example.novaAccountant/.MainActivity
 ```
 
 ---
@@ -359,7 +359,7 @@ adb shell am start -n com.example.ghostAccountant/.MainActivity
 - **Discord** - Real-time chat (coming soon)
 
 #### Direct Support
-- **Email:** support@ghostaccountant.com
+- **Email:** support@novaaccountant.com
 - **Response Time:** 24-48 hours
 - **Priority Support:** Available for enterprise users
 

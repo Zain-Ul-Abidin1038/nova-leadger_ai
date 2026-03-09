@@ -5,7 +5,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
-import 'package:nova_ledger_ai/core/presentation/widgets/ghost_logo.dart';
+import 'package:nova_ledger_ai/core/presentation/widgets/nova_logo.dart';
 import 'package:nova_ledger_ai/features/auth/services/auth_service.dart';
 
 class GlassmorphicAuthScreen extends ConsumerStatefulWidget {
@@ -122,7 +122,7 @@ class _GlassmorphicAuthScreenState extends ConsumerState<GlassmorphicAuthScreen>
                       duration: const Duration(milliseconds: 800),
                       child: Column(
                         children: [
-                          const GhostLogo(size: 120, showGlow: true),
+                          const NovaLogo(size: 120, showGlow: true),
                           const SizedBox(height: 24),
                           Text(
                             'NovaLedger AI',

@@ -70,8 +70,8 @@ flutter run -d iPhone        # iOS
   - "What expenses are 50% deductible?"
 - Watch live status updates and see citations!
 
-### 2. Vision Ghost
-- Navigate to "Vision Ghost" from home screen
+### 2. Vision Nova
+- Navigate to "Vision Nova" from home screen
 - Point camera at receipts
 - Get real-time AI advice while scanning
 - Capture for detailed analysis
@@ -164,7 +164,7 @@ amplify push
 
 - **README.md** - Complete project overview
 - **GROUNDED_SEARCH_FEATURE.md** - Grounded search documentation
-- **VISION_GHOST_FEATURE.md** - Vision Ghost feature guide
+- **VISION_GHOST_FEATURE.md** - Vision Nova feature guide
 - **GHOST_NAVIGATOR_FEATURE.md** - NovaNavigator guide
 
 ## 🐛 Troubleshooting
@@ -194,7 +194,7 @@ amplify push
 
 1. **Start Simple**: Try the chat interface first to get familiar with AI capabilities
 2. **Use Grounded Search**: For factual questions, use the Grounded Chat screen
-3. **Scan Receipts**: The Vision Ghost feature provides real-time feedback
+3. **Scan Receipts**: The Vision Nova feature provides real-time feedback
 4. **Explore Features**: Check out all screens from the home dashboard
 
 ## 🤝 Need Help?

@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:nova_ledger_ai/core/services/nova_service_v3.dart';
 
-final visionGhostServiceProvider = Provider((ref) => VisionGhostService(
+final visionNovaServiceProvider = Provider((ref) => VisionNovaService(
       novaService: ref.read(novaServiceV3Provider),
     ));
 
-class VisionGhostService {
+class VisionNovaService {
   final NovaServiceV3 novaService;
 
-  VisionGhostService({required this.novaService});
+  VisionNovaService({required this.novaService});
 
   /// Convert image file to base64
   Future<String> _imageToBase64(File imageFile) async {
@@ -22,7 +22,7 @@ class VisionGhostService {
   /// Analyze receipt in real-time with quick advice
   Future<Map<String, dynamic>> analyzeReceiptLive(File imageFile) async {
     try {
-      safePrint('[Vision Ghost] Analyzing live frame...');
+      safePrint('[Vision Nova] Analyzing live frame...');
 
       final base64Image = await _imageToBase64(imageFile);
 
@@ -62,7 +62,7 @@ class VisionGhostService {
         'analysis': 'Error occurred',
       };
     } catch (e) {
-      safePrint('[Vision Ghost] Error: $e');
+      safePrint('[Vision Nova] Error: $e');
       return {
         'success': false,
         'advice': 'Analysis failed: $e',
@@ -74,7 +74,7 @@ class VisionGhostService {
   /// Detailed analysis with full breakdown
   Future<Map<String, dynamic>> analyzeReceiptDetailed(File imageFile) async {
     try {
-      safePrint('[Vision Ghost] Performing detailed analysis...');
+      safePrint('[Vision Nova] Performing detailed analysis...');
 
       final base64Image = await _imageToBase64(imageFile);
 
@@ -125,7 +125,7 @@ class VisionGhostService {
         'advice': 'Please try again',
       };
     } catch (e) {
-      safePrint('[Vision Ghost] Error: $e');
+      safePrint('[Vision Nova] Error: $e');
       return {
         'success': false,
         'analysis': 'Analysis failed: $e',
@@ -137,7 +137,7 @@ class VisionGhostService {
   /// Analyze a product before purchase
   Future<Map<String, dynamic>> analyzePurchaseDecision(File imageFile, String context) async {
     try {
-      safePrint('[Vision Ghost] Analyzing purchase decision...');
+      safePrint('[Vision Nova] Analyzing purchase decision...');
 
       final base64Image = await _imageToBase64(imageFile);
 
@@ -170,7 +170,7 @@ class VisionGhostService {
         'advice': 'Unable to analyze product',
       };
     } catch (e) {
-      safePrint('[Vision Ghost] Error: $e');
+      safePrint('[Vision Nova] Error: $e');
       return {
         'success': false,
         'advice': 'Analysis failed: $e',

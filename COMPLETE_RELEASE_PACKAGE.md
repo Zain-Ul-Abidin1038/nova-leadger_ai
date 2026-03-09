@@ -9,7 +9,7 @@
 ## 📦 What's Been Built
 
 ### ✅ Android Application
-- **File:** `release/ghost-accountant-v1.0.0-android.apk`
+- **File:** `release/nova-accountant-v1.0.0-android.apk`
 - **Size:** 73.7 MB
 - **Build Status:** ✅ Successfully built
 - **Min SDK:** Android 5.0 (API 21)
@@ -47,7 +47,7 @@
 ### Release Package Files ✅
 15. **release/README.md** - Release package overview
 16. **release/checksums.txt** - SHA256 verification
-17. **release/ghost-accountant-v1.0.0-android.apk** - Android application
+17. **release/nova-accountant-v1.0.0-android.apk** - Android application
 
 ---
 
@@ -72,7 +72,7 @@
    - Title: `NovaLedger AI v1.0.0 - AI-Powered Financial Life OS`
    - Copy description from `GITHUB_RELEASE.md`
    - Upload files:
-     - `release/ghost-accountant-v1.0.0-android.apk`
+     - `release/nova-accountant-v1.0.0-android.apk`
      - `release/checksums.txt`
      - `RELEASE_NOTES.md`
      - `INSTALLATION_GUIDE.md`
@@ -199,7 +199,7 @@ See **PUSH_TO_GITHUB.md** for complete step-by-step instructions.
 - ✅ GDPR compliant
 - ✅ Right to deletion
 - ✅ Data export capability
-- ✅ Transparent AI reasoning (Ghost Trace)
+- ✅ Transparent AI reasoning (Nova Trace)
 
 ---
 
@@ -249,7 +249,7 @@ See **PUSH_TO_GITHUB.md** for complete step-by-step instructions.
 ## 🎯 Quick Start for Users
 
 ### 1. Download & Install
-- Download `ghost-accountant-v1.0.0-android.apk` from GitHub Releases
+- Download `nova-accountant-v1.0.0-android.apk` from GitHub Releases
 - Enable "Unknown Sources" in Android Settings
 - Install APK
 - Grant required permissions (Camera, Storage, Location)
@@ -372,7 +372,7 @@ flutter build ios --release --no-codesign
 - **Documentation:** Check repository `/docs` folder
 - **GitHub Issues:** Report bugs and request features
 - **GitHub Discussions:** Community support and Q&A
-- **Email:** support@ghostaccountant.com
+- **Email:** support@novaaccountant.com
 
 ### Contributing
 - Read `CONTRIBUTING.md` (coming soon)
@@ -428,7 +428,7 @@ NovaLedger AI is not just an expense tracker—it's a complete **Financial Life 
 - ✅ **50+ AI Systems** working in harmony
 - ✅ **Autonomous Decisions** with safety guarantees
 - ✅ **Continuous Learning** that improves over time
-- ✅ **Ghost Trace** for transparent AI reasoning
+- ✅ **Nova Trace** for transparent AI reasoning
 - ✅ **Cost-Effective** at $0.78-$2.78/user/month
 - ✅ **Offline-First** with 100% offline support
 - ✅ **Bank-Grade Security** with AWS infrastructure

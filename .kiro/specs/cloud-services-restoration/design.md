@@ -64,7 +64,7 @@ This document outlines the design for restoring cloud AI and backend services to
    └─> ReceiptService saves to Hive
 
 9. UI updated
-   └─> User sees results with Ghost Trace
+   └─> User sees results with Nova Trace
 ```
 
 ## Component Design
@@ -84,7 +84,7 @@ This document outlines the design for restoring cloud AI and backend services to
 
 **Storage Structure:**
 ```
-S3 Bucket: ghost-accountant-audit-vault-{id}
+S3 Bucket: nova-accountant-audit-vault-{id}
 └─ private/{userId}/
    └─ memories/
       ├─ index.json              # Fast lookup index
@@ -191,7 +191,7 @@ S3 Bucket: ghost-accountant-audit-vault-{id}
 
 **Storage Structure:**
 ```
-S3 Bucket: ghost-accountant-audit-vault-{id}
+S3 Bucket: nova-accountant-audit-vault-{id}
 └─ private/{userId}/
    ├─ receipts/
    │  └─ {receiptId}/
@@ -445,18 +445,18 @@ try {
 // Development
 const novaApiKey = String.fromEnvironment('GEMINI_API_KEY_DEV');
 const awsRegion = 'us-east-1';
-const s3Bucket = 'ghost-accountant-dev';
+const s3Bucket = 'nova-accountant-dev';
 
 // Production
 const novaApiKey = String.fromEnvironment('GEMINI_API_KEY_PROD');
 const awsRegion = 'us-east-1';
-const s3Bucket = 'ghost-accountant-prod';
+const s3Bucket = 'nova-accountant-prod';
 ```
 
 ### AWS Resources
 - Cognito User Pool: `us-east-1_XFgDdU3CA`
 - Cognito Identity Pool: `us-east-1:e4b6a556-2cee-453c-8e06-e875df5e8bd2`
-- S3 Bucket: `ghost-accountant-audit-vault-1770576191`
+- S3 Bucket: `nova-accountant-audit-vault-1770576191`
 
 ## Monitoring
 
@@ -640,7 +640,7 @@ safePrint('[AWS Memory] ❌ Error storing memory: $e');
 
 ⏳ **In Progress:**
 - Nova 3 Pro integration
-- Ghost Trace display
+- Nova Trace display
 - Offline sync queue
 
 🔜 **Planned:**

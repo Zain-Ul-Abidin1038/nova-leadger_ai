@@ -116,7 +116,7 @@ class AdvisorService {
       topic: topic,
       status: BookingStatus.scheduled,
       cost: cost,
-      meetingLink: 'https://meet.ghostaccountant.com/${_uuid.v4().substring(0, 8)}',
+      meetingLink: 'https://meet.novaaccountant.com/${_uuid.v4().substring(0, 8)}',
     );
     await box.add(booking);
   }

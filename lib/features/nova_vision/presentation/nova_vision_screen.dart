@@ -9,21 +9,21 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
-import 'package:nova_ledger_ai/features/vision_ghost/services/vision_ghost_service.dart';
+import 'package:nova_ledger_ai/features/vision_nova/services/vision_nova_service.dart';
 
-class VisionGhostScreen extends ConsumerStatefulWidget {
-  const VisionGhostScreen({super.key});
+class VisionNovaScreen extends ConsumerStatefulWidget {
+  const VisionNovaScreen({super.key});
 
   @override
-  ConsumerState<VisionGhostScreen> createState() => _VisionGhostScreenState();
+  ConsumerState<VisionNovaScreen> createState() => _VisionNovaScreenState();
 }
 
-class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
+class _VisionNovaScreenState extends ConsumerState<VisionNovaScreen> {
   CameraController? _cameraController;
   bool _isInitialized = false;
   bool _isAnalyzing = false;
   bool _isListening = false;
-  String _ghostAdvice = '';
+  String _novaAdvice = '';
   Timer? _analysisTimer;
   final List<String> _conversationHistory = [];
 
@@ -38,7 +38,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
     try {
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
-        safePrint('[Vision Ghost] No cameras available');
+        safePrint('[Vision Nova] No cameras available');
         return;
       }
 
@@ -55,7 +55,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
         setState(() => _isInitialized = true);
       }
     } catch (e) {
-      safePrint('[Vision Ghost] Camera initialization error: $e');
+      safePrint('[Vision Nova] Camera initialization error: $e');
     }
   }
 
@@ -80,23 +80,23 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
       final image = await _cameraController!.takePicture();
       final imageFile = File(image.path);
 
-      // Send to Vision Ghost service for analysis
-      final visionService = ref.read(visionGhostServiceProvider);
+      // Send to Vision Nova service for analysis
+      final visionService = ref.read(visionNovaServiceProvider);
       final result = await visionService.analyzeReceiptLive(imageFile);
 
       if (result['success'] == true) {
         final advice = result['advice'] as String;
 
         setState(() {
-          _ghostAdvice = advice;
-          _conversationHistory.add('🤖 Ghost: $advice');
+          _novaAdvice = advice;
+          _conversationHistory.add('🤖 Nova: $advice');
         });
 
         // Speak the advice (text-to-speech would go here)
-        safePrint('[Vision Ghost] Advice: $advice');
+        safePrint('[Vision Nova] Advice: $advice');
       }
     } catch (e) {
-      safePrint('[Vision Ghost] Analysis error: $e');
+      safePrint('[Vision Nova] Analysis error: $e');
     } finally {
       setState(() => _isAnalyzing = false);
     }
@@ -106,9 +106,9 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
     setState(() {
       _isListening = !_isListening;
       if (_isListening) {
-        _conversationHistory.add('👻 Vision Ghost activated - I\'m watching!');
+        _conversationHistory.add('👻 Vision Nova activated - I\'m watching!');
       } else {
-        _conversationHistory.add('👻 Vision Ghost paused');
+        _conversationHistory.add('👻 Vision Nova paused');
       }
     });
   }
@@ -124,7 +124,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
       final image = await _cameraController!.takePicture();
       final imageFile = File(image.path);
 
-      final visionService = ref.read(visionGhostServiceProvider);
+      final visionService = ref.read(visionNovaServiceProvider);
       final result = await visionService.analyzeReceiptDetailed(imageFile);
 
       if (result['success'] == true) {
@@ -132,7 +132,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
         _showDetailedAnalysis(result);
       }
     } catch (e) {
-      safePrint('[Vision Ghost] Capture error: $e');
+      safePrint('[Vision Nova] Capture error: $e');
     } finally {
       setState(() => _isAnalyzing = false);
     }
@@ -206,7 +206,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Vision Ghost Analysis',
+                                'Vision Nova Analysis',
                                 style: TextStyle(
                                   color: isDark ? AppColors.textPrimary : AppColors.textPrimary,
                                   fontSize: 20,
@@ -412,7 +412,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
                   ),
                   const SizedBox(width: 8),
                   const Text(
-                    'Vision Ghost',
+                    'Vision Nova',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -459,7 +459,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
             ),
           
           // Overlay with advice
-          if (_isListening && _ghostAdvice.isNotEmpty)
+          if (_isListening && _novaAdvice.isNotEmpty)
             Positioned(
               top: 120,
               left: 16,
@@ -488,7 +488,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
                         ),
                         const SizedBox(width: 8),
                         const Text(
-                          'Ghost Advice',
+                          'Nova Advice',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
@@ -499,7 +499,7 @@ class _VisionGhostScreenState extends ConsumerState<VisionGhostScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      _ghostAdvice,
+                      _novaAdvice,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 13,

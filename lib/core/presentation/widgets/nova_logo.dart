@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 
-/// Circular Ghost Logo with optional neon glow effect
+/// Circular Nova Logo with optional neon glow effect
 /// Used in auth screen, chat welcome, and message avatars
-class GhostLogo extends StatelessWidget {
+class NovaLogo extends StatelessWidget {
   final double size;
   final bool showGlow;
   
-  const GhostLogo({
+  const NovaLogo({
     super.key,
     this.size = 160,
     this.showGlow = true,
@@ -59,7 +59,7 @@ class GhostLogo extends StatelessWidget {
         ),
         child: ClipOval(
           child: Image.asset(
-            'assets/images/ghost_profile.png',
+            'assets/images/nova_profile.png',
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
               // Fallback to icon if image not found

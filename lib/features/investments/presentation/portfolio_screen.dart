@@ -55,7 +55,7 @@ class PortfolioScreen extends ConsumerWidget {
                             style: TextStyle(color: AppColors.textSecondary, fontSize: 16),
                           ),
                           const SizedBox(height: 24),
-                          GhostActionButton(
+                          NovaActionButton(
                             label: 'Add Investment',
                             icon: Icons.add,
                             onPressed: () => _showAddInvestmentDialog(context, ref),

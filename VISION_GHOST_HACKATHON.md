@@ -1,8 +1,8 @@
-# 🏆 Vision Ghost - Hackathon Submission Highlight
+# 🏆 Vision Nova - Hackathon Submission Highlight
 
 ## 🎯 The Game-Changing Feature
 
-**Vision Ghost** is NovaLedger AI's revolutionary live AI agent that transforms your smartphone camera into a real-time financial advisor. Point your camera at any receipt, bill, or product, and get instant professional advice - just like having a chartered accountant looking over your shoulder 24/7.
+**Vision Nova** is NovaLedger AI's revolutionary live AI agent that transforms your smartphone camera into a real-time financial advisor. Point your camera at any receipt, bill, or product, and get instant professional advice - just like having a chartered accountant looking over your shoulder 24/7.
 
 ---
 
@@ -17,7 +17,7 @@
 - **Multi-modal**: Combines vision AI, natural language, and financial expertise
 
 **Comparison:**
-| Feature | Traditional Apps | Vision Ghost |
+| Feature | Traditional Apps | Vision Nova |
 |---------|-----------------|--------------|
 | Receipt Scanning | Capture → Upload → Wait | Point → Instant Advice |
 | Analysis Time | 10-30 seconds | 3-5 seconds |
@@ -52,7 +52,7 @@ Real-time UI Update
 **Problem Solved:**
 > 1.7 billion adults worldwide lack access to financial services. Professional financial advice costs ₹5,000-10,000/month - unaffordable for most people.
 
-**Vision Ghost's Solution:**
+**Vision Nova's Solution:**
 - **Free professional advice** for everyone
 - **Instant guidance** on every purchase
 - **Tax optimization** for small businesses
@@ -95,7 +95,7 @@ Real-time UI Update
 ```
 "Imagine having a chartered accountant with you 24/7, 
 watching every purchase, every receipt, giving you 
-instant professional advice. That's Vision Ghost."
+instant professional advice. That's Vision Nova."
 ```
 
 ### Live Demo (60 seconds)
@@ -103,7 +103,7 @@ instant professional advice. That's Vision Ghost."
 **Scene 1: Restaurant Receipt**
 ```
 [Point camera at receipt]
-[Ghost advice appears on screen]
+[Nova advice appears on screen]
 
 "I see a restaurant receipt for ₹1,200. That's 50% 
 tax deductible if it's a business meal. Save this 
@@ -116,7 +116,7 @@ receipt and categorize it as 'Business Meal'!"
 **Scene 2: Laptop Purchase**
 ```
 [Point camera at laptop price tag]
-[Ghost advice appears]
+[Nova advice appears]
 
 "₹45,000 laptop - great for business! Fully deductible 
 as office equipment. Buy before March 31 to claim it 
@@ -129,7 +129,7 @@ in this financial year. Want me to check for better deals?"
 **Scene 3: Electricity Bill**
 ```
 [Point camera at utility bill]
-[Ghost advice appears]
+[Nova advice appears]
 
 "Electricity bill ₹3,500 - normal for this month. 
 If you work from home, 20% is deductible as home 
@@ -138,7 +138,7 @@ office expense. Set up auto-pay to avoid late fees!"
 
 ### Impact Statement (30 seconds)
 ```
-"Vision Ghost democratizes access to professional 
+"Vision Nova democratizes access to professional 
 financial advice. Small business owners, freelancers, 
 students - everyone can now afford a financial advisor.
 
@@ -146,7 +146,7 @@ Built with Google's Nova Vision API, real-time
 streaming, and production-grade DevOps. This isn't 
 just a hackathon project - it's ready to change lives.
 
-Vision Ghost: Your AI Financial Guardian, Always 
+Vision Nova: Your AI Financial Guardian, Always 
 Watching, Always Advising."
 ```
 
@@ -198,7 +198,7 @@ financial empowerment accessible to everyone."
 - No competitor has live vision analysis
 - Combines vision + NLP + financial expertise
 - Glassmorphism UI (world-class design)
-- Ghost Trace (transparent AI reasoning)
+- Nova Trace (transparent AI reasoning)
 
 ### Practical Implementation ⭐⭐⭐⭐⭐
 
@@ -254,7 +254,7 @@ financial empowerment accessible to everyone."
 ### For Judges
 
 **Opening:**
-> "Vision Ghost is the world's first live AI financial advisor that works through your camera. Unlike traditional receipt scanners, Vision Ghost provides instant professional advice as you point - no capture, no waiting, no complexity."
+> "Vision Nova is the world's first live AI financial advisor that works through your camera. Unlike traditional receipt scanners, Vision Nova provides instant professional advice as you point - no capture, no waiting, no complexity."
 
 **Technical:**
 > "Built with Google's Nova Vision API, we've implemented real-time streaming architecture that analyzes camera frames every 3 seconds. Using structured JSON prompts, we achieve 99% accuracy in amount detection and tax calculations."
@@ -263,7 +263,7 @@ financial empowerment accessible to everyone."
 > "This is unprecedented. No expense app has live vision analysis. We're combining cutting-edge AI with professional financial expertise to create something that's never been done before."
 
 **Impact:**
-> "1.7 billion people lack access to financial services. Professional advice costs ₹10,000/month. Vision Ghost makes it free, instant, and accessible to everyone with a smartphone."
+> "1.7 billion people lack access to financial services. Professional advice costs ₹10,000/month. Vision Nova makes it free, instant, and accessible to everyone with a smartphone."
 
 **Production Ready:**
 > "This isn't just a prototype. We have automated CI/CD, multi-platform support, comprehensive testing, and professional DevOps. We're ready to deploy to app stores tomorrow."
@@ -271,13 +271,13 @@ financial empowerment accessible to everyone."
 ### For Audience
 
 **Relatable:**
-> "Ever bought something and wondered if it was tax deductible? Ever looked at a receipt and thought 'should I save this?' Vision Ghost answers those questions instantly - just point your camera."
+> "Ever bought something and wondered if it was tax deductible? Ever looked at a receipt and thought 'should I save this?' Vision Nova answers those questions instantly - just point your camera."
 
 **Simple:**
 > "It's like having a chartered accountant in your pocket. Point your camera at any receipt or product, and get instant professional advice. No forms, no buttons, just advice."
 
 **Empowering:**
-> "Financial advice shouldn't be a luxury. Vision Ghost democratizes access to professional guidance, helping everyone make better financial decisions."
+> "Financial advice shouldn't be a luxury. Vision Nova democratizes access to professional guidance, helping everyone make better financial decisions."
 
 ---
 
@@ -317,7 +317,7 @@ financial empowerment accessible to everyone."
 
 ### vs Traditional Receipt Scanners
 
-| Feature | Traditional | Vision Ghost |
+| Feature | Traditional | Vision Nova |
 |---------|------------|--------------|
 | **Capture** | Required | Optional |
 | **Speed** | 10-30 seconds | 3-5 seconds |
@@ -327,7 +327,7 @@ financial empowerment accessible to everyone."
 
 ### vs Professional Accountants
 
-| Feature | Accountant | Vision Ghost |
+| Feature | Accountant | Vision Nova |
 |---------|-----------|--------------|
 | **Cost** | ₹5-10K/month | Free |
 | **Availability** | Business hours | 24/7 |
@@ -337,7 +337,7 @@ financial empowerment accessible to everyone."
 
 ### vs Other AI Apps
 
-| Feature | Other AI | Vision Ghost |
+| Feature | Other AI | Vision Nova |
 |---------|---------|--------------|
 | **Live Analysis** | No | Yes |
 | **Financial Focus** | General | Specialized |
@@ -432,8 +432,8 @@ financial empowerment accessible to everyone."
 - [x] Demo script
 
 ### Code
-- [x] VisionGhostScreen (UI)
-- [x] VisionGhostService (Business logic)
+- [x] VisionNovaScreen (UI)
+- [x] VisionNovaService (Business logic)
 - [x] Router integration
 - [x] Nova Vision API integration
 - [x] Error handling
@@ -454,7 +454,7 @@ financial empowerment accessible to everyone."
 
 ## 🎊 Conclusion
 
-**Vision Ghost represents the future of financial management:**
+**Vision Nova represents the future of financial management:**
 
 ✅ **Innovative**: First live AI financial advisor
 ✅ **Technical**: Advanced AI with production-grade code
@@ -465,7 +465,7 @@ financial empowerment accessible to everyone."
 
 ---
 
-**Vision Ghost: Your AI Financial Guardian, Always Watching, Always Advising** 👻💰
+**Vision Nova: Your AI Financial Guardian, Always Watching, Always Advising** 👻💰
 
 **Built for: AI for Good Hackathon 2026**
 **Team: NovaLedger AI**

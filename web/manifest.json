@@ -1,6 +1,6 @@
 {
-    "name": "ghost_accountant",
-    "short_name": "ghost_accountant",
+    "name": "nova_accountant",
+    "short_name": "nova_accountant",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

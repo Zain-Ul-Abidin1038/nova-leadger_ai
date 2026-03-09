@@ -58,7 +58,7 @@ class CryptoDashboardScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           const Text('No crypto assets yet', style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
                           const SizedBox(height: 24),
-                          GhostActionButton(
+                          NovaActionButton(
                             label: 'Add Crypto',
                             icon: Icons.add,
                             onPressed: () => _showAddCryptoDialog(context, ref),

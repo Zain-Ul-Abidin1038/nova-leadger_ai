@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// The "Ghost Trace" Terminal Widget
+// The "Nova Trace" Terminal Widget
 class NovaTraceWidget extends StatelessWidget {
   final String currentThought;
 

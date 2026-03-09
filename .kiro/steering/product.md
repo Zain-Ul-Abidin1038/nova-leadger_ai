@@ -19,5 +19,5 @@ An AI-powered expense tracking and accounting assistant app that uses visual AI 
 ## Design Philosophy
 
 - **Glassmorphism UI**: Frosted glass aesthetic with neon accents (teal and purple)
-- **Ghost Trace**: Real-time AI reasoning display showing thought process
+- **Nova Trace**: Real-time AI reasoning display showing thought process
 - **Proactive Intelligence**: Context-aware suggestions and monitoring

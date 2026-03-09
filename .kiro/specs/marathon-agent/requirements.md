@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The Marathon Agent is an autonomous expense prediction system that monitors user location and proactively suggests expenses when the user remains stationary at commercial locations. It leverages Nova 3 Pro for intelligent expense prediction, displays reasoning through the Ghost Trace interface, and validates expenses against current tax laws before persisting to AWS DynamoDB.
+The Marathon Agent is an autonomous expense prediction system that monitors user location and proactively suggests expenses when the user remains stationary at commercial locations. It leverages Nova 3 Pro for intelligent expense prediction, displays reasoning through the Nova Trace interface, and validates expenses against current tax laws before persisting to AWS DynamoDB.
 
 ## Glossary
 
 - **Marathon_Agent**: The autonomous background service that monitors location and triggers expense predictions
 - **Nova_3**: The Nova 3 Pro AI model used for expense prediction and logic auditing
-- **Ghost_Trace**: The glassmorphic UI component that displays AI reasoning in real-time
+- **Nova_Trace**: The glassmorphic UI component that displays AI reasoning in real-time
 - **Safe_Layer**: The validation layer that ensures expenses comply with 2026 tax laws before persistence
 - **Commercial_Coordinate**: A GPS location identified as a business or commercial establishment
 - **Stationary_Event**: A condition where the user remains within a defined radius for a specified duration
@@ -49,21 +49,21 @@ The Marathon Agent is an autonomous expense prediction system that monitors user
 
 1. WHEN a Stationary_Event at a Commercial_Coordinate is detected, THE Marathon_Agent SHALL invoke Nova_3 with location context, business type, time of day, and user expense history
 2. WHEN Nova_3 receives a prediction request, THE Nova_3 SHALL generate an Expense_Prediction including amount estimate, category, deduction percentage, and confidence score
-3. WHEN the prediction is generated, THE Marathon_Agent SHALL display the prediction to the user via the Ghost_Trace interface
+3. WHEN the prediction is generated, THE Marathon_Agent SHALL display the prediction to the user via the Nova_Trace interface
 4. IF Nova_3 cannot generate a confident prediction, THEN THE Marathon_Agent SHALL log the event without user notification
-5. THE Nova_3 SHALL include reasoning steps in the prediction response for Ghost_Trace display
+5. THE Nova_3 SHALL include reasoning steps in the prediction response for Nova_Trace display
 
-### Requirement 4: Ghost Trace Reasoning Display
+### Requirement 4: Nova Trace Reasoning Display
 
 **User Story:** As a user, I want to see the AI's reasoning process in a beautiful glassmorphic interface, so that I understand and trust the expense predictions.
 
 #### Acceptance Criteria
 
-1. WHEN an Expense_Prediction is generated, THE Ghost_Trace SHALL display a glassmorphic bottom-sheet with sigma blur of 25
-2. WHEN displaying reasoning, THE Ghost_Trace SHALL show each reasoning step from Nova_3 in chronological order with neon teal (#00F2FF) accents
-3. WHEN the user interacts with the Ghost_Trace, THE Ghost_Trace SHALL allow expanding/collapsing reasoning details
-4. WHEN the prediction is displayed, THE Ghost_Trace SHALL provide action buttons for "Accept", "Edit", and "Dismiss"
-5. THE Ghost_Trace SHALL automatically dismiss after 30 seconds if no user interaction occurs
+1. WHEN an Expense_Prediction is generated, THE Nova_Trace SHALL display a glassmorphic bottom-sheet with sigma blur of 25
+2. WHEN displaying reasoning, THE Nova_Trace SHALL show each reasoning step from Nova_3 in chronological order with neon teal (#00F2FF) accents
+3. WHEN the user interacts with the Nova_Trace, THE Nova_Trace SHALL allow expanding/collapsing reasoning details
+4. WHEN the prediction is displayed, THE Nova_Trace SHALL provide action buttons for "Accept", "Edit", and "Dismiss"
+5. THE Nova_Trace SHALL automatically dismiss after 30 seconds if no user interaction occurs
 
 ### Requirement 5: Safe Layer Logic Audit
 
@@ -107,7 +107,7 @@ The Marathon Agent is an autonomous expense prediction system that monitors user
 
 #### Acceptance Criteria
 
-1. WHEN displaying predictions, THE Marathon_Agent SHALL use the existing Ghost_Trace service and glassmorphism components (GlassCard, NeonButton, GlassNotification)
+1. WHEN displaying predictions, THE Marathon_Agent SHALL use the existing Nova_Trace service and glassmorphism components (GlassCard, NeonButton, GlassNotification)
 2. WHEN persisting expenses, THE Marathon_Agent SHALL use the existing Safe Layer sync service and AWS Amplify configuration
 3. WHEN requesting location data, THE Marathon_Agent SHALL use the existing geolocator service and permission handling
 4. WHEN invoking Nova 3, THE Marathon_Agent SHALL use the existing firebase_vertexai integration

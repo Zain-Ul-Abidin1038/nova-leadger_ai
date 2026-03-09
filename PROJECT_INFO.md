@@ -16,7 +16,7 @@ Nova Live NovaLedger AI is a revolutionary AI-powered financial assistant that t
 
 ### Revolutionary Features
 - ✅ **Grounded Search** - Web & document search with live citations
-- ✅ **Vision Ghost** - Real-time receipt analysis with live advice
+- ✅ **Vision Nova** - Real-time receipt analysis with live advice
 - ✅ **NovaNavigator** - Autonomous AI agent task execution
 - ✅ **53+ AI Systems** - Comprehensive financial intelligence
 - ✅ **Glassmorphism UI** - Beautiful frosted glass design with neon accents
@@ -42,8 +42,8 @@ nova_live_nova_ledger_ai/
 │   │   └── router/                  # Navigation
 │   └── features/                    # Feature modules
 │       ├── grounded_chat/           # Grounded search (NEW!)
-│       ├── vision_ghost/            # Live receipt analysis (NEW!)
-│       ├── ghost_navigator/         # AI agent navigation (NEW!)
+│       ├── vision_nova/            # Live receipt analysis (NEW!)
+│       ├── nova_navigator/         # AI agent navigation (NEW!)
 │       ├── receipts/                # Receipt scanning
 │       ├── chat/                    # AI chat
 │       ├── finance/                 # Financial tracking
@@ -118,7 +118,7 @@ VERTEX_DATASTORE_ID=your_datastore_id
 - **GlassCard** - Frosted glass containers
 - **NeonButton** - Circular buttons with glow
 - **GlassNotification** - Bottom notifications
-- **Ghost Trace** - AI reasoning display
+- **Nova Trace** - AI reasoning display
 
 ## 🔐 Security
 
@@ -152,7 +152,7 @@ VERTEX_DATASTORE_ID=your_datastore_id
 - [x] Intelligent chat interface
 - [x] 53+ AI systems
 - [x] Grounded search with citations
-- [x] Vision Ghost live analysis
+- [x] Vision Nova live analysis
 - [x] NovaNavigator agent
 
 ### Upcoming 🚧

@@ -1,8 +1,8 @@
-# 👻 Vision Ghost - Quick Summary
+# 👻 Vision Nova - Quick Summary
 
 ## What Is It?
 
-**Vision Ghost** = Live AI Financial Advisor Through Your Camera
+**Vision Nova** = Live AI Financial Advisor Through Your Camera
 
 Point your camera at any receipt, bill, or product → Get instant professional advice in 3-5 seconds.
 
@@ -10,14 +10,14 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 
 ## 🎯 The Magic
 
-### Before Vision Ghost
+### Before Vision Nova
 1. Take photo of receipt
 2. Upload to app
 3. Wait 10-30 seconds
 4. Get basic data extraction
 5. No advice, no guidance
 
-### With Vision Ghost
+### With Vision Nova
 1. Point camera at receipt
 2. **That's it!** Advice appears instantly
 3. No capture, no waiting, no complexity
@@ -55,7 +55,7 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 ### Restaurant Receipt
 **You point camera at bill for ₹1,200**
 
-**Ghost says:**
+**Nova says:**
 > "I see a restaurant receipt for ₹1,200. That's 50% tax deductible if it's a business meal. Save this receipt!"
 
 **Actions:**
@@ -66,7 +66,7 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 ### Laptop Shopping
 **You point camera at ₹45,000 laptop**
 
-**Ghost says:**
+**Nova says:**
 > "₹45,000 laptop - great for business! Fully deductible. Buy before March 31 to claim it this year!"
 
 **Actions:**
@@ -77,7 +77,7 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 ### Electricity Bill
 **You point camera at ₹3,500 bill**
 
-**Ghost says:**
+**Nova says:**
 > "₹3,500 electricity - normal. If you work from home, 20% is deductible. Set up auto-pay!"
 
 **Actions:**
@@ -123,24 +123,24 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 
 ### Money Saved
 - **Accountant cost**: ₹10,000/month
-- **Vision Ghost**: Free
+- **Vision Nova**: Free
 - **Annual savings**: ₹120,000
 
 ### Tax Optimization
 - **Average user**: Misses 20% of deductions
-- **With Vision Ghost**: Finds all deductions
+- **With Vision Nova**: Finds all deductions
 - **Extra savings**: ₹15,000-50,000/year
 
 ### Accessibility
 - **Target users**: 100M+ small businesses in India
 - **Current access**: <1% can afford accountants
-- **With Vision Ghost**: 100% can access advice
+- **With Vision Nova**: 100% can access advice
 
 ---
 
 ## 🎬 30-Second Pitch
 
-> "Vision Ghost is the world's first live AI financial advisor. Point your camera at any receipt or product, and get instant professional advice - just like having a chartered accountant with you 24/7. Built with Google's Nova Vision API, it's free, instant, and accessible to everyone. We're democratizing financial advice for 1.7 billion people who can't afford professional help."
+> "Vision Nova is the world's first live AI financial advisor. Point your camera at any receipt or product, and get instant professional advice - just like having a chartered accountant with you 24/7. Built with Google's Nova Vision API, it's free, instant, and accessible to everyone. We're democratizing financial advice for 1.7 billion people who can't afford professional help."
 
 ---
 
@@ -159,7 +159,7 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 ## 📱 User Flow
 
 ```
-1. Open Vision Ghost
+1. Open Vision Nova
 2. Point camera at receipt/product
 3. Tap "Start" to activate
 4. See advice appear in 3-5 seconds
@@ -278,7 +278,7 @@ Point your camera at any receipt, bill, or product → Get instant professional 
 
 ## 🎊 One-Liner
 
-**"Vision Ghost: Your AI Financial Guardian, Always Watching, Always Advising"** 👻💰
+**"Vision Nova: Your AI Financial Guardian, Always Watching, Always Advising"** 👻💰
 
 ---
 

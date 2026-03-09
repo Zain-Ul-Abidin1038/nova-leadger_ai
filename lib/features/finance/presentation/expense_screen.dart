@@ -258,7 +258,7 @@ class ExpenseScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Chat with Ghost AI to add expenses',
+                            'Chat with Nova AI to add expenses',
                             style: TextStyle(
                               color: secondaryTextColor.withValues(alpha: 0.6),
                               fontSize: 13,

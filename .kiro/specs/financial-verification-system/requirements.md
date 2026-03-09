@@ -10,7 +10,7 @@ The Financial Verification System enhances the NovaLedger AI app with rigorous v
 - **Receipt_Analyzer**: The component that processes receipt images using Nova AI
 - **Verification_Engine**: The component that executes split-step verification for calculations
 - **Thought_Signature**: A structured record capturing operation intent, inputs, outputs, and results
-- **Ghost_Trace**: The UI component that displays AI reasoning and verification steps
+- **Nova_Trace**: The UI component that displays AI reasoning and verification steps
 - **Safe_Layer**: The AWS-backed ledger synchronization service
 - **Tax_Jurisdiction**: The governing tax authority and rules (e.g., US-IRS 2026)
 - **Deduction_Rule**: Tax-specific rules for expense deductibility (e.g., meals 50%, alcohol 0%)
@@ -127,18 +127,18 @@ The Financial Verification System enhances the NovaLedger AI app with rigorous v
 4. THE System SHALL maintain existing Safe_Layer functionality without breaking changes
 5. WHEN AWS sync fails, THE System SHALL analyze the Thought_Signature and provide actionable error messages
 
-### Requirement 10: Ghost Trace Integration
+### Requirement 10: Nova Trace Integration
 
-**User Story:** As a user, I want to see verification steps and thought signatures in the Ghost Trace UI, so that I understand what the system is doing.
+**User Story:** As a user, I want to see verification steps and thought signatures in the Nova Trace UI, so that I understand what the system is doing.
 
 #### Acceptance Criteria
 
-1. WHEN verification steps execute, THE System SHALL send step data to Ghost_Trace
-2. THE Ghost_Trace SHALL display each verification step with timestamp and result
-3. WHEN a Thought_Signature is created, THE Ghost_Trace SHALL show operation intent and status
-4. THE Ghost_Trace SHALL update in real-time as verification progresses
-5. THE Ghost_Trace SHALL highlight failed verifications or API operations with visual indicators
-6. THE System SHALL format verification data for readability in the Ghost_Trace UI
+1. WHEN verification steps execute, THE System SHALL send step data to Nova_Trace
+2. THE Nova_Trace SHALL display each verification step with timestamp and result
+3. WHEN a Thought_Signature is created, THE Nova_Trace SHALL show operation intent and status
+4. THE Nova_Trace SHALL update in real-time as verification progresses
+5. THE Nova_Trace SHALL highlight failed verifications or API operations with visual indicators
+6. THE System SHALL format verification data for readability in the Nova_Trace UI
 
 ### Requirement 11: Error Handling and Recovery
 

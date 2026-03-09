@@ -7,17 +7,17 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
-import 'package:nova_ledger_ai/features/ghost_navigator/services/ghost_navigator_service.dart';
-import 'package:nova_ledger_ai/features/ghost_navigator/domain/navigation_task.dart';
+import 'package:nova_ledger_ai/features/nova_navigator/services/nova_navigator_service.dart';
+import 'package:nova_ledger_ai/features/nova_navigator/domain/navigation_task.dart';
 
-class GhostNavigatorScreen extends ConsumerStatefulWidget {
-  const GhostNavigatorScreen({super.key});
+class NovaNavigatorScreen extends ConsumerStatefulWidget {
+  const NovaNavigatorScreen({super.key});
 
   @override
-  ConsumerState<GhostNavigatorScreen> createState() => _GhostNavigatorScreenState();
+  ConsumerState<NovaNavigatorScreen> createState() => _NovaNavigatorScreenState();
 }
 
-class _GhostNavigatorScreenState extends ConsumerState<GhostNavigatorScreen> {
+class _NovaNavigatorScreenState extends ConsumerState<NovaNavigatorScreen> {
   final TextEditingController _taskController = TextEditingController();
   bool _isExecuting = false;
   NavigationTask? _currentTask;
@@ -43,7 +43,7 @@ class _GhostNavigatorScreenState extends ConsumerState<GhostNavigatorScreen> {
     _addLog('🎯 Task: $taskDescription');
 
     try {
-      final navigatorService = ref.read(ghostNavigatorServiceProvider);
+      final navigatorService = ref.read(novaNavigatorServiceProvider);
       
       // Create task
       final task = NavigationTask(

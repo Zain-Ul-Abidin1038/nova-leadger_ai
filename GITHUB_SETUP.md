@@ -219,7 +219,7 @@ You can add CI/CD workflows later. For now, the repository is ready for the hack
 ### This is NOT a Fork
 
 ✅ This repository is a completely new project  
-✅ No Git history from the original Ghost Accountant  
+✅ No Git history from the original Nova Accountant  
 ✅ Fresh Git repository initialized  
 ✅ All references renamed to NovaLedger AI  
 ✅ Amazon Nova integration added  
@@ -227,7 +227,7 @@ You can add CI/CD workflows later. For now, the repository is ready for the hack
 
 ### What Changed
 
-**From Ghost Accountant:**
+**From Nova Accountant:**
 - ❌ Gemini AI integration
 - ❌ Vertex AI Search
 - ❌ Google Cloud Platform

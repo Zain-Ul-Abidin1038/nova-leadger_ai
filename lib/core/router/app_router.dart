@@ -14,8 +14,8 @@ import 'package:nova_ledger_ai/features/marathon/presentation/marathon_screen.da
 import 'package:nova_ledger_ai/features/finance/presentation/income_screen.dart';
 import 'package:nova_ledger_ai/features/finance/presentation/expense_screen.dart';
 import 'package:nova_ledger_ai/features/finance/presentation/ledger_screen.dart';
-import 'package:nova_ledger_ai/features/vision_ghost/presentation/vision_ghost_screen.dart';
-import 'package:nova_ledger_ai/features/ghost_navigator/presentation/ghost_navigator_screen.dart';
+import 'package:nova_ledger_ai/features/vision_nova/presentation/vision_nova_screen.dart';
+import 'package:nova_ledger_ai/features/nova_navigator/presentation/nova_navigator_screen.dart';
 import 'package:nova_ledger_ai/features/currency/presentation/currency_converter_screen.dart';
 import 'package:nova_ledger_ai/features/investments/presentation/portfolio_screen.dart';
 import 'package:nova_ledger_ai/features/features_hub/presentation/features_hub_screen.dart';
@@ -97,12 +97,12 @@ final appRouter = GoRouter(
       builder: (context, state) => const LedgerScreen(),
     ),
     GoRoute(
-      path: '/vision-ghost',
-      builder: (context, state) => const VisionGhostScreen(),
+      path: '/vision-nova',
+      builder: (context, state) => const VisionNovaScreen(),
     ),
     GoRoute(
-      path: '/ghost-navigator',
-      builder: (context, state) => const GhostNavigatorScreen(),
+      path: '/nova-navigator',
+      builder: (context, state) => const NovaNavigatorScreen(),
     ),
     GoRoute(
       path: '/currency-converter',

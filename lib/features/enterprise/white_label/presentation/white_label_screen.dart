@@ -300,7 +300,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                 decoration: const InputDecoration(
                   labelText: 'Domain',
                   labelStyle: TextStyle(color: AppColors.textSecondary),
-                  hintText: 'company.ghostaccountant.com',
+                  hintText: 'company.novaaccountant.com',
                   hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 12),
                 ),
               ),

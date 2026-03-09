@@ -30,7 +30,7 @@ The existing `CameraScreen` UI currently uses the legacy `receiptServiceProvider
 - Receipt with confidence ≥ 0.75 is automatically approved and saved to Hive
 - User sees success notification with "Auto-approved" indicator
 - Receipt appears immediately on dashboard
-- Ghost Trace shows confidence score
+- Nova Trace shows confidence score
 
 ### 2. Low-Confidence Receipt Manual Review
 **As a** user  
@@ -45,7 +45,7 @@ The existing `CameraScreen` UI currently uses the legacy `receiptServiceProvider
   - Original receipt image
   - Edit buttons for each field
 - User can approve, edit, mark as personal, or reject
-- Ghost Trace shows "Requires Review" reasoning
+- Nova Trace shows "Requires Review" reasoning
 
 ### 3. Receipt Error Handling
 **As a** user  
@@ -71,7 +71,7 @@ The existing `CameraScreen` UI currently uses the legacy `receiptServiceProvider
   - Yellow (60-74%): Medium confidence, review recommended
   - Red (<60%): Low confidence, manual review required
 - Confidence badge shown in result sheet
-- Ghost Trace includes confidence reasoning
+- Nova Trace includes confidence reasoning
 
 ### 5. Receipt Repository Integration
 **As a** user  
@@ -89,7 +89,7 @@ The existing `CameraScreen` UI currently uses the legacy `receiptServiceProvider
 ### Architecture
 - Use `receiptPipelineProvider` instead of `receiptServiceProvider`
 - Maintain glassmorphism UI design (frosted glass, neon accents)
-- Preserve Ghost Trace integration for AI reasoning display
+- Preserve Nova Trace integration for AI reasoning display
 - Follow feature-first clean architecture pattern
 
 ### Dependencies
@@ -123,10 +123,10 @@ If confidence < 75%:
 - Frosted glass effect for all cards and modals
 - Neon accents: Teal (#00F2FF) for primary, Purple (#B388FF) for secondary
 - Confidence indicators use gradient overlays
-- Ghost Trace terminal maintains existing style
+- Nova Trace terminal maintains existing style
 
 ### Performance
-- Image processing should show loading state with Ghost Eyes animation
+- Image processing should show loading state with Nova Eyes animation
 - Confidence calculation happens server-side (no client delay)
 - Review screen should load instantly (data already fetched)
 
@@ -161,5 +161,5 @@ If confidence < 75%:
 
 - The new pipeline is already implemented and tested
 - This spec focuses on UI integration only
-- Existing Ghost Trace integration should be preserved
+- Existing Nova Trace integration should be preserved
 - Camera screen styling already matches design system

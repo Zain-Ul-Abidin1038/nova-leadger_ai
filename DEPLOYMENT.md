@@ -74,14 +74,14 @@ flutter build web --release
 firebase deploy --only hosting
 
 # Deploy to specific project
-firebase deploy --only hosting --project ghost-accountant-prod
+firebase deploy --only hosting --project nova-accountant-prod
 ```
 
 ### Preview Deployments
 
 Pull requests automatically get preview URLs:
 ```
-https://ghost-accountant--pr-123-xyz.web.app
+https://nova-accountant--pr-123-xyz.web.app
 ```
 
 ### Custom Domain Setup
@@ -359,9 +359,9 @@ firebase login:ci
 ```json
 {
   "projects": {
-    "default": "ghost-accountant-dev",
-    "staging": "ghost-accountant-staging",
-    "production": "ghost-accountant-prod"
+    "default": "nova-accountant-dev",
+    "staging": "nova-accountant-staging",
+    "production": "nova-accountant-prod"
   }
 }
 ```

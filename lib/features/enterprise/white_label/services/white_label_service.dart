@@ -26,7 +26,7 @@ class WhiteLabelService {
         Tenant(
           id: _uuid.v4(),
           name: 'Acme Corporation',
-          domain: 'acme.ghostaccountant.com',
+          domain: 'acme.novaaccountant.com',
           createdAt: DateTime.now().subtract(const Duration(days: 120)),
           isActive: true,
           userCount: 245,
@@ -47,7 +47,7 @@ class WhiteLabelService {
         Tenant(
           id: _uuid.v4(),
           name: 'TechStart Inc',
-          domain: 'techstart.ghostaccountant.com',
+          domain: 'techstart.novaaccountant.com',
           createdAt: DateTime.now().subtract(const Duration(days: 45)),
           isActive: true,
           userCount: 87,

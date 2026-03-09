@@ -4,19 +4,19 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:nova_ledger_ai/core/services/nova_service_v3.dart';
-import 'package:nova_ledger_ai/features/ghost_navigator/domain/navigation_task.dart';
+import 'package:nova_ledger_ai/features/nova_navigator/domain/navigation_task.dart';
 import 'package:nova_ledger_ai/features/finance/services/unified_finance_service.dart';
 
-final ghostNavigatorServiceProvider = Provider((ref) => GhostNavigatorService(
+final novaNavigatorServiceProvider = Provider((ref) => NovaNavigatorService(
       novaService: ref.read(novaServiceV3Provider),
       financeService: ref.read(unifiedFinanceServiceProvider),
     ));
 
-class GhostNavigatorService {
+class NovaNavigatorService {
   final NovaServiceV3 novaService;
   final UnifiedFinanceService financeService;
 
-  GhostNavigatorService({
+  NovaNavigatorService({
     required this.novaService,
     required this.financeService,
   });

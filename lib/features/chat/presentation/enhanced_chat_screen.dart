@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
-import 'package:nova_ledger_ai/core/presentation/widgets/ghost_logo.dart';
-import 'package:nova_ledger_ai/features/trace/services/ghost_trace_service.dart';
+import 'package:nova_ledger_ai/core/presentation/widgets/nova_logo.dart';
+import 'package:nova_ledger_ai/features/trace/services/nova_trace_service.dart';
 import 'package:nova_ledger_ai/features/finance/services/ai_finance_parser.dart';
 
 class EnhancedChatScreen extends ConsumerStatefulWidget {
@@ -46,7 +46,7 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
 
     _scrollToBottom();
 
-    final traceService = ref.read(ghostTraceServiceProvider);
+    final traceService = ref.read(novaTraceServiceProvider);
     final aiParser = ref.read(aiFinanceParserProvider);
 
     traceService.addTrace("[Chat] User: $message");
@@ -201,8 +201,8 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Ghost Avatar with Neon Glow
-            const GhostLogo(size: 160, showGlow: true),
+            // Nova Avatar with Neon Glow
+            const NovaLogo(size: 160, showGlow: true),
             
             const SizedBox(height: 32),
             
@@ -220,7 +220,7 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
             
             // Subtitle
             Text(
-              'ghost.accountant • Financial Assistant',
+              'nova.accountant • Financial Assistant',
               style: TextStyle(
                 color: secondaryTextColor.withValues(alpha: 0.8),
                 fontSize: 14,
@@ -384,7 +384,7 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/images/ghost_profile.png',
+                    'assets/images/nova_profile.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -641,7 +641,7 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
             ),
             child: ClipOval(
               child: Image.asset(
-                'assets/images/ghost_profile.png',
+                'assets/images/nova_profile.png',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(

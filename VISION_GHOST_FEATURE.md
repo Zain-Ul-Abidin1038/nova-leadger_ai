@@ -1,8 +1,8 @@
-# 👻 Vision Ghost - Live AI Financial Advisor
+# 👻 Vision Nova - Live AI Financial Advisor
 
 ## Overview
 
-Vision Ghost is a revolutionary feature that transforms your camera into a live AI financial advisor. Point your camera at any receipt, bill, or product, and get instant professional advice - just like having a chartered accountant looking over your shoulder in real-time.
+Vision Nova is a revolutionary feature that transforms your camera into a live AI financial advisor. Point your camera at any receipt, bill, or product, and get instant professional advice - just like having a chartered accountant looking over your shoulder in real-time.
 
 ---
 
@@ -12,7 +12,7 @@ Vision Ghost is a revolutionary feature that transforms your camera into a live 
 - Continuous camera monitoring (analyzes every 3 seconds)
 - Instant conversational advice
 - No need to capture - just point and watch
-- Real-time overlay with Ghost's advice
+- Real-time overlay with Nova's advice
 
 ### 2. **Receipt Analysis**
 - Automatic amount detection
@@ -42,10 +42,10 @@ Vision Ghost is a revolutionary feature that transforms your camera into a live 
 ### User Flow
 
 ```
-1. Open Vision Ghost screen
+1. Open Vision Nova screen
 2. Point camera at receipt/product
 3. Tap "Start" to activate live monitoring
-4. Ghost analyzes frame every 3 seconds
+4. Nova analyzes frame every 3 seconds
 5. See instant advice overlay on screen
 6. Tap "Capture" for detailed analysis
 7. Save transaction or dismiss
@@ -76,7 +76,7 @@ Update UI in Real-Time
 ### Use Case 1: Restaurant Receipt
 **Scenario:** User points camera at restaurant bill
 
-**Ghost Says:**
+**Nova Says:**
 > "I see a restaurant receipt for ₹1,200. That's 50% tax deductible if it's a business meal. Save this receipt and categorize it as 'Business Meal' in your expense report!"
 
 **Actions:**
@@ -88,7 +88,7 @@ Update UI in Real-Time
 ### Use Case 2: Laptop Purchase
 **Scenario:** User points camera at laptop price tag
 
-**Ghost Says:**
+**Nova Says:**
 > "That's a ₹45,000 laptop. Good choice for business! Fully deductible as office equipment. Consider buying before March 31 to claim it in this financial year. Want me to check for better deals?"
 
 **Actions:**
@@ -101,7 +101,7 @@ Update UI in Real-Time
 ### Use Case 3: Electricity Bill
 **Scenario:** User points camera at utility bill
 
-**Ghost Says:**
+**Nova Says:**
 > "Electricity bill ₹3,500 - seems normal for this month. If you work from home, 20% is deductible as home office expense. Set up auto-pay to avoid ₹100 late fee!"
 
 **Actions:**
@@ -113,7 +113,7 @@ Update UI in Real-Time
 ### Use Case 4: Shopping Decision
 **Scenario:** User points camera at expensive item
 
-**Ghost Says:**
+**Nova Says:**
 > "₹25,000 for a designer bag? That's not tax deductible unless it's for business use. Your monthly budget shows ₹15,000 for discretionary spending. Consider waiting for the sale next month - you'll save 30%!"
 
 **Actions:**
@@ -131,13 +131,13 @@ Update UI in Real-Time
 
 ```
 ┌─────────────────────────────────────┐
-│  ← Vision Ghost 🟢 (Live)          │ ← Header with status
+│  ← Vision Nova 🟢 (Live)          │ ← Header with status
 ├─────────────────────────────────────┤
 │                                     │
 │     [Camera Preview Full Screen]    │
 │                                     │
 │  ┌─────────────────────────────┐   │
-│  │ 👻 Ghost Advice             │   │ ← Floating advice card
+│  │ 👻 Nova Advice             │   │ ← Floating advice card
 │  │ "I see a restaurant receipt │   │
 │  │  for ₹1,200. That's 50%     │   │
 │  │  tax deductible..."         │   │
@@ -172,9 +172,9 @@ Update UI in Real-Time
 ### Architecture
 
 ```dart
-VisionGhostScreen (UI)
+VisionNovaScreen (UI)
     ↓
-VisionGhostService (Business Logic)
+VisionNovaService (Business Logic)
     ↓
 NovaServiceV3 (AI Integration)
     ↓
@@ -202,7 +202,7 @@ Timer.periodic(Duration(seconds: 3), (timer) {
 });
 ```
 
-#### 3. Vision Ghost Service
+#### 3. Vision Nova Service
 ```dart
 Future<Map<String, dynamic>> analyzeReceiptLive(File imageFile) async {
   // Send to Nova with structured prompt
@@ -226,7 +226,7 @@ await novaService.analyzeImage(
 
 ### Live Analysis Prompt
 ```
-You are a Vision Ghost - a live AI financial advisor watching through a camera.
+You are a Vision Nova - a live AI financial advisor watching through a camera.
 
 Analyze this image and provide INSTANT, CONVERSATIONAL advice as if you're 
 a chartered accountant looking over someone's shoulder.
@@ -244,7 +244,7 @@ Return JSON with: advice, analysis, amount, category
 
 ### Detailed Analysis Prompt
 ```
-You are a Vision Ghost - an expert chartered accountant analyzing financial documents.
+You are a Vision Nova - an expert chartered accountant analyzing financial documents.
 
 Provide DETAILED analysis:
 1. What you see
@@ -261,7 +261,7 @@ category, vendor, date, actionItems, redFlags, alternatives
 
 ### Purchase Decision Prompt
 ```
-You are a Vision Ghost - a financial advisor helping with purchase decisions.
+You are a Vision Nova - a financial advisor helping with purchase decisions.
 
 Analyze this product and provide advice:
 1. What is it
@@ -372,14 +372,14 @@ taxBenefit, budgetImpact, bestTiming
 
 ### Getting Started
 
-1. **Open Vision Ghost**
-   - Tap "Vision Ghost" from main menu
+1. **Open Vision Nova**
+   - Tap "Vision Nova" from main menu
    - Grant camera permission if prompted
 
 2. **Start Live Monitoring**
    - Tap "Start" button
    - Point camera at receipt/product
-   - Wait for Ghost's advice (3-5 seconds)
+   - Wait for Nova's advice (3-5 seconds)
 
 3. **View Advice**
    - Read advice overlay on screen
@@ -417,7 +417,7 @@ taxBenefit, budgetImpact, bestTiming
 ## 🏆 Hackathon Highlights
 
 ### Innovation
-> "Vision Ghost is the world's first live AI financial advisor that works through your camera. Unlike traditional receipt scanners that require capture and upload, Vision Ghost provides instant advice as you point your camera - just like having a chartered accountant with you 24/7."
+> "Vision Nova is the world's first live AI financial advisor that works through your camera. Unlike traditional receipt scanners that require capture and upload, Vision Nova provides instant advice as you point your camera - just like having a chartered accountant with you 24/7."
 
 ### Technical Excellence
 > "Built with Google's Nova Vision API, advanced camera processing, and real-time streaming architecture. Analyzes frames every 3 seconds with sub-second latency, providing conversational advice using structured AI prompts and JSON parsing."
@@ -436,14 +436,14 @@ taxBenefit, budgetImpact, bestTiming
 
 **Scene 1: Introduction (20s)**
 ```
-"Meet Vision Ghost - your live AI financial advisor. 
+"Meet Vision Nova - your live AI financial advisor. 
 Watch as I point my camera at this restaurant receipt..."
 [Show camera view with receipt]
 ```
 
 **Scene 2: Live Analysis (30s)**
 ```
-[Ghost advice appears on screen]
+[Nova advice appears on screen]
 "I see a restaurant receipt for ₹1,200. That's 50% tax 
 deductible if it's a business meal. Save this receipt!"
 
@@ -462,14 +462,14 @@ deductible if it's a business meal. Save this receipt!"
 ```
 [Point at laptop]
 "Now watch as I point at this laptop..."
-[Ghost advice appears]
+[Nova advice appears]
 "₹45,000 laptop - fully deductible! Buy before March 31 
 for this year's taxes."
 ```
 
 **Scene 5: Impact (10s)**
 ```
-"Vision Ghost: Professional financial advice, 
+"Vision Nova: Professional financial advice, 
 available to everyone, anytime, anywhere."
 ```
 
@@ -505,11 +505,11 @@ available to everyone, anytime, anywhere."
 
 ## 📝 Code Examples
 
-### Using Vision Ghost Service
+### Using Vision Nova Service
 
 ```dart
 // Initialize service
-final visionService = ref.read(visionGhostServiceProvider);
+final visionService = ref.read(visionNovaServiceProvider);
 
 // Live analysis
 final result = await visionService.analyzeReceiptLive(imageFile);
@@ -533,12 +533,12 @@ print(decision['recommendation']); // "buy"
 ```dart
 // In app_router.dart
 GoRoute(
-  path: '/vision-ghost',
-  builder: (context, state) => const VisionGhostScreen(),
+  path: '/vision-nova',
+  builder: (context, state) => const VisionNovaScreen(),
 ),
 
-// Navigate to Vision Ghost
-context.push('/vision-ghost');
+// Navigate to Vision Nova
+context.push('/vision-nova');
 ```
 
 ---
@@ -575,7 +575,7 @@ context.push('/vision-ghost');
 ## 🎯 Success Metrics
 
 ### User Engagement
-- Time spent in Vision Ghost mode
+- Time spent in Vision Nova mode
 - Number of receipts analyzed
 - Capture vs live mode usage
 - Advice acceptance rate
@@ -594,5 +594,5 @@ context.push('/vision-ghost');
 
 ---
 
-**Vision Ghost: Your AI Financial Guardian, Always Watching, Always Advising** 👻💰
+**Vision Nova: Your AI Financial Guardian, Always Watching, Always Advising** 👻💰
 

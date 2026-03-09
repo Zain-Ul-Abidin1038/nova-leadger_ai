@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_ledger_ai/features/trace/services/ghost_trace_service.dart';
+import 'package:nova_ledger_ai/features/trace/services/nova_trace_service.dart';
 import 'package:nova_ledger_ai/features/receipts/domain/receipt.dart';
 
 final safeLayerServiceProvider = Provider((ref) => SafeLayerService(ref));
@@ -12,7 +12,7 @@ class SafeLayerService {
 
   /// Vault a receipt to the Safe Layer (mock implementation)
   Future<void> vaultReceipt(Receipt receipt) async {
-    final traceService = _ref.read(ghostTraceServiceProvider);
+    final traceService = _ref.read(novaTraceServiceProvider);
     
     traceService.addTrace('[Safe Layer] AWS services removed - local storage only');
     traceService.addTrace('[Safe Layer] Receipt ${receipt.id} stored locally');
@@ -25,7 +25,7 @@ class SafeLayerService {
 
   /// Sync receipts to Safe Layer (mock implementation)
   Future<void> syncReceipts(List<Receipt> receipts) async {
-    final traceService = _ref.read(ghostTraceServiceProvider);
+    final traceService = _ref.read(novaTraceServiceProvider);
     
     traceService.addTrace('[Safe Layer] Syncing ${receipts.length} receipts...');
     traceService.addTrace('[Safe Layer] AWS services removed - no cloud sync');
@@ -37,7 +37,7 @@ class SafeLayerService {
 
   /// Retrieve receipts from Safe Layer (mock implementation)
   Future<List<Receipt>> retrieveReceipts() async {
-    final traceService = _ref.read(ghostTraceServiceProvider);
+    final traceService = _ref.read(novaTraceServiceProvider);
     
     traceService.addTrace('[Safe Layer] Retrieving receipts from local storage...');
     

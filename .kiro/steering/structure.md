@@ -39,7 +39,7 @@ lib/
     ├── chat/
     ├── home/
     ├── proactive/               # AI context monitoring
-    ├── trace/                   # Ghost trace (AI reasoning display)
+    ├── trace/                   # Nova trace (AI reasoning display)
     └── sync/                    # AWS ledger sync
 ```
 
@@ -86,7 +86,7 @@ feature_name/
 ### Services
 - Services use Riverpod providers for dependency injection
 - Async operations return `Future<T>`
-- AI services integrate with Ghost Trace for reasoning display
+- AI services integrate with Nova Trace for reasoning display
 - Example: `ReceiptService` uses `NovaTraceService` to show analysis steps
 
 ## Testing

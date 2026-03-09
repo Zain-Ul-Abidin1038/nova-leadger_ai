@@ -18,7 +18,7 @@ The app previously had all cloud services (Google AI/Nova and AWS Amplify) remov
 - AI extracts vendor name, total amount, tax, and category
 - AI calculates deductible amounts based on 2026 tax rules
 - AI separates alcohol amounts (0% deductible)
-- Analysis includes thought signature for transparency (Ghost Trace)
+- Analysis includes thought signature for transparency (Nova Trace)
 - Results are displayed within 5 seconds of capture
 
 ### 2. Conversational AI Assistant

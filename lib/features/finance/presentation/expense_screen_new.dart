@@ -173,7 +173,7 @@ class ExpenseScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             Text('No expenses recorded yet', style: TextStyle(color: secondaryTextColor, fontSize: 16, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
-            Text('Chat with Ghost AI to add expenses', style: TextStyle(color: secondaryTextColor.withValues(alpha: 0.6), fontSize: 13)),
+            Text('Chat with Nova AI to add expenses', style: TextStyle(color: secondaryTextColor.withValues(alpha: 0.6), fontSize: 13)),
           ],
         ),
       );

@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final ghostTraceProvider = StreamProvider<String>((ref) {
-  return ref.watch(ghostTraceServiceProvider).traceStream;
+final novaTraceProvider = StreamProvider<String>((ref) {
+  return ref.watch(novaTraceServiceProvider).traceStream;
 });
 
-final ghostTraceServiceProvider = Provider((ref) => NovaTraceService());
+final novaTraceServiceProvider = Provider((ref) => NovaTraceService());
 
 class NovaTraceService {
   final _controller = StreamController<String>.broadcast();

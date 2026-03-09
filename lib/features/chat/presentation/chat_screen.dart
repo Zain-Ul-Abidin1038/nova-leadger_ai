@@ -272,7 +272,7 @@ Please provide a helpful response about their expenses, tax deductions, or finan
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Ghost AI',
+                  'Nova AI',
                   style: TextStyle(
                     color: textColor,
                     fontSize: 18,

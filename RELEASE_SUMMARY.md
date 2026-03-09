@@ -10,7 +10,7 @@
 ### 1. Build Artifacts ✅
 
 #### Android APK
-- **File:** `release/ghost-accountant-v1.0.0-android.apk`
+- **File:** `release/nova-accountant-v1.0.0-android.apk`
 - **Size:** 73.7 MB
 - **Status:** ✅ Built successfully
 - **Checksum:** `ff65b9ee40e3773d402cba294b5e3b04010d53ff1ebe6a7f0b1894661b688964`
@@ -48,7 +48,7 @@ Complete release package in `release/` folder:
 
 ```
 release/
-├── ghost-accountant-v1.0.0-android.apk  (73.7 MB)
+├── nova-accountant-v1.0.0-android.apk  (73.7 MB)
 ├── checksums.txt                         (SHA256 hash)
 └── README.md                             (Package overview)
 ```
@@ -61,7 +61,7 @@ release/
 
 | File | Size | Description |
 |------|------|-------------|
-| `ghost-accountant-v1.0.0-android.apk` | 73.7 MB | Android application |
+| `nova-accountant-v1.0.0-android.apk` | 73.7 MB | Android application |
 | `checksums.txt` | 1 KB | SHA256 verification |
 | `RELEASE_NOTES.md` | ~15 KB | Complete release notes |
 | `INSTALLATION_GUIDE.md` | ~12 KB | Installation instructions |
@@ -75,7 +75,7 @@ ff65b9ee40e3773d402cba294b5e3b04010d53ff1ebe6a7f0b1894661b688964
 
 Users can verify with:
 ```bash
-sha256sum ghost-accountant-v1.0.0-android.apk
+sha256sum nova-accountant-v1.0.0-android.apk
 ```
 
 ---
@@ -94,7 +94,7 @@ sha256sum ghost-accountant-v1.0.0-android.apk
 
 Upload these files to the release:
 
-1. `release/ghost-accountant-v1.0.0-android.apk`
+1. `release/nova-accountant-v1.0.0-android.apk`
 2. `release/checksums.txt`
 3. `RELEASE_NOTES.md`
 4. `INSTALLATION_GUIDE.md`
@@ -170,7 +170,7 @@ Upload these files to the release:
 - ✅ Wealth planning (10-year projections)
 - ✅ Life event detection
 - ✅ Continuous learning
-- ✅ Ghost Trace (AI reasoning display)
+- ✅ Nova Trace (AI reasoning display)
 
 ---
 
@@ -298,7 +298,7 @@ Upload these files to the release:
 ### Support Channels
 - **GitHub Issues** - Bug reports
 - **GitHub Discussions** - Community support
-- **Email** - support@ghostaccountant.com
+- **Email** - support@novaaccountant.com
 - **Discord** - Coming soon
 
 ### Response Times

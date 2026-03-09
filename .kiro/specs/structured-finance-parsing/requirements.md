@@ -124,7 +124,7 @@ The Structured Finance Parsing system enhances the NovaLedger AI app's AI-powere
 1. WHEN structured parsing completes, THE System SHALL extract the Thought_Signature from the response
 2. THE System SHALL include the Thought_Signature in the final result
 3. THE System SHALL log the Thought_Signature for debugging purposes
-4. THE System SHALL maintain Thought_Signature format compatibility with Ghost Trace UI
+4. THE System SHALL maintain Thought_Signature format compatibility with Nova Trace UI
 5. THE System SHALL not lose Thought_Signature data during error handling
 
 ### Requirement 10: Testing and Validation

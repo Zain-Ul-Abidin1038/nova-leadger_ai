@@ -10,7 +10,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
-import 'package:nova_ledger_ai/core/presentation/widgets/ghost_logo.dart';
+import 'package:nova_ledger_ai/core/presentation/widgets/nova_logo.dart';
 import 'package:nova_ledger_ai/features/chat/services/simple_chat_service.dart';
 import 'package:nova_ledger_ai/features/receipts/services/hive_transaction_provider.dart';
 import 'package:nova_ledger_ai/core/services/permission_service.dart';
@@ -438,7 +438,7 @@ class _IntelligentChatScreenState extends ConsumerState<IntelligentChatScreen> {
         ),
         title: Row(
           children: [
-            const GhostLogo(size: 40, showGlow: false),
+            const NovaLogo(size: 40, showGlow: false),
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

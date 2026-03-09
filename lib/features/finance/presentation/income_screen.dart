@@ -184,7 +184,7 @@ class IncomeScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Chat with Ghost AI to add income',
+                            'Chat with Nova AI to add income',
                             style: TextStyle(
                               color: secondaryTextColor.withValues(alpha: 0.6),
                               fontSize: 13,

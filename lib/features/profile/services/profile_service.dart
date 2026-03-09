@@ -26,7 +26,7 @@ class UserProfile {
   };
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
-    name: json['name'] ?? 'Ghost User',
+    name: json['name'] ?? 'Nova User',
     email: json['email'] ?? 'user@example.com',
     phone: json['phone'] ?? '',
     company: json['company'] ?? '',
@@ -63,7 +63,7 @@ class ProfileService extends Notifier<UserProfile> {
   UserProfile build() {
     _loadProfile();
     return UserProfile(
-      name: 'Ghost User',
+      name: 'Nova User',
       email: 'user@example.com',
     );
   }
@@ -111,7 +111,7 @@ class ProfileService extends Notifier<UserProfile> {
       final box = await Hive.openBox(_boxName);
       await box.delete(_profileKey);
       state = UserProfile(
-        name: 'Ghost User',
+        name: 'Nova User',
         email: 'user@example.com',
       );
     } catch (e) {

@@ -295,7 +295,7 @@ class _LedgerScreenState extends ConsumerState<LedgerScreen> with SingleTickerPr
             ),
             const SizedBox(height: 8),
             Text(
-              'Chat with Ghost AI to track payments',
+              'Chat with Nova AI to track payments',
               style: TextStyle(
                 color: secondaryTextColor.withValues(alpha: 0.6),
                 fontSize: 13,

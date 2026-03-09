@@ -6,7 +6,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
-import 'package:nova_ledger_ai/features/trace/services/ghost_trace_service.dart';
+import 'package:nova_ledger_ai/features/trace/services/nova_trace_service.dart';
 import 'package:nova_ledger_ai/core/services/demo_data_service.dart';
 import 'package:nova_ledger_ai/features/finance/services/unified_finance_service.dart';
 
@@ -16,8 +16,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final traceAsync = ref.watch(ghostTraceProvider);
-    final traceText = traceAsync.value ?? "Ghost AI Active. Secure link established.";
+    final traceAsync = ref.watch(novaTraceProvider);
+    final traceText = traceAsync.value ?? "Nova AI Active. Secure link established.";
     final themeMode = ref.watch(themeModeProvider);
     final isDark = themeMode == ThemeMode.dark;
     
@@ -117,7 +117,7 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
 
-          // Persistent Ghost Trace
+          // Persistent Nova Trace
           Positioned(
             left: 20,
             right: 20,
@@ -626,7 +626,7 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () => context.go('/vision-ghost'),
+                onTap: () => context.go('/vision-nova'),
                 child: GlassCard(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   gradient: LinearGradient(
@@ -666,7 +666,7 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(width: 12),
             Expanded(
               child: GestureDetector(
-                onTap: () => context.go('/ghost-navigator'),
+                onTap: () => context.go('/nova-navigator'),
                 child: GlassCard(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   gradient: LinearGradient(
@@ -814,7 +814,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Start chatting with Ghost AI to add transactions',
+                        'Start chatting with Nova AI to add transactions',
                         style: TextStyle(color: mutedTextColor, fontSize: 11),
                         textAlign: TextAlign.center,
                       ),

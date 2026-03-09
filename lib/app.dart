@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nova_ledger_ai/core/router/app_router.dart';
 import 'package:nova_ledger_ai/core/theme/theme_provider.dart';
 
-class GhostAccountantApp extends ConsumerWidget {
-  const GhostAccountantApp({super.key});
+class NovaAccountantApp extends ConsumerWidget {
+  const NovaAccountantApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

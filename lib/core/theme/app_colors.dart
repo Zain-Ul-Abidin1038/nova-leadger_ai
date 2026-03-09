@@ -12,7 +12,7 @@ class AppColors {
   static const Color glassBorder = Color(0x26FFFFFF);
   static const Color glassReflection = Color(0x0DFFFFFF);
   
-  // Accent Colors - Neon Teal (Ghostly Energy) - #00F2FF
+  // Accent Colors - Neon Teal (Novaly Energy) - #00F2FF
   static const Color neonTeal = Color(0xFF00F2FF);
   static const Color neonTealDim = Color(0x4D00F2FF);
   static const Color neonTealGlow = Color(0x1A00F2FF);

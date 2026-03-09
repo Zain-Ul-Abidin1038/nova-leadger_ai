@@ -150,13 +150,13 @@ class NeonButton extends StatelessWidget {
 }
 
 /// Specialized Action Button for main tasks
-class GhostActionButton extends StatelessWidget {
+class NovaActionButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final VoidCallback onPressed;
   final Color baseColor;
 
-  const GhostActionButton({
+  const NovaActionButton({
     super.key,
     required this.label,
     required this.icon,
@@ -195,7 +195,7 @@ class GhostActionButton extends StatelessWidget {
   }
 }
 
-/// Glass Notification Widget (For Ghost Trace)
+/// Glass Notification Widget (For Nova Trace)
 class GlassNotification extends StatelessWidget {
   final String title;
   final String message;

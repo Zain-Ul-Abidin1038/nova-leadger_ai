@@ -15,7 +15,7 @@ NovaLedger AI v1.0.0 is the first production release of the world's first **AI-P
 ## 📦 Download
 
 ### Android
-- **File:** `ghost-accountant-v1.0.0-android.apk`
+- **File:** `nova-accountant-v1.0.0-android.apk`
 - **Size:** 73.7 MB
 - **Min SDK:** Android 5.0 (API 21)
 - **Target SDK:** Android 14 (API 34)
@@ -28,7 +28,7 @@ NovaLedger AI v1.0.0 is the first production release of the world's first **AI-P
 ### Installation Instructions
 
 #### Android (APK)
-1. Download `ghost-accountant-v1.0.0-android.apk`
+1. Download `nova-accountant-v1.0.0-android.apk`
 2. Enable "Install from Unknown Sources" in Settings
 3. Open the APK file and tap Install
 4. Grant required permissions when prompted
@@ -330,7 +330,7 @@ NovaLedger AI v1.0.0 is the first production release of the world's first **AI-P
 - **Documentation:** Check `/docs` folder
 - **Issues:** [GitHub Issues](https://github.com/your-org/nova_ledger_ai/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/your-org/nova_ledger_ai/discussions)
-- **Email:** support@ghostaccountant.com
+- **Email:** support@novaaccountant.com
 
 ### Reporting Bugs
 1. Check existing issues first

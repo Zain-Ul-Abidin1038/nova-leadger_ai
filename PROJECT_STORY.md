@@ -27,7 +27,7 @@ I wanted to build something fundamentally different—a **Financial Life Operati
 3. **Recommends** personalized strategies (tax optimization, savings plans)
 4. **Executes** safe actions autonomously (budget adjustments, goal tracking)
 5. **Learns** from your behavior and gets smarter over time
-6. **Explains** its reasoning transparently (Ghost Trace)
+6. **Explains** its reasoning transparently (Nova Trace)
 
 The name "NovaLedger AI" captures this perfectly—an invisible, intelligent presence that handles your finances in the background, only surfacing when you need it or when something requires your attention.
 
@@ -193,18 +193,18 @@ This loop runs continuously in the background, making NovaLedger AI feel **alive
 
 One of the biggest challenges was **trust**. How do you make users trust an AI that makes financial decisions?
 
-### The Ghost Trace Solution
+### The Nova Trace Solution
 
-I created "Ghost Trace"—a real-time display of AI reasoning:
+I created "Nova Trace"—a real-time display of AI reasoning:
 
 ```
-[Ghost Agent] 🧠 Initializing financial analysis...
-[Ghost Agent] 📚 Retrieved 3 relevant memories
-[Ghost Agent] 🤖 Analyzing with Nova 3 Pro (high thinking)...
-[Ghost Agent] 💭 Reasoning: Dining expenses up 40% vs last month
-[Ghost Agent] 💭 Cause: 8 restaurant visits (avg: 3/month)
-[Ghost Agent] 💭 Recommendation: Reduce dining budget by ₹2000
-[Ghost Agent] ✅ Analysis complete (confidence: 94%)
+[Nova Agent] 🧠 Initializing financial analysis...
+[Nova Agent] 📚 Retrieved 3 relevant memories
+[Nova Agent] 🤖 Analyzing with Nova 3 Pro (high thinking)...
+[Nova Agent] 💭 Reasoning: Dining expenses up 40% vs last month
+[Nova Agent] 💭 Cause: 8 restaurant visits (avg: 3/month)
+[Nova Agent] 💭 Recommendation: Reduce dining budget by ₹2000
+[Nova Agent] ✅ Analysis complete (confidence: 94%)
 ```
 
 Users can **see the AI thinking**, which builds trust and understanding.
@@ -329,7 +329,7 @@ final schema = {
 ### Product Lessons
 
 1. **Trust requires transparency**
-   - Ghost Trace shows AI reasoning
+   - Nova Trace shows AI reasoning
    - Users need to understand decisions
    - Explainability builds confidence
 
@@ -436,7 +436,7 @@ NovaLedger AI will evolve into a **complete financial life companion** that:
 
 ### For the Industry
 - **Proves AI can be autonomous** - 30% execution rate
-- **Shows transparency builds trust** - Ghost Trace
+- **Shows transparency builds trust** - Nova Trace
 - **Demonstrates cost optimization** - 50% reduction
 - **Validates offline-first** - Works everywhere
 - **Sets new standard** - Production-grade AI
@@ -486,7 +486,7 @@ NovaLedger AI is my first step into that future.
 **Developer:** Zain Ul Abidin  
 **Date:** February 10, 2026  
 **Status:** ✅ Production Ready  
-**Repository:** https://github.com/Zain-Ul-Abidin1038/nova-3-ghost_acountant
+**Repository:** https://github.com/Zain-Ul-Abidin1038/nova-3-nova_acountant
 
 ---
 

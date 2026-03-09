@@ -23,7 +23,7 @@ An AI-powered mobile app that provides:
 
 1. **Intelligent Receipt Analysis** - Snap a photo, get instant tax deduction calculations
 2. **Conversational Finance Management** - Chat with AI to track income, expenses, and loans
-3. **Vision Ghost** - Live camera-based financial advisor (like having a CA look over your shoulder)
+3. **Vision Nova** - Live camera-based financial advisor (like having a CA look over your shoulder)
 4. **NovaNavigator** - Autonomous AI agent that can book flights, order food, and manage finances
 5. **Multi-modal Input** - Voice, camera, text, location - accessible for all literacy levels
 
@@ -35,7 +35,7 @@ An AI-powered mobile app that provides:
 - Camera-based receipt capture
 - AI-powered OCR and analysis using Nova Vision
 - Automatic tax deduction calculation (meals 50%, office 100%, alcohol 0%)
-- Real-time Ghost Trace showing AI reasoning
+- Real-time Nova Trace showing AI reasoning
 
 ### 2. Intelligent Chat Interface
 - Natural language financial queries
@@ -43,7 +43,7 @@ An AI-powered mobile app that provides:
 - Structured finance parsing with JSON extraction
 - Voice input support for accessibility
 
-### 3. Vision Ghost (Live AI Advisor)
+### 3. Vision Nova (Live AI Advisor)
 - Real-time camera analysis every 3 seconds
 - Live advice overlay on camera feed
 - Instant purchase decision guidance
@@ -77,7 +77,7 @@ An AI-powered mobile app that provides:
 
 **Glassmorphism UI** with frosted glass aesthetic and neon accents (teal #00F2FF, purple #B388FF)
 
-**Ghost Trace** - Real-time AI reasoning display showing the AI's thought process, building trust and transparency
+**Nova Trace** - Real-time AI reasoning display showing the AI's thought process, building trust and transparency
 
 **Accessibility First** - Voice input, camera-based interaction, simple conversational interface
 
@@ -97,7 +97,7 @@ An AI-powered mobile app that provides:
 - **Multi-modal processing** (text, images, voice)
 - **Structured output parsing** with JSON extraction
 - **Real-time streaming** for live analysis
-- **Context-aware reasoning** with Ghost Trace
+- **Context-aware reasoning** with Nova Trace
 
 ### Code Quality
 - Type-safe Dart with null safety
@@ -142,8 +142,8 @@ An AI-powered mobile app that provides:
 4. Categorizes automatically
 5. Confirms with user
 
-### Scenario 3: Vision Ghost Live Advisor
-1. Open Vision Ghost feature
+### Scenario 3: Vision Nova Live Advisor
+1. Open Vision Nova feature
 2. Point camera at product you want to buy
 3. Get live advice: "₹15,000 laptop - good deal, 100% deductible for business"
 4. Make informed purchase decision
@@ -199,7 +199,7 @@ flutter run
 ## 🏆 Why We Should Win
 
 ### 1. Hardest Technical Challenge
-- **Vision Ghost** - Real-time camera analysis with live AI reasoning
+- **Vision Nova** - Real-time camera analysis with live AI reasoning
 - **NovaNavigator** - Autonomous agent that navigates apps like a human
 - **Multi-modal AI** - Text, voice, vision, location integration
 - **Production-ready** - Full CI/CD, automated deployment
@@ -211,8 +211,8 @@ flutter run
 - **Financial literacy** through conversational AI education
 
 ### 3. Innovation & Creativity
-- **Ghost Trace** - Transparent AI reasoning builds trust
-- **Vision Ghost** - Live financial advisor through camera
+- **Nova Trace** - Transparent AI reasoning builds trust
+- **Vision Nova** - Live financial advisor through camera
 - **NovaNavigator** - Autonomous agent for real-world tasks
 - **Glassmorphism UI** - Beautiful, accessible design
 
@@ -238,7 +238,7 @@ flutter run
 - **README.md** - Project overview and setup
 - **DEPLOYMENT.md** - Deployment guide
 - **DEVOPS_SETUP.md** - CI/CD configuration
-- **VISION_GHOST_FEATURE.md** - Vision Ghost documentation
+- **VISION_GHOST_FEATURE.md** - Vision Nova documentation
 - **GHOST_NAVIGATOR_FEATURE.md** - NovaNavigator documentation
 - **INSTALLATION_GUIDE.md** - User installation guide
 - **RELEASE_NOTES.md** - Version history

@@ -317,7 +317,7 @@ class UIElement {
 }
 
 // Service
-class GhostNavigatorService {
+class NovaNavigatorService {
   // Plan task using AI
   Future<Map<String, dynamic>> planTask(String description);
   

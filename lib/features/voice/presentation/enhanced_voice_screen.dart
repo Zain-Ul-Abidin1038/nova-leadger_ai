@@ -6,7 +6,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:nova_ledger_ai/core/theme/app_colors.dart';
 import 'package:nova_ledger_ai/core/theme/glass_widgets.dart';
-import 'package:nova_ledger_ai/features/trace/services/ghost_trace_service.dart';
+import 'package:nova_ledger_ai/features/trace/services/nova_trace_service.dart';
 
 class EnhancedVoiceScreen extends ConsumerStatefulWidget {
   const EnhancedVoiceScreen({super.key});
@@ -72,7 +72,7 @@ class _EnhancedVoiceScreenState extends ConsumerState<EnhancedVoiceScreen> {
       _isProcessing = true;
     });
 
-    final traceService = ref.read(ghostTraceServiceProvider);
+    final traceService = ref.read(novaTraceServiceProvider);
 
     traceService.addTrace("[Voice] Processing: '$_transcription'");
     traceService.addTrace("[Voice] AI services have been removed");

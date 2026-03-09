@@ -62,7 +62,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                       ),
                       const SizedBox(height: 8),
                       const Text(
-                        'Base URL: https://api.ghostaccountant.com/v1',
+                        'Base URL: https://api.novaaccountant.com/v1',
                         style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontFamily: 'monospace'),
                       ),
                       const SizedBox(height: 4),

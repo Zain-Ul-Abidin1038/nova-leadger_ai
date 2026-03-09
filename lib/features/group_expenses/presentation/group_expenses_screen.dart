@@ -46,7 +46,7 @@ class GroupExpensesScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           const Text('No group expenses yet', style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
                           const SizedBox(height: 24),
-                          GhostActionButton(
+                          NovaActionButton(
                             label: 'Split Expense',
                             icon: Icons.add,
                             baseColor: AppColors.softPurple,

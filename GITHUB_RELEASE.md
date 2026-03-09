@@ -6,7 +6,7 @@
 
 ```
 release/
-├── ghost-accountant-v1.0.0-android.apk (73.7 MB)
+├── nova-accountant-v1.0.0-android.apk (73.7 MB)
 ├── RELEASE_NOTES.md
 ├── INSTALLATION_GUIDE.md
 ├── README.md
@@ -20,10 +20,10 @@ release/
 cd release
 
 # Generate SHA256 checksums
-sha256sum ghost-accountant-v1.0.0-android.apk > checksums.txt
+sha256sum nova-accountant-v1.0.0-android.apk > checksums.txt
 
 # Or on macOS
-shasum -a 256 ghost-accountant-v1.0.0-android.apk > checksums.txt
+shasum -a 256 nova-accountant-v1.0.0-android.apk > checksums.txt
 ```
 
 ---
@@ -61,7 +61,7 @@ The world's first **AI-Powered Financial Life Operating System** is here!
 ## 📥 Download
 
 ### Android
-- **File:** `ghost-accountant-v1.0.0-android.apk`
+- **File:** `nova-accountant-v1.0.0-android.apk`
 - **Size:** 73.7 MB
 - **Requirements:** Android 5.0+ (API 21)
 
@@ -78,7 +78,7 @@ The world's first **AI-Powered Financial Life Operating System** is here!
 
 Verify the APK integrity using SHA256 checksum:
 ```bash
-sha256sum ghost-accountant-v1.0.0-android.apk
+sha256sum nova-accountant-v1.0.0-android.apk
 ```
 
 Compare with `checksums.txt` in release assets.
@@ -153,7 +153,7 @@ Built with:
 - **Documentation:** Check repository docs
 - **Issues:** [GitHub Issues](https://github.com/your-org/nova_ledger_ai/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/your-org/nova_ledger_ai/discussions)
-- **Email:** support@ghostaccountant.com
+- **Email:** support@novaaccountant.com
 
 ---
 
@@ -168,7 +168,7 @@ Built with:
 
 Drag and drop these files to the release:
 
-1. `ghost-accountant-v1.0.0-android.apk`
+1. `nova-accountant-v1.0.0-android.apk`
 2. `RELEASE_NOTES.md`
 3. `INSTALLATION_GUIDE.md`
 4. `checksums.txt`
