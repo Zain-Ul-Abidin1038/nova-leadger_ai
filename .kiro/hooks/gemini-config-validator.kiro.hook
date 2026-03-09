@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Gemini 3 Pro Config Validator",
+  "description": "Validates that Gemini 3 Pro calls include thinking_level: high, thoughtSignature is captured and passed in conversation turns, and Riverpod state management handles async loading properly",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "lib/services/gemini_service.dart"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the saved gemini_service.dart file and verify:\n1. All Gemini 3 Pro API calls include `thinking_level: high` parameter\n2. The `thoughtSignature` is captured from responses and stored in state\n3. The `thoughtSignature` is passed back in subsequent conversation turns\n4. Riverpod state management uses `AsyncValue` to handle async loading of signatures\n5. If any issues are found, fix them by adding the necessary code\n\nProvide specific fixes for any missing configurations or state management patterns."
+  }
+}

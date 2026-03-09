@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ghostaccountant-dev-8baed-authRole",
+      "UnauthRoleArn": "arn:aws:iam::349263039618:role/amplify-ghostaccountant-dev-8baed-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::349263039618:role/amplify-ghostaccountant-dev-8baed-authRole",
+      "Region": "me-central-1",
+      "DeploymentBucketName": "amplify-ghostaccountant-dev-8baed-deployment",
+      "UnauthRoleName": "amplify-ghostaccountant-dev-8baed-unauthRole",
+      "StackName": "amplify-ghostaccountant-dev-8baed",
+      "StackId": "arn:aws:cloudformation:me-central-1:349263039618:stack/amplify-ghostaccountant-dev-8baed/94f32500-0519-11f1-8592-0e560031dbe5"
+    }
+  }
+}

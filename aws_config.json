@@ -1,0 +1,10 @@
+{
+  "region": "us-east-1",
+  "userPoolId": "us-east-1_XFgDdU3CA",
+  "userPoolClientId": "65vibicmf53oj0kski9fd314ho",
+  "identityPoolId": "us-east-1:e4b6a556-2cee-453c-8e06-e875df5e8bd2",
+  "s3BucketName": "ghost-accountant-audit-vault-1770576191",
+  "authRoleArn": "arn:aws:iam::349263039618:role/ghost-accountant-auth-role",
+  "unauthRoleArn": "arn:aws:iam::349263039618:role/ghost-accountant-unauth-role",
+  "dynamoDbTableName": "ghost-accountant-memory"
+}

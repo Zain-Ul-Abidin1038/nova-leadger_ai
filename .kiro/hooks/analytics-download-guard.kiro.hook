@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Analytics Download Guard",
+  "description": "Monitors analytics_screen.dart for Download button additions and ensures PDF generation service logic and storage permissions are properly implemented",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "lib/features/analytics/presentation/analytics_screen.dart"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Check if a 'Download' button was added to analytics_screen.dart. If so: 1) Verify or create a PDF generation service in lib/features/analytics/services/ with proper export functionality, 2) Ensure permission_handler logic for storage access is implemented in the service, 3) Link the Download button to the service method, 4) Add necessary dependencies to pubspec.yaml if missing (pdf, path_provider). Only take action if a Download button is actually present."
+  }
+}

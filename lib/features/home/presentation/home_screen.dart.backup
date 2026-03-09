@@ -1,0 +1,292 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:ghost_accountant/core/theme/app_colors.dart';
+import 'package:ghost_accountant/core/theme/glass_widgets.dart';
+import 'package:ghost_accountant/features/trace/services/ghost_trace_service.dart';
+import 'package:ghost_accountant/features/receipts/services/transaction_provider.dart';
+
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final traceAsync = ref.watch(ghostTraceProvider);
+    final traceText = traceAsync.value ?? "Ghost AI Initialized. Monitoring context...";
+    final transactionState = ref.watch(transactionProvider);
+    final latestReceipt = transactionState.receipts.isNotEmpty 
+        ? transactionState.receipts.last 
+        : null;
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // Gradient Background Overlay
+            Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment.topRight,
+                  radius: 1.5,
+                  colors: [
+                    AppColors.neonTeal.withOpacity(0.08),
+                    AppColors.background,
+                  ],
+                ),
+              ),
+            ),
+
+            // Main Content
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header
+                  FadeInDown(
+                    duration: const Duration(milliseconds: 600),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.neonTeal.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.auto_awesome, color: AppColors.neonTeal, size: 20),
+                            ),
+                            const SizedBox(width: 12),
+                            const Text(
+                              'Ghost Accountant',
+                              style: TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.settings_outlined, color: AppColors.textSecondary),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Balance Card (LedgerLoop Style)
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 800),
+                    child: GlassCard(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Safe Layer Balance',
+                            style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '\$${transactionState.totalDeductible.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -1,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: AppColors.success.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  '↑ ${transactionState.receipts.length} Receipt${transactionState.receipts.length != 1 ? 's' : ''}',
+                                  style: const TextStyle(color: AppColors.success, fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Action Buttons Row
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 900),
+                    child: const Text(
+                      'Quick Actions',
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1000),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElasticIn(
+                          delay: const Duration(milliseconds: 100),
+                          child: NeonButton(
+                            icon: Icons.document_scanner,
+                            label: 'Scan',
+                            onPressed: () => context.go('/camera'),
+                          ),
+                        ),
+                        ElasticIn(
+                          delay: const Duration(milliseconds: 200),
+                          child: NeonButton(
+                            icon: Icons.mic,
+                            label: 'Voice',
+                            neonColor: AppColors.softPurple,
+                            onPressed: () => context.go('/voice'),
+                          ),
+                        ),
+                        ElasticIn(
+                          delay: const Duration(milliseconds: 300),
+                          child: NeonButton(
+                            icon: Icons.analytics,
+                            label: 'Analytics',
+                            neonColor: AppColors.neonTeal,
+                            onPressed: () => context.go('/analytics'),
+                          ),
+                        ),
+                        ElasticIn(
+                          delay: const Duration(milliseconds: 400),
+                          child: NeonButton(
+                            icon: Icons.chat,
+                            label: 'Chat',
+                            neonColor: AppColors.softPurple,
+                            onPressed: () => context.go('/chat'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Upcoming / Recent
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1100),
+                    child: const Text(
+                      'Recent Activity',
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  if (latestReceipt != null)
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1200),
+                      child: GlassCard(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColors.neonTeal.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.receipt_long, color: AppColors.neonTeal),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    latestReceipt.category,
+                                    style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    'Total: \$${latestReceipt.total.toStringAsFixed(2)}',
+                                    style: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: AppColors.success.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: const Text(
+                                'Audited',
+                                style: TextStyle(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  else
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1200),
+                      child: GlassCard(
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              const Icon(Icons.receipt_long_outlined, color: AppColors.textSecondary, size: 32),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'No receipts yet',
+                                style: TextStyle(color: AppColors.textSecondary),
+                              ),
+                              const SizedBox(height: 4),
+                              TextButton(
+                                onPressed: () => context.go('/camera'),
+                                child: const Text('Scan your first receipt'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 100), // Space for bottom notification
+                ],
+              ),
+            ),
+
+            // Bottom Ghost Trace Notification
+            Positioned(
+              left: 16,
+              right: 16,
+              bottom: 16,
+              child: SlideInUp(
+                duration: const Duration(milliseconds: 800),
+                delay: const Duration(milliseconds: 1500),
+                child: GlassNotification(
+                  title: 'REASONING TRACE',
+                  message: traceText,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

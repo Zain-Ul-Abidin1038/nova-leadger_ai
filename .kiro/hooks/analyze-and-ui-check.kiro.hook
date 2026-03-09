@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Analyze & UI Quality Check",
+  "description": "Runs flutter analyze on save. If no errors, takes emulator screenshot and refactors UI to match glassmorphism design philosophy if needed.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "lib/**/*.dart"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run `flutter analyze` on the saved file. If errors exist, fix them immediately. If no errors are found, take a screenshot of the running emulator. Compare the screenshot to the product.md design philosophy (glassmorphism UI with frosted glass aesthetic, neon accents in teal #00F2FF and purple #B388FF, Ghost Trace reasoning display). If the UI is not 'World Class' quality, refactor the styling to match the design system and re-save the file."
+  }
+}

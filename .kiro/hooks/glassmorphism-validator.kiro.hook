@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Glassmorphism Design Validator",
+  "description": "Validates that presentation screens follow the glassmorphism design philosophy with proper blur effects and neon contrast ratios when files are saved",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "lib/features/**/presentation/*.dart"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "1. Run the app on the Android Emulator using `flutter run -d emulator-5554` (or available Android device). 2. Take a screenshot of the current screen using `adb exec-out screencap -p > screenshot.png`. 3. Analyze the edited file to check: (a) Does it use BackdropFilter with ImageFilter.blur for glassmorphism? (b) Are neon colors from AppColors used with sufficient contrast (minimum 4.5:1 ratio)? (c) Does it follow the GlassCard/NeonButton patterns from glass_widgets.dart? 4. If any issues are found, refactor the code to use proper glassmorphism components (GlassCard, NeonButton) with BackdropFilter blur effects and high-contrast neon accents (teal #00F2FF, purple #B388FF), then save the file again."
+  }
+}

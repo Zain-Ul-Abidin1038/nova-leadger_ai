@@ -1,0 +1,172 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ghost_accountant/features/receipts/domain/receipt.dart';
+import 'package:ghost_accountant/features/receipts/services/receipt_service.dart';
+import 'package:ghost_accountant/features/receipts/services/transaction_provider.dart';
+import 'package:ghost_accountant/features/sync/services/safe_layer_service.dart';
+
+class CameraScreen extends ConsumerStatefulWidget {
+  const CameraScreen({super.key});
+
+  @override
+  ConsumerState<CameraScreen> createState() => _CameraScreenState();
+}
+
+class _CameraScreenState extends ConsumerState<CameraScreen> {
+  File? _image;
+  final _picker = ImagePicker();
+
+  Future<void> _getImage(ImageSource source) async {
+    debugPrint('CameraScreen: _getImage called with $source');
+    try {
+      final pickedFile = await _picker.pickImage(source: source);
+      debugPrint('CameraScreen: pickImage returned ${pickedFile?.path}');
+
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+
+        // Process receipt
+        if (mounted) {
+          debugPrint('CameraScreen: Starting analysis logic');
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (c) => const Center(child: CircularProgressIndicator()),
+          );
+
+          debugPrint('CameraScreen: Calling analyzeReceipt');
+          final receiptService = ref.read(receiptServiceProvider);
+          final receipt = await receiptService.analyzeReceipt(_image!);
+          debugPrint('CameraScreen: Analysis done: $receipt');
+
+          if (mounted) {
+            Navigator.pop(context); // Close loading
+            debugPrint('CameraScreen: Showing result sheet');
+            _showReceiptResult(receipt);
+          }
+        }
+      } else {
+        debugPrint('CameraScreen: User cancelled image picker');
+      }
+    } catch (e) {
+      debugPrint('CameraScreen: Error in _getImage: $e');
+    }
+  }
+
+  void _showReceiptResult(Receipt receipt) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('Receipt Scanned', style: Theme.of(context).textTheme.headlineSmall),
+            const Divider(),
+            ListTile(
+              title: const Text('Total'),
+              trailing: Text('\$${receipt.total.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+            ),
+            ListTile(
+              title: const Text('Tax'),
+              trailing: Text('\$${receipt.tax.toStringAsFixed(2)}'),
+            ),
+            ListTile(
+              title: const Text('Category'),
+              trailing: Chip(label: Text(receipt.category)),
+            ),
+            if (receipt.thoughtSignature != null) ...[
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade50,
+                  border: Border.all(color: Colors.amber),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(Icons.psychology, color: Colors.amber),
+                        SizedBox(width: 8),
+                        Text('Thought Signature', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.amber)),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(receipt.thoughtSignature!),
+                  ],
+                ),
+              ),
+            ],
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.pop(context); // Close bottom sheet
+                
+                // Add to transaction provider
+                ref.read(transactionProvider.notifier).addReceipt(receipt);
+                
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Syncing to Safe Layer...')),
+                );
+
+                final safeLayer = ref.read(safeLayerServiceProvider);
+                final success = await safeLayer.syncToSafeLayer(receipt);
+
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(success 
+                        ? 'Receipt saved and secured in AWS Safe Layer!' 
+                        : 'Receipt saved locally. AWS sync failed.'),
+                      backgroundColor: success ? Colors.green : Colors.orange,
+                    ),
+                  );
+                }
+              },
+              child: const Text('Verify & Save'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Scan Receipt')),
+      body: Center(
+        child: _image == null
+            ? const Text('No image selected.')
+            : Image.file(_image!),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'camera_btn',
+            onPressed: () => _getImage(ImageSource.camera),
+            tooltip: 'Pick Image',
+            child: const Icon(Icons.add_a_photo),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: 'gallery_btn',
+            onPressed: () => _getImage(ImageSource.gallery),
+            tooltip: 'Pick from Gallery',
+            child: const Icon(Icons.photo_library),
+          ),
+        ],
+      ),
+    );
+  }
+}

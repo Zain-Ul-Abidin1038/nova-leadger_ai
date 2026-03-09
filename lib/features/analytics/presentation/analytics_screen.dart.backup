@@ -1,0 +1,602 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:ghost_accountant/core/theme/app_colors.dart';
+import 'package:ghost_accountant/core/theme/glass_widgets.dart';
+import 'package:ghost_accountant/features/analytics/widgets/runway_gauge.dart';
+import 'package:ghost_accountant/features/analytics/services/pdf_export_service.dart';
+import 'package:ghost_accountant/features/receipts/services/transaction_provider.dart';
+
+class AnalyticsScreen extends ConsumerWidget {
+  const AnalyticsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final transactionState = ref.watch(transactionProvider);
+    final runway = ref.read(transactionProvider.notifier).calculateRunway(450.0);
+    final categoryBreakdown = ref.read(transactionProvider.notifier).getCategoryBreakdown();
+    final isEmpty = transactionState.receipts.isEmpty;
+    
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: isEmpty ? _buildEmptyState(context) : _buildAnalyticsContent(context, ref, transactionState, runway, categoryBreakdown),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    return Stack(
+      children: [
+        // Gradient Background
+        Container(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: Alignment.topLeft,
+              radius: 1.5,
+              colors: [
+                AppColors.softPurple.withOpacity(0.1),
+                AppColors.background,
+              ],
+            ),
+          ),
+        ),
+        
+        // Empty State Content
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FadeInDown(
+                  duration: const Duration(milliseconds: 800),
+                  child: Container(
+                    padding: const EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.softPurple.withOpacity(0.2),
+                          AppColors.neonTeal.withOpacity(0.2),
+                        ],
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.softPurple.withOpacity(0.3),
+                          blurRadius: 30,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.analytics_outlined,
+                      size: 80,
+                      color: AppColors.softPurple,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
+                FadeInUp(
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 200),
+                  child: GlassCard(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'No Data Yet',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Start scanning receipts to see your analytics and insights',
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton.icon(
+                          onPressed: () => context.go('/camera'),
+                          icon: const Icon(Icons.document_scanner),
+                          label: const Text('Scan First Receipt'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.neonTeal,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnalyticsContent(BuildContext context, WidgetRef ref, TransactionState transactionState, double runway, Map<String, double> categoryBreakdown) {
+    return Stack(
+          children: [
+            // Gradient Background
+            Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment.topLeft,
+                  radius: 1.5,
+                  colors: [
+                    AppColors.softPurple.withOpacity(0.1),
+                    AppColors.background,
+                  ],
+                ),
+              ),
+            ),
+
+            // Main Content
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title and Actions Row
+                  FadeInDown(
+                    duration: const Duration(milliseconds: 600),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.softPurple.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.analytics_outlined,
+                                color: AppColors.softPurple,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            const Text(
+                              'Analytics',
+                              style: TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [AppColors.neonTeal, AppColors.softPurple],
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.download,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                              onPressed: () => _downloadReport(context, ref),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.refresh,
+                                color: AppColors.textSecondary,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Runway Gauge - The WOW Factor
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 800),
+                    child: RunwayGauge(
+                      currentBalance: transactionState.totalDeductible,
+                      monthlyBurn: 450.0,
+                      predictedRunway: runway,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Spending Trends
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 900),
+                    delay: const Duration(milliseconds: 100),
+                    child: const Text(
+                      'Spending Trends',
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1000),
+                    delay: const Duration(milliseconds: 200),
+                    child: GlassCard(
+                      padding: const EdgeInsets.all(20),
+                      child: transactionState.receipts.isEmpty
+                          ? const SizedBox(
+                              height: 200,
+                              child: Center(
+                                child: Text(
+                                  'No spending data yet',
+                                  style: TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(
+                              height: 200,
+                              child: LineChart(
+                                _buildSpendingChart(transactionState),
+                              ),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Category Breakdown
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1000),
+                    delay: const Duration(milliseconds: 300),
+                    child: const Text(
+                      'Category Breakdown',
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 1100),
+                    delay: const Duration(milliseconds: 400),
+                    child: GlassCard(
+                      padding: const EdgeInsets.all(20),
+                      child: categoryBreakdown.isEmpty
+                          ? const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Text(
+                                  'No categories yet',
+                                  style: TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Column(
+                              children: categoryBreakdown.entries.map((entry) {
+                                final percentage = transactionState.totalBalance > 0
+                                    ? entry.value / transactionState.totalBalance
+                                    : 0.0;
+                                final color = _getCategoryColor(entry.key);
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: _buildCategoryRow(
+                                    entry.key,
+                                    entry.value,
+                                    percentage,
+                                    color,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // AI Insights
+                  if (transactionState.receipts.isNotEmpty)
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1200),
+                      delay: const Duration(milliseconds: 500),
+                      child: GlassCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(Icons.lightbulb_outline, color: AppColors.neonTeal, size: 20),
+                                SizedBox(width: 8),
+                                Text(
+                                  'AI Insights',
+                                  style: TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              '• Total receipts: ${transactionState.receipts.length}\n'
+                              '• Total spent: \$${transactionState.totalBalance.toStringAsFixed(2)}\n'
+                              '• Deductible amount: \$${transactionState.totalDeductible.toStringAsFixed(2)}\n'
+                              '• Predicted runway: ${runway.toStringAsFixed(1)} months at current burn rate',
+                              style: const TextStyle(
+                                color: AppColors.textSecondary,
+                                fontSize: 13,
+                                height: 1.6,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        );
+  }
+
+  Color _getCategoryColor(String category) {
+    final colors = [
+      AppColors.neonTeal,
+      AppColors.softPurple,
+      AppColors.success,
+      const Color(0xFFFF6B6B),
+      const Color(0xFFFFD93D),
+      const Color(0xFF6BCB77),
+    ];
+    return colors[category.hashCode % colors.length];
+  }
+
+  Future<void> _downloadReport(BuildContext context, WidgetRef ref) async {
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(color: AppColors.neonTeal),
+      ),
+    );
+
+    try {
+      final pdfService = ref.read(pdfExportServiceProvider);
+      final filePath = await pdfService.generateAndSaveReport();
+      
+      if (context.mounted) {
+        Navigator.pop(context); // Close loading dialog
+        
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Report saved to: $filePath'),
+            backgroundColor: AppColors.success,
+            duration: const Duration(seconds: 4),
+            action: SnackBarAction(
+              label: 'OK',
+              textColor: Colors.white,
+              onPressed: () {},
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context); // Close loading dialog
+        
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error generating report: $e'),
+            backgroundColor: AppColors.error,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    }
+  }
+
+  Widget _buildCategoryRow(String label, double amount, double percentage, Color color) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Text(
+              '\$${amount.toStringAsFixed(2)}',
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: percentage,
+            backgroundColor: AppColors.glassBorder.withOpacity(0.2),
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 6,
+          ),
+        ),
+      ],
+    );
+  }
+
+  LineChartData _buildSpendingChart(TransactionState transactionState) {
+    // Generate spots from actual receipt data
+    final spots = <FlSpot>[];
+    if (transactionState.receipts.isNotEmpty) {
+      for (var i = 0; i < transactionState.receipts.length && i < 7; i++) {
+        spots.add(FlSpot(i.toDouble(), transactionState.receipts[i].total));
+      }
+    } else {
+      // Default empty chart
+      spots.add(const FlSpot(0, 0));
+    }
+
+    final maxY = transactionState.receipts.isNotEmpty
+        ? transactionState.receipts.map((r) => r.total).reduce((a, b) => a > b ? a : b) * 1.2
+        : 200.0;
+
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: false,
+        horizontalInterval: 50,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: AppColors.glassBorder.withOpacity(0.1),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 30,
+            interval: 1,
+            getTitlesWidget: (value, meta) {
+              const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+              if (value.toInt() >= 0 && value.toInt() < days.length) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    days[value.toInt()],
+                    style: const TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 10,
+                    ),
+                  ),
+                );
+              }
+              return const Text('');
+            },
+          ),
+        ),
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            interval: 50,
+            reservedSize: 40,
+            getTitlesWidget: (value, meta) {
+              return Text(
+                '\$${value.toInt()}',
+                style: const TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 10,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      borderData: FlBorderData(show: false),
+      minX: 0,
+      maxX: spots.length > 1 ? (spots.length - 1).toDouble() : 6,
+      minY: 0,
+      maxY: maxY,
+      lineBarsData: [
+        LineChartBarData(
+          spots: spots,
+          isCurved: true,
+          gradient: LinearGradient(
+            colors: [
+              AppColors.neonTeal.withOpacity(0.8),
+              AppColors.softPurple.withOpacity(0.8),
+            ],
+          ),
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: true,
+            getDotPainter: (spot, percent, barData, index) {
+              return FlDotCirclePainter(
+                radius: 4,
+                color: AppColors.neonTeal,
+                strokeWidth: 2,
+                strokeColor: AppColors.background,
+              );
+            },
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            gradient: LinearGradient(
+              colors: [
+                AppColors.neonTeal.withOpacity(0.2),
+                AppColors.softPurple.withOpacity(0.05),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

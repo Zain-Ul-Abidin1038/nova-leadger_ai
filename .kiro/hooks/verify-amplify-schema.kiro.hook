@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Verify Amplify Schema",
+  "description": "Verifies AWS Amplify connection and ensures the GraphQL schema matches the Gemini 3 output model. If there is a mismatch, updates the schema and runs amplify push automatically.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Verify AWS Amplify connection by checking the amplifyconfiguration.dart file. Then examine the GraphQL schema (typically in amplify/backend/api/*/schema.graphql) and compare it with the Gemini 3 output model structure used in the receipt analysis feature. If there are any mismatches in field types, required fields, or model structure, update the schema file accordingly and run `amplify push` to deploy the changes. Report the verification status and any changes made."
+  }
+}

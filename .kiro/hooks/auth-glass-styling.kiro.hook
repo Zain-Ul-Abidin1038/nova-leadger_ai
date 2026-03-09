@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Auth Glass Styling Reminder",
+  "description": "Reminds to override default Amplify UI with custom GlassCard widgets, Neon Purple (#B388FF) theme, and sigma 20 blur background when auth files are created",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "lib/features/auth/**"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "When building the login screen, override the default Amplify UI to use our Neon Purple (#B388FF) and GlassCard widgets. Ensure the background has the sigma 20 blur."
+  }
+}

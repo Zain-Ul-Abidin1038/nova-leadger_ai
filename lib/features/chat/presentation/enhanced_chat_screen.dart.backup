@@ -1,0 +1,470 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:ghost_accountant/core/theme/app_colors.dart';
+import 'package:ghost_accountant/core/services/gemini_service.dart';
+import 'package:ghost_accountant/features/trace/services/ghost_trace_service.dart';
+import 'package:ghost_accountant/features/receipts/services/transaction_provider.dart';
+
+class EnhancedChatScreen extends ConsumerStatefulWidget {
+  const EnhancedChatScreen({super.key});
+
+  @override
+  ConsumerState<EnhancedChatScreen> createState() => _EnhancedChatScreenState();
+}
+
+class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
+  final TextEditingController _textController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final List<ChatMessage> _messages = [];
+  bool _isTyping = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _addWelcomeMessage();
+  }
+
+  void _addWelcomeMessage() {
+    setState(() {
+      _messages.add(ChatMessage(
+        text: 'Hello! I\'m your Ghost Accountant AI assistant. I can help you with:\n\n'
+            '• Expense tracking and categorization\n'
+            '• Tax deduction calculations\n'
+            '• Financial insights and analysis\n'
+            '• Receipt queries and history\n\n'
+            'How can I assist you today?',
+        isUser: false,
+        timestamp: DateTime.now(),
+      ));
+    });
+  }
+
+  Future<void> _sendMessage() async {
+    final message = _textController.text.trim();
+    if (message.isEmpty) return;
+
+    // Add user message
+    setState(() {
+      _messages.add(ChatMessage(
+        text: message,
+        isUser: true,
+        timestamp: DateTime.now(),
+      ));
+      _textController.clear();
+      _isTyping = true;
+    });
+
+    _scrollToBottom();
+
+    final traceService = ref.read(ghostTraceServiceProvider);
+    final geminiService = ref.read(geminiServiceProvider);
+    final transactionState = ref.read(transactionProvider);
+
+    traceService.addTrace("[Chat] User: $message");
+    traceService.addTrace("[Chat] Building transaction context...");
+
+    try {
+      // Build context from transaction database
+      final dbContext = _buildDatabaseContext(transactionState);
+      
+      // Build conversation history
+      final history = _messages
+          .where((m) => m.isUser)
+          .take(5)
+          .map((m) => {'role': 'user', 'message': m.text})
+          .toList();
+
+      traceService.addTrace("[Chat] Calling Gemini 3.0 with real transaction data...");
+
+      // Call REAL Gemini with transaction context
+      final response = await geminiService.chat(
+        message: message,
+        previousThoughtSignature: geminiService.lastThoughtSignature,
+        conversationHistory: history,
+        transactionContext: dbContext,
+      );
+
+      setState(() {
+        _messages.add(ChatMessage(
+          text: response,
+          isUser: false,
+          timestamp: DateTime.now(),
+          thoughtSignature: geminiService.lastThoughtSignature,
+        ));
+        _isTyping = false;
+      });
+
+      traceService.addTrace("[Chat] ✓ Real AI response generated");
+      _scrollToBottom();
+    } catch (e) {
+      traceService.addTrace("[Chat ERROR] Gemini failed: $e");
+      
+      setState(() {
+        _messages.add(ChatMessage(
+          text: 'Sorry, I encountered an error connecting to Gemini AI. Please check your Firebase configuration and try again.\n\nError: $e',
+          isUser: false,
+          timestamp: DateTime.now(),
+        ));
+        _isTyping = false;
+      });
+      _scrollToBottom();
+    }
+  }
+
+  String _buildDatabaseContext(TransactionState state) {
+    final buffer = StringBuffer();
+    buffer.writeln('Total Receipts: ${state.receipts.length}');
+    buffer.writeln('Total Spent: \$${state.totalBalance.toStringAsFixed(2)}');
+    buffer.writeln('Total Deductible: \$${state.totalDeductible.toStringAsFixed(2)}');
+    buffer.writeln('\nReceipts:');
+    
+    for (var i = 0; i < state.receipts.length; i++) {
+      final receipt = state.receipts[i];
+      buffer.writeln('${i + 1}. ${receipt.category} - \$${receipt.total.toStringAsFixed(2)}');
+    }
+    
+    final categoryBreakdown = ref.read(transactionProvider.notifier).getCategoryBreakdown();
+    buffer.writeln('\nCategory Breakdown:');
+    categoryBreakdown.forEach((category, amount) {
+      buffer.writeln('- $category: \$${amount.toStringAsFixed(2)}');
+    });
+    
+    return buffer.toString();
+  }
+
+  String _generateLocalResponse(String message, TransactionState state) {
+    final lowerMessage = message.toLowerCase();
+    
+    if (lowerMessage.contains('total') || lowerMessage.contains('spent') || lowerMessage.contains('how much')) {
+      return 'You have spent a total of \$${state.totalBalance.toStringAsFixed(2)} across ${state.receipts.length} receipt(s). '
+          'Your total deductible amount is \$${state.totalDeductible.toStringAsFixed(2)}.';
+    }
+    
+    if (lowerMessage.contains('deduct') || lowerMessage.contains('tax')) {
+      return 'Your total tax-deductible amount is \$${state.totalDeductible.toStringAsFixed(2)}. '
+          'This is calculated using the 50% rule for meals (alcohol excluded).';
+    }
+    
+    if (lowerMessage.contains('receipt') || lowerMessage.contains('transaction')) {
+      if (state.receipts.isEmpty) {
+        return 'You don\'t have any receipts yet. Start by scanning a receipt using the camera feature!';
+      }
+      final buffer = StringBuffer('You have ${state.receipts.length} receipt(s):\n\n');
+      for (var i = 0; i < state.receipts.length; i++) {
+        final receipt = state.receipts[i];
+        buffer.writeln('${i + 1}. ${receipt.category} - \$${receipt.total.toStringAsFixed(2)}');
+      }
+      return buffer.toString();
+    }
+    
+    if (lowerMessage.contains('category') || lowerMessage.contains('breakdown')) {
+      final categoryBreakdown = ref.read(transactionProvider.notifier).getCategoryBreakdown();
+      if (categoryBreakdown.isEmpty) {
+        return 'No expenses recorded yet. Start scanning receipts to see your category breakdown!';
+      }
+      final buffer = StringBuffer('Here\'s your spending by category:\n\n');
+      categoryBreakdown.forEach((category, amount) {
+        buffer.writeln('• $category: \$${amount.toStringAsFixed(2)}');
+      });
+      return buffer.toString();
+    }
+    
+    if (lowerMessage.contains('runway')) {
+      final runway = ref.read(transactionProvider.notifier).calculateRunway(450.0);
+      return 'Based on your current deductible balance of \$${state.totalDeductible.toStringAsFixed(2)} '
+          'and an estimated monthly burn rate of \$450, your runway is approximately ${runway.toStringAsFixed(1)} months.';
+    }
+    
+    return 'I can help you with:\n\n'
+        '• Total spending and deductions\n'
+        '• Receipt history and details\n'
+        '• Category breakdowns\n'
+        '• Runway calculations\n\n'
+        'Try asking: "What\'s my total spending?" or "Show me my receipts"';
+  }
+
+  void _scrollToBottom() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Messages List
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.all(16),
+                itemCount: _messages.length + (_isTyping ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index == _messages.length && _isTyping) {
+                    return _buildTypingIndicator();
+                  }
+                  return _buildMessageBubble(_messages[index], index);
+                },
+              ),
+            ),
+
+            // Input Area
+            FadeInUp(
+              duration: const Duration(milliseconds: 600),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceDark.withOpacity(0.5),
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColors.glassBorder.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceDark,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: AppColors.glassBorder.withOpacity(0.3),
+                            width: 1,
+                          ),
+                        ),
+                        child: TextField(
+                          controller: _textController,
+                          style: const TextStyle(color: AppColors.textPrimary),
+                          decoration: const InputDecoration(
+                            hintText: 'Ask about expenses, taxes, insights...',
+                            hintStyle: TextStyle(color: AppColors.textSecondary),
+                            border: InputBorder.none,
+                          ),
+                          maxLines: null,
+                          textInputAction: TextInputAction.send,
+                          onSubmitted: (_) => _sendMessage(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [AppColors.neonTeal, AppColors.softPurple],
+                        ),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.neonTeal.withOpacity(0.3),
+                            blurRadius: 12,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.send, color: AppColors.background),
+                        onPressed: _sendMessage,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMessageBubble(ChatMessage message, int index) {
+    return FadeInUp(
+      duration: const Duration(milliseconds: 400),
+      delay: Duration(milliseconds: index * 50),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Row(
+          mainAxisAlignment:
+              message.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (!message.isUser) ...[
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppColors.softPurple, AppColors.neonTeal],
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.auto_awesome, color: Colors.white, size: 16),
+              ),
+              const SizedBox(width: 12),
+            ],
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: message.isUser
+                      ? AppColors.neonTeal.withOpacity(0.15)
+                      : AppColors.surfaceDark.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: message.isUser
+                        ? AppColors.neonTeal.withOpacity(0.3)
+                        : AppColors.glassBorder.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      message.text,
+                      style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      _formatTime(message.timestamp),
+                      style: TextStyle(
+                        color: AppColors.textSecondary.withOpacity(0.6),
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            if (message.isUser) ...[
+              const SizedBox(width: 12),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.neonTeal.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.person, color: AppColors.neonTeal, size: 16),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypingIndicator() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.softPurple, AppColors.neonTeal],
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.auto_awesome, color: Colors.white, size: 16),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceDark.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppColors.glassBorder.withOpacity(0.2),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildDot(0),
+                const SizedBox(width: 4),
+                _buildDot(1),
+                const SizedBox(width: 4),
+                _buildDot(2),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDot(int index) {
+    return Flash(
+      infinite: true,
+      delay: Duration(milliseconds: index * 200),
+      duration: const Duration(milliseconds: 600),
+      child: Container(
+        width: 8,
+        height: 8,
+        decoration: const BoxDecoration(
+          color: AppColors.neonTeal,
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+
+  String _formatTime(DateTime time) {
+    final hour = time.hour.toString().padLeft(2, '0');
+    final minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+}
+
+class ChatMessage {
+  final String text;
+  final bool isUser;
+  final DateTime timestamp;
+  final String? thoughtSignature;
+
+  ChatMessage({
+    required this.text,
+    required this.isUser,
+    required this.timestamp,
+    this.thoughtSignature,
+  });
+}
