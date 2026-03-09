@@ -1,6 +1,8 @@
 # NovaLedger AI
 
-**An Autonomous Financial Life Operating System powered by Amazon Nova**
+🏆 **Built for the Amazon Nova AI Hackathon 2026**
+
+**The Autonomous Financial Life Operating System powered by Amazon Nova reasoning, embeddings, and intelligent agents.**
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.10.8-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.10.8-0175C2?logo=dart)](https://dart.dev)
@@ -27,17 +29,69 @@ NovaLedger AI is not just an expense tracker—it's a complete **Financial Life 
 
 ---
 
+## 🚀 Why Amazon Nova Makes This Possible
+
+NovaLedger AI leverages Amazon Nova's unique capabilities to create a truly autonomous financial operating system:
+
+### Nova 2 Lite
+- **Fast reasoning** for financial decision making
+- **Low-cost real-time predictions** for cashflow forecasting
+- **Structured outputs** for reliable automation
+- **Context-aware analysis** of spending patterns
+
+### Nova Multimodal Embeddings
+- **Semantic search** across financial documents
+- **Intelligent retrieval** of tax policies and regulations
+- **Context-aware memory** for personalized finance
+- **Receipt similarity matching** for smart categorization
+
+### Nova Act
+- **Autonomous execution** of financial workflows
+- **Secure automation** of web tasks such as bill payments
+- **Reliable UI navigation** with agent orchestration
+- **Safe action execution** with validation checks
+
+### Nova Multimodal Capabilities
+- **Receipt OCR** via Bedrock vision models
+- **Document analysis** for financial statements
+- **Image understanding** for expense categorization
+
+**Together, these capabilities enable NovaLedger AI to function as a financial co-pilot that not only understands finances but can safely act on them.**
+
+---
+
 ## 🚀 Amazon Nova Integration
 
 ### Why Amazon Nova?
 
-NovaLedger AI leverages the full power of Amazon Nova's AI capabilities:
+NovaLedger AI leverages the complete Amazon Nova stack:
 
-✅ **Nova 2 Lite** - Fast, cost-effective reasoning for financial insights  
-✅ **Nova Pro** - Advanced multimodal analysis for receipt OCR  
-✅ **Nova Embeddings** - Semantic search for financial knowledge  
-✅ **Nova Act** - Autonomous agent execution for workflows  
+✅ **Nova 2 Lite** - Fast, cost-effective reasoning for financial insights and decision synthesis  
+✅ **Nova Multimodal Embeddings** - Semantic search for financial knowledge and tax policies  
+✅ **Nova Act** - Autonomous agent execution for financial workflows  
+✅ **Nova Multimodal Capabilities** - Receipt OCR via Bedrock vision models  
 ✅ **AWS Bedrock** - Secure, scalable AI infrastructure  
+
+### Agentic AI Architecture
+
+```
+User Request
+     │
+     ▼
+NovaFinancialBrain (Nova 2 Lite)
+     │
+     ▼
+NovaAgentOrchestrator
+ ├─ Budget Agent
+ ├─ Tax Agent
+ ├─ Cashflow Agent
+ └─ Execution Agent
+          │
+          ▼
+      Nova Act
+```
+
+**Agents collaborate** to analyze financial data, generate strategies, and safely execute actions. Each agent specializes in a specific domain while the orchestrator coordinates their work to achieve complex financial goals.
 
 ### Nova Architecture
 
@@ -51,8 +105,8 @@ NovaLedger AI leverages the full power of Amazon Nova's AI capabilities:
         │            │            │            │
         ▼            ▼            ▼            ▼
 ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-│ NovaLite     │ │ NovaEmbedding│ │ NovaAgent    │ │ NovaReceipt  │
-│ Service      │ │ Service      │ │ Executor     │ │ Analyzer     │
+│ Nova 2 Lite  │ │ Nova Multi-  │ │ Nova Act     │ │ Nova Vision  │
+│ Service      │ │ modal Embed  │ │ Executor     │ │ Analyzer     │
 │              │ │              │ │              │ │              │
 │ • Reasoning  │ │ • Knowledge  │ │ • Automation │ │ • OCR        │
 │ • Insights   │ │ • Search     │ │ • Workflows  │ │ • Tax Detect │
@@ -63,13 +117,28 @@ NovaLedger AI leverages the full power of Amazon Nova's AI capabilities:
 
 ---
 
+## 💡 Financial Autopilot
+
+NovaLedger AI introduces **Financial Autopilot**, an AI system that continuously optimizes your finances.
+
+The system:
+- **Predicts future cashflow** using Nova 2 Lite reasoning
+- **Adjusts budgets automatically** based on spending patterns
+- **Identifies tax opportunities** through semantic policy search
+- **Executes safe financial actions** via Nova Act agents
+- **Learns from your behavior** to personalize recommendations
+
+All powered by Amazon Nova reasoning and intelligent agents working together 24/7.
+
+---
+
 ## ✨ Key Features
 
 ### 1. Nova-Powered Receipt Intelligence
-- 📸 **Smart Receipt Scanning** - Nova Pro multimodal OCR
+- 📸 **Smart Receipt Scanning** - Nova multimodal OCR via Bedrock vision models
 - 🧾 **Automatic Tax Deductions** - AI-powered deduction detection
-- 🏷️ **Smart Categorization** - Nova embeddings for similarity matching
-- 💰 **Expense Classification** - Nova Lite reasoning for categories
+- 🏷️ **Smart Categorization** - Nova multimodal embeddings for similarity matching
+- 💰 **Expense Classification** - Nova 2 Lite reasoning for categories
 
 ### 2. Autonomous Financial Decision Engine
 - 🤖 **Auto-Execute Safe Actions** - 30% of decisions run autonomously
@@ -84,16 +153,56 @@ NovaLedger AI leverages the full power of Amazon Nova's AI capabilities:
 - 🔄 **Subscription Management** - Cancel, pause, or update subscriptions
 
 ### 4. Intelligent Knowledge Retrieval
-- 🔎 **Semantic Search** - Nova embeddings for financial knowledge
+- 🔎 **Semantic Search** - Nova multimodal embeddings for financial knowledge
 - 📚 **Tax Policy Search** - Find relevant tax deductions
 - 🧠 **Memory Retrieval** - Context-aware financial memory
 - 📄 **Document Search** - Search through financial documents
 
 ### 5. Conversational AI Assistant
-- 💬 **Natural Language Chat** - Nova Lite powered conversations
-- 🎤 **Voice Input** - Speech-to-text integration
+- 💬 **Natural Language Chat** - Nova 2 Lite powered conversations
+- 🎤 **Voice Input** - Speech-to-text integration (Nova 2 Sonic ready)
 - 🧩 **Context Awareness** - Remembers financial context
 - 💡 **Proactive Suggestions** - AI-driven recommendations
+
+---
+
+## 🎬 Hackathon Demo Flow
+
+**Experience NovaLedger AI in action:**
+
+### Step 1: Receipt Scan
+User scans a restaurant receipt.
+
+**Nova Action:**
+- NovaLedger AI extracts vendor, amount, and tax category using multimodal vision
+- The AI updates the user's financial model in real-time
+
+### Step 2: Financial Analysis
+The system analyzes the impact on monthly cashflow.
+
+**Nova 2 Lite Reasoning:**
+- Predicts a potential shortfall
+- AI forecasts a negative balance in 10 days
+- Identifies the root cause: dining overspending
+
+### Step 3: Strategy Generation
+NovaLedger suggests optimization.
+
+**Multi-Agent Collaboration:**
+- Budget Agent: Reduce dining by 15%
+- Cashflow Agent: Delay non-essential subscription
+- Tax Agent: Identify deductible expenses
+
+### Step 4: Autonomous Execution
+User approves the strategy.
+
+**Nova Act Automation:**
+- Automatically updates the budget
+- Schedules a payment reminder
+- Adjusts subscription renewal date
+- Logs all actions in audit trail
+
+**Result:** Financial crisis averted autonomously with full transparency.
 
 ---
 
@@ -103,9 +212,9 @@ NovaLedger AI leverages the full power of Amazon Nova's AI capabilities:
 
 **AI & Intelligence (Amazon Nova)**
 - **Nova 2 Lite** - Financial reasoning and chat
-- **Nova Pro** - Multimodal receipt analysis
-- **Nova Embeddings (Titan)** - Semantic search and retrieval
+- **Nova Multimodal Embeddings** - Semantic search and retrieval
 - **Nova Act** - Autonomous agent execution
+- **Nova Multimodal Capabilities** - Receipt OCR via Bedrock vision models
 - **AWS Bedrock** - Managed AI infrastructure
 
 **Frontend & Framework**
@@ -210,9 +319,9 @@ flutter run -d iPhone        # iOS
 ### Scenario 1: Smart Receipt Processing
 ```
 1. User scans restaurant receipt
-2. Nova Pro analyzes image (OCR + multimodal)
+2. Nova multimodal vision analyzes image (OCR)
 3. Extracts: vendor, amount, items, tax
-4. Nova Lite determines 50% meal deduction
+4. Nova 2 Lite determines 50% meal deduction
 5. Nova Embeddings finds similar past receipts
 6. Auto-categorizes and saves
 7. Updates financial dashboard
@@ -221,7 +330,7 @@ flutter run -d iPhone        # iOS
 ### Scenario 2: Autonomous Bill Payment
 ```
 1. User says: "Pay my electricity bill"
-2. Nova Lite parses intent
+2. Nova 2 Lite parses intent
 3. NovaAgent retrieves bill details
 4. Nova Act opens utility website
 5. Fills payment form automatically
@@ -232,7 +341,7 @@ flutter run -d iPhone        # iOS
 ### Scenario 3: Cashflow Prediction
 ```
 1. User asks: "Will I have enough for rent?"
-2. Nova Lite analyzes transaction history
+2. Nova 2 Lite analyzes transaction history
 3. Forecasts 30-day cashflow
 4. Identifies potential shortfall
 5. Suggests spending adjustments
@@ -243,11 +352,41 @@ flutter run -d iPhone        # iOS
 ```
 1. System detects tax season approaching
 2. Nova Embeddings searches tax policies
-3. Nova Lite analyzes deductible expenses
+3. Nova 2 Lite analyzes deductible expenses
 4. Generates optimization strategy
 5. Estimates tax savings
 6. Creates action plan
 ```
+
+---
+
+## 🌍 Community Impact
+
+NovaLedger AI makes intelligent financial planning accessible to everyone:
+
+### Who We Help
+
+**Freelancers & Gig Workers**
+- Manage unpredictable income streams
+- Automate quarterly tax estimates
+- Track business expenses effortlessly
+
+**Small Business Owners**
+- Automate expense management
+- Optimize cash flow for growth
+- Reduce accounting overhead
+
+**Families**
+- Build better financial habits together
+- Achieve savings goals faster
+- Plan for major life events
+
+**Underserved Communities**
+- Access to AI-powered financial advice
+- Free financial literacy through AI education
+- Mobile-first design for global reach
+
+By reducing the complexity of financial management, NovaLedger AI democratizes access to sophisticated financial intelligence that was previously available only to the wealthy.
 
 ---
 
@@ -274,7 +413,7 @@ flutter run -d iPhone        # iOS
    - Workflow execution
 
 4. **NovaReceiptAnalyzer** - Receipt intelligence
-   - Multimodal OCR
+   - Multimodal OCR via Bedrock vision
    - Expense classification
    - Tax deduction detection
    - Category mapping
@@ -287,14 +426,39 @@ flutter run -d iPhone        # iOS
 
 ### Financial Intelligence Systems
 
-- **NovaFinancialBrain** - Master orchestrator
+- **NovaFinancialBrain** - Master orchestrator with Nova 2 Lite
 - **CashflowPredictor** - 30-day balance forecasting
-- **TaxOptimizer** - Deduction planning
+- **TaxOptimizer** - Deduction planning with semantic search
 - **AnomalyDetector** - Unusual pattern detection
 - **BudgetAutopilot** - Auto-adjusting budgets
 - **GoalAutopilot** - Automatic goal tracking
 - **RiskEngine** - Financial risk assessment
 - **DecisionSynthesizer** - Actionable decision generation
+
+### Multi-Agent System
+
+**Agent Collaboration Architecture:**
+```
+NovaFinancialBrain (Orchestrator)
+    │
+    ├─ Budget Agent
+    │   └─ Monitors spending vs budget
+    │   └─ Suggests adjustments
+    │
+    ├─ Tax Agent
+    │   └─ Searches tax policies (Nova Embeddings)
+    │   └─ Identifies deductions
+    │
+    ├─ Cashflow Agent
+    │   └─ Predicts future balance (Nova 2 Lite)
+    │   └─ Alerts on shortfalls
+    │
+    └─ Execution Agent
+        └─ Executes approved actions (Nova Act)
+        └─ Maintains audit trail
+```
+
+Each agent specializes in a domain while collaborating to achieve complex financial goals.
 
 ---
 
@@ -304,9 +468,9 @@ flutter run -d iPhone        # iOS
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| Receipt Analysis | 400-600ms | Nova Pro multimodal |
-| Chat Response | 200-400ms | Nova Lite reasoning |
-| Knowledge Search | 100-200ms | Nova embeddings |
+| Receipt Analysis | 400-600ms | Nova multimodal vision |
+| Chat Response | 200-400ms | Nova 2 Lite reasoning |
+| Knowledge Search | 100-200ms | Nova multimodal embeddings |
 | Agent Execution | 1-3s | Nova Act automation |
 | Success Rate | 98.5% | Overall AI accuracy |
 | Auto-Approval Rate | 87% | Receipts auto-approved |
@@ -315,8 +479,8 @@ flutter run -d iPhone        # iOS
 
 | Service | Monthly Cost | Notes |
 |---------|--------------|-------|
-| Nova Lite | $0.50 | 100 requests/day |
-| Nova Pro | $1.20 | 50 receipts/month |
+| Nova 2 Lite | $0.50 | 100 requests/day |
+| Nova Multimodal Vision | $1.20 | 50 receipts/month |
 | Nova Embeddings | $0.30 | 200 searches/month |
 | Nova Act | $0.80 | 20 automations/month |
 | AWS Storage | $0.20 | S3 + DynamoDB |
@@ -378,9 +542,9 @@ flutter run -d iPhone        # iOS
 ## 🗺️ Roadmap
 
 ### Phase 1: Core Nova Integration ✅
-- [x] Nova Lite reasoning engine
-- [x] Nova Pro receipt analysis
-- [x] Nova embeddings search
+- [x] Nova 2 Lite reasoning engine
+- [x] Nova multimodal vision for receipt analysis
+- [x] Nova multimodal embeddings search
 - [x] Nova Act automation
 - [x] AWS Bedrock integration
 
@@ -390,6 +554,7 @@ flutter run -d iPhone        # iOS
 - [ ] Real-time market insights
 - [ ] Advanced tax optimization
 - [ ] Predictive life event detection
+- [ ] Nova 2 Sonic voice integration
 
 ### Phase 3: Enterprise Features 📋
 - [ ] Team collaboration
@@ -403,28 +568,34 @@ flutter run -d iPhone        # iOS
 ## 🏆 What Makes NovaLedger AI Unique
 
 ### 1. Full Amazon Nova Stack
-- **Complete Integration** - Uses all Nova capabilities
+- **Complete Integration** - Uses Nova 2 Lite, Multimodal Embeddings, and Nova Act
 - **Optimized Performance** - Right model for right task
 - **Cost-Effective** - Intelligent model selection
 - **Scalable** - Built on AWS Bedrock
 
 ### 2. Truly Autonomous
-- **Self-Learning** - Adapts to user behavior
-- **Proactive** - Predicts issues before they happen
-- **Auto-Execution** - 30% of decisions run autonomously
-- **Agent-Driven** - Nova Act for workflow automation
+- **Self-Learning** - Adapts to user behavior via embeddings
+- **Proactive** - Predicts issues before they happen with Nova 2 Lite
+- **Auto-Execution** - 30% of decisions run autonomously via Nova Act
+- **Agent-Driven** - Multi-agent collaboration for complex tasks
 
 ### 3. Intelligent & Transparent
 - **NovaTrace** - Shows AI reasoning in real-time
 - **Explainable** - Full context for every decision
 - **Auditable** - Complete compliance trail
-- **Grounded** - Factual answers with sources
+- **Grounded** - Factual answers with semantic search
 
 ### 4. Production-Ready
 - **Comprehensive** - 60+ AI systems
 - **Robust** - Error handling and fallbacks
 - **Secure** - Bank-grade security
 - **Scalable** - Cloud-native architecture
+
+### 5. Agentic AI Excellence
+- **Multi-Agent Coordination** - Specialized agents work together
+- **Autonomous Workflows** - End-to-end task execution
+- **Safe Automation** - Validation and approval gates
+- **Continuous Learning** - Agents improve over time
 
 ---
 
@@ -437,10 +608,11 @@ flutter run -d iPhone        # iOS
 - 🔍 **Reduce tax liability by 10-15%** with smart deductions
 
 ### Technical Innovation
-- 🚀 **First financial OS** powered entirely by Amazon Nova
-- 🤖 **Advanced agentic AI** with multi-agent coordination
-- 🧠 **Continuous learning** system that improves over time
-- 🔄 **Autonomous execution** with safety guarantees
+- 🚀 **First financial OS** powered entirely by Amazon Nova stack
+- 🤖 **Advanced agentic AI** with multi-agent coordination and collaboration
+- 🧠 **Continuous learning** system that improves over time via embeddings
+- 🔄 **Autonomous execution** with safety guarantees via Nova Act
+- 🎯 **Intelligent orchestration** of specialized financial agents
 
 ### Social Impact
 - 🌍 **Financial literacy** through AI education
@@ -492,14 +664,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 NovaLedger AI is a **world-class AI-powered financial intelligence platform** that demonstrates the full power of Amazon Nova:
 
-1. **Understands** finances with Nova Lite reasoning
+1. **Understands** finances with Nova 2 Lite reasoning
 2. **Predicts** outcomes with AI forecasting
 3. **Recommends** strategies with intelligent analysis
 4. **Executes** actions with Nova Act automation
-5. **Learns** continuously from behavior
-6. **Searches** knowledge with Nova embeddings
+5. **Learns** continuously from behavior via embeddings
+6. **Searches** knowledge with Nova multimodal embeddings
 7. **Automates** workflows with multi-agent systems
 8. **Protects** with bank-grade security
+9. **Collaborates** through specialized agent coordination
+10. **Optimizes** financial decisions 24/7 on autopilot
 
 **It's not just an app—it's your personal Financial Life OS powered by Amazon Nova! 🚀**
 
