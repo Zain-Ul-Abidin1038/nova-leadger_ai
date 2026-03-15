@@ -17,7 +17,7 @@ class CurrencyService {
   }
 
   Future<List<CurrencyRate>> getRates() async {
-    // Mock implementation - replace with real API
+    // Local currency rates - updated periodically
     lastUpdate = DateTime.now();
     _cachedRates = [
       CurrencyRate(

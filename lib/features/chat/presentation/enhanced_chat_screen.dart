@@ -50,7 +50,7 @@ class _EnhancedChatScreenState extends ConsumerState<EnhancedChatScreen> {
     final aiParser = ref.read(aiFinanceParserProvider);
 
     traceService.addTrace("[Chat] User: $message");
-    traceService.addTrace("[Chat] Parsing with Nova API (GCP)...");
+    traceService.addTrace("[Chat] Parsing with Nova AI via AWS Bedrock...");
 
     try {
       // Use AI to parse and execute financial command

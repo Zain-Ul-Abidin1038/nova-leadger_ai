@@ -126,7 +126,7 @@ class HomeScreen extends ConsumerWidget {
               duration: const Duration(milliseconds: 800),
               delay: const Duration(milliseconds: 1200),
               child: GlassNotification(
-                title: 'GHOST TRACE • LIVE REASONING',
+                title: 'NOVA TRACE • LIVE REASONING',
                 message: traceText,
                 icon: Icons.biotech_outlined,
                 accentColor: secondaryAccent,
@@ -198,7 +198,7 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'GHOST ACCOUNTANT',
+                  'FINANCE OS',
                   style: TextStyle(
                     color: accentColor,
                     fontSize: 12,
@@ -640,7 +640,7 @@ class HomeScreen extends ConsumerWidget {
                       Icon(Icons.visibility_outlined, color: accentColor, size: 28),
                       const SizedBox(height: 8),
                       Text(
-                        'VISION GHOST',
+                        'NOVA VISION',
                         style: TextStyle(
                           color: accentColor,
                           fontSize: 11,
@@ -680,7 +680,7 @@ class HomeScreen extends ConsumerWidget {
                       Icon(Icons.smart_toy_outlined, color: secondaryAccent, size: 28),
                       const SizedBox(height: 8),
                       Text(
-                        'GHOST NAVIGATOR',
+                        'NOVA NAVIGATOR',
                         style: TextStyle(
                           color: secondaryAccent,
                           fontSize: 11,
@@ -723,7 +723,7 @@ class HomeScreen extends ConsumerWidget {
                 Icon(Icons.chat_bubble_outline, color: secondaryAccent, size: 22),
                 const SizedBox(width: 12),
                 Text(
-                  'CHAT WITH GHOST AI',
+                  'CHAT WITH NOVA AI',
                   style: TextStyle(
                     color: secondaryAccent,
                     fontSize: 14,

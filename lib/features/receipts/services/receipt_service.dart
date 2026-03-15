@@ -10,7 +10,7 @@ import 'package:geolocator/geolocator.dart';
 
 final receiptServiceProvider = Provider((ref) => ReceiptService(ref));
 
-/// Receipt Service with Nova API (GCP) + AWS Memory Pipeline
+/// Receipt Service with Nova AI (AWS Bedrock) + AWS Memory Pipeline
 class ReceiptService {
   final Ref _ref;
   
@@ -66,7 +66,7 @@ class ReceiptService {
     final base64Image = base64Encode(imageBytes);
     await Future.delayed(const Duration(milliseconds: 200));
     
-    // Step 5: Call Nova API (GCP) with memory context
+    // Step 5: Call Nova AI (AWS Bedrock) with memory context
     traceService.addTrace("[Nova Agent] 🤖 Analyzing with Nova API...");
     final analysisResult = await novaService.analyzeReceiptImage(
       base64Image: base64Image,

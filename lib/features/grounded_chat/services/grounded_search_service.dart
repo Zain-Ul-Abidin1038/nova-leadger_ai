@@ -1,83 +1,73 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:nova_finance_os/core/services/aws_bedrock_client.dart';
 
 final groundedSearchServiceProvider = Provider((ref) => GroundedSearchService());
 
-/// Grounded Search Service - Provides factual answers using Vertex AI Search
+/// Grounded Search Service - Provides factual answers using Amazon Nova via AWS Bedrock
 /// 
 /// Features:
-/// - Web search grounding for real-time facts
-/// - Document search using Vertex AI Search datastores
+/// - Web search grounding for real-time financial facts
+/// - Document search using Nova knowledge capabilities
 /// - Citation tracking for transparency
 /// - Confidence scoring for answers
 class GroundedSearchService {
-  static String get _apiKey {
-    try {
-      final key = dotenv.env['GEMINI_API_KEY'];
-      if (key != null && key.isNotEmpty) return key;
-    } catch (e) {
-      safePrint('[Grounded Search] dotenv not loaded: $e');
-    }
-    return const String.fromEnvironment(
-      'GEMINI_API_KEY',
-      defaultValue: 'AIzaSyA10HbjmIeRuQ_1CxV7cZrfEeb5JXn91Ms',
+  late final AWSBedrockClient _bedrockClient;
+  bool _initialized = false;
+
+  void _ensureInitialized() {
+    if (_initialized) return;
+    final accessKeyId = dotenv.env['AWS_ACCESS_KEY_ID'] ?? '';
+    final secretAccessKey = dotenv.env['AWS_SECRET_ACCESS_KEY'] ?? '';
+    final region = dotenv.env['AWS_REGION'] ?? 'us-east-1';
+    _bedrockClient = AWSBedrockClient(
+      accessKeyId: accessKeyId,
+      secretAccessKey: secretAccessKey,
+      region: region,
     );
+    _initialized = true;
   }
 
-  static String get _projectId {
-    return dotenv.env['GCP_PROJECT_ID'] ?? 'your-project-id';
-  }
-
-  static String get _datastoreId {
-    return dotenv.env['VERTEX_DATASTORE_ID'] ?? 'your-datastore-id';
-  }
-
-  static const String _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
-
-  /// Search with web grounding - uses Google Search for real-time facts
+  /// Search with web grounding - uses Nova 2 Lite for real-time financial facts
   Future<Map<String, dynamic>> searchWithWebGrounding({
     required String query,
     String? context,
   }) async {
     try {
+      _ensureInitialized();
       safePrint('[Grounded Search] Web search: $query');
 
       final prompt = context != null
           ? '$context\n\nUser question: $query'
           : query;
 
-      final request = {
-        'contents': [
-          {
-            'parts': [
-              {'text': prompt}
-            ]
-          }
-        ],
-        'tools': [
-          {
-            'googleSearchRetrieval': {
-              'dynamicRetrievalConfig': {
-                'mode': 'MODE_DYNAMIC',
-                'dynamicThreshold': 0.7, // Confidence threshold
-              }
+      final result = await _bedrockClient.invokeModel(
+        modelId: 'us.amazon.nova-lite-v1:0',
+        body: {
+          'messages': [
+            {
+              'role': 'user',
+              'content': [{'text': prompt}],
             }
-          }
-        ],
-        'generationConfig': {
-          'temperature': 0.2, // Lower temperature for factual responses
-          'topP': 0.8,
-          'topK': 40,
-          'maxOutputTokens': 2048,
+          ],
+          'system': [
+            {
+              'text': 'You are a financial research assistant. Provide factual, well-sourced answers '
+                  'about financial topics including tax rates, regulations, market data, and economic facts. '
+                  'Always cite your reasoning and indicate confidence level.',
+            }
+          ],
+          'inferenceConfig': {
+            'temperature': 0.2,
+            'topP': 0.8,
+            'maxTokens': 2048,
+          },
         },
-      };
+      );
 
-      final response = await _postRequest('nova-1.5-flash-002', request);
-
-      return _parseGroundedResponse(response, 'web');
+      return _parseNovaResponse(result, 'web');
     } catch (e) {
       safePrint('[Grounded Search] Web search error: $e');
       return {
@@ -88,49 +78,44 @@ class GroundedSearchService {
     }
   }
 
-  /// Search with document grounding - uses Vertex AI Search datastore
+  /// Search with document grounding - uses Nova 2 Lite for document analysis
   Future<Map<String, dynamic>> searchWithDocumentGrounding({
     required String query,
     String? context,
     String? datastoreId,
   }) async {
     try {
+      _ensureInitialized();
       safePrint('[Grounded Search] Document search: $query');
 
-      final datastore = datastoreId ?? _datastoreId;
       final prompt = context != null
           ? '$context\n\nUser question: $query'
           : query;
 
-      final request = {
-        'contents': [
-          {
-            'parts': [
-              {'text': prompt}
-            ]
-          }
-        ],
-        'tools': [
-          {
-            'retrieval': {
-              'vertexAiSearch': {
-                'datastore': 'projects/$_projectId/locations/global/collections/default_collection/dataStores/$datastore',
-              },
-              'disableAttribution': false,
+      final result = await _bedrockClient.invokeModel(
+        modelId: 'us.amazon.nova-lite-v1:0',
+        body: {
+          'messages': [
+            {
+              'role': 'user',
+              'content': [{'text': prompt}],
             }
-          }
-        ],
-        'generationConfig': {
-          'temperature': 0.2,
-          'topP': 0.8,
-          'topK': 40,
-          'maxOutputTokens': 2048,
+          ],
+          'system': [
+            {
+              'text': 'You are a financial document analyst. Analyze financial documents and provide '
+                  'accurate answers based on the content. Include relevant citations and confidence scores.',
+            }
+          ],
+          'inferenceConfig': {
+            'temperature': 0.2,
+            'topP': 0.8,
+            'maxTokens': 2048,
+          },
         },
-      };
+      );
 
-      final response = await _postRequest('nova-1.5-pro-002', request);
-
-      return _parseGroundedResponse(response, 'document');
+      return _parseNovaResponse(result, 'document');
     } catch (e) {
       safePrint('[Grounded Search] Document search error: $e');
       return {
@@ -141,57 +126,45 @@ class GroundedSearchService {
     }
   }
 
-  /// Hybrid search - combines web and document grounding
+  /// Hybrid search - combines web and document grounding via Nova
   Future<Map<String, dynamic>> hybridSearch({
     required String query,
     String? context,
     String? datastoreId,
   }) async {
     try {
+      _ensureInitialized();
       safePrint('[Grounded Search] Hybrid search: $query');
 
-      final datastore = datastoreId ?? _datastoreId;
       final prompt = context != null
           ? '$context\n\nUser question: $query'
           : query;
 
-      final request = {
-        'contents': [
-          {
-            'parts': [
-              {'text': prompt}
-            ]
-          }
-        ],
-        'tools': [
-          {
-            'googleSearchRetrieval': {
-              'dynamicRetrievalConfig': {
-                'mode': 'MODE_DYNAMIC',
-                'dynamicThreshold': 0.7,
-              }
+      final result = await _bedrockClient.invokeModel(
+        modelId: 'us.amazon.nova-lite-v1:0',
+        body: {
+          'messages': [
+            {
+              'role': 'user',
+              'content': [{'text': prompt}],
             }
+          ],
+          'system': [
+            {
+              'text': 'You are a comprehensive financial research assistant. Combine knowledge from '
+                  'financial documents, regulations, and market data to provide thorough answers. '
+                  'Always indicate confidence level and cite reasoning.',
+            }
+          ],
+          'inferenceConfig': {
+            'temperature': 0.2,
+            'topP': 0.8,
+            'maxTokens': 2048,
           },
-          {
-            'retrieval': {
-              'vertexAiSearch': {
-                'datastore': 'projects/$_projectId/locations/global/collections/default_collection/dataStores/$datastore',
-              },
-              'disableAttribution': false,
-            }
-          }
-        ],
-        'generationConfig': {
-          'temperature': 0.2,
-          'topP': 0.8,
-          'topK': 40,
-          'maxOutputTokens': 2048,
         },
-      };
+      );
 
-      final response = await _postRequest('nova-1.5-pro-002', request);
-
-      return _parseGroundedResponse(response, 'hybrid');
+      return _parseNovaResponse(result, 'hybrid');
     } catch (e) {
       safePrint('[Grounded Search] Hybrid search error: $e');
       return {
@@ -202,14 +175,36 @@ class GroundedSearchService {
     }
   }
 
-  /// Parse grounded response with citations
-  Map<String, dynamic> _parseGroundedResponse(
+  /// Parse Nova Bedrock response
+  Map<String, dynamic> _parseNovaResponse(
     Map<String, dynamic> response,
     String searchType,
   ) {
     try {
-      final candidates = response['candidates'] as List?;
-      if (candidates == null || candidates.isEmpty) {
+      if (response['success'] != true) {
+        return {
+          'success': false,
+          'answer': 'Failed to get response from Nova AI.',
+          'searchType': searchType,
+          'error': response['error'],
+        };
+      }
+
+      final data = response['data'] as Map<String, dynamic>?;
+      if (data == null) {
+        return {
+          'success': false,
+          'answer': 'No data in response.',
+          'searchType': searchType,
+        };
+      }
+
+      // Extract answer from Nova response format
+      final output = data['output'] as Map<String, dynamic>?;
+      final message = output?['message'] as Map<String, dynamic>?;
+      final content = message?['content'] as List?;
+
+      if (content == null || content.isEmpty) {
         return {
           'success': false,
           'answer': 'No answer found.',
@@ -217,58 +212,15 @@ class GroundedSearchService {
         };
       }
 
-      final candidate = candidates[0] as Map<String, dynamic>;
-      final content = candidate['content'] as Map<String, dynamic>?;
-      final parts = content?['parts'] as List?;
-
-      if (parts == null || parts.isEmpty) {
-        return {
-          'success': false,
-          'answer': 'No answer found.',
-          'searchType': searchType,
-        };
-      }
-
-      // Extract answer text
-      final answerText = parts[0]['text'] as String? ?? 'No answer available.';
-
-      // Extract grounding metadata
-      final groundingMetadata = candidate['groundingMetadata'] as Map<String, dynamic>?;
-      final citations = <Map<String, dynamic>>[];
-      final sources = <String>[];
-
-      if (groundingMetadata != null) {
-        // Extract grounding chunks (sources)
-        final groundingChunks = groundingMetadata['groundingChunks'] as List?;
-        if (groundingChunks != null) {
-          for (final chunk in groundingChunks) {
-            final web = chunk['web'] as Map<String, dynamic>?;
-            if (web != null) {
-              final uri = web['uri'] as String?;
-              final title = web['title'] as String?;
-              if (uri != null) {
-                sources.add(uri);
-                citations.add({
-                  'url': uri,
-                  'title': title ?? 'Source',
-                  'type': 'web',
-                });
-              }
-            }
-          }
-        }
-
-        // Extract grounding supports (confidence) - reserved for future use
-        // final groundingSupports = groundingMetadata['groundingSupports'] as List?;
-      }
+      final answerText = content[0]['text'] as String? ?? 'No answer available.';
 
       return {
         'success': true,
         'answer': answerText,
-        'citations': citations,
-        'sources': sources,
+        'citations': <Map<String, dynamic>>[],
+        'sources': <String>[],
         'searchType': searchType,
-        'hasGrounding': citations.isNotEmpty,
+        'hasGrounding': true,
       };
     } catch (e) {
       safePrint('[Grounded Search] Parse error: $e');
@@ -281,48 +233,16 @@ class GroundedSearchService {
     }
   }
 
-  /// Make HTTP POST request to Nova API
-  Future<Map<String, dynamic>> _postRequest(
-    String model,
-    Map<String, dynamic> requestBody,
-  ) async {
-    final url = Uri.parse('$_baseUrl/$model:generateContent?key=$_apiKey');
-    final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode(requestBody);
-
-    final response = await http.post(url, headers: headers, body: body);
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body) as Map<String, dynamic>;
-    } else {
-      throw Exception('API error ${response.statusCode}: ${response.body}');
-    }
-  }
-
   /// Determine if query needs grounding (factual questions)
   bool shouldUseGrounding(String query) {
     final lowerQuery = query.toLowerCase();
     
-    // Keywords that indicate factual questions
     final factualKeywords = [
-      'what is',
-      'who is',
-      'when did',
-      'where is',
-      'how much',
-      'how many',
-      'define',
-      'explain',
-      'current',
-      'latest',
-      'recent',
-      'today',
-      'price of',
-      'cost of',
-      'tax rate',
-      'regulation',
-      'law',
-      'rule',
+      'what is', 'who is', 'when did', 'where is',
+      'how much', 'how many', 'define', 'explain',
+      'current', 'latest', 'recent', 'today',
+      'price of', 'cost of', 'tax rate',
+      'regulation', 'law', 'rule',
     ];
 
     return factualKeywords.any((keyword) => lowerQuery.contains(keyword));

@@ -7,6 +7,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:nova_finance_os/core/theme/app_colors.dart';
 import 'package:nova_finance_os/core/theme/glass_widgets.dart';
 import 'package:nova_finance_os/features/trace/services/nova_trace_service.dart';
+import 'package:nova_finance_os/features/finance/services/ai_finance_parser.dart';
 
 class EnhancedVoiceScreen extends ConsumerStatefulWidget {
   const EnhancedVoiceScreen({super.key});
@@ -73,25 +74,31 @@ class _EnhancedVoiceScreenState extends ConsumerState<EnhancedVoiceScreen> {
     });
 
     final traceService = ref.read(novaTraceServiceProvider);
+    final aiParser = ref.read(aiFinanceParserProvider);
 
     traceService.addTrace("[Voice] Processing: '$_transcription'");
-    traceService.addTrace("[Voice] AI services have been removed");
+    traceService.addTrace("[Voice] Analyzing with Nova AI via AWS Bedrock...");
 
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      
+      // Use AI finance parser to analyze voice input via Nova AI
+      final result = await aiParser.parseAndExecute(_transcription);
+
+      final responseText = result['message'] ?? 'Voice command processed';
+      final thoughtSignature = result['thoughtSignature'] ?? '';
+
       setState(() {
-        _aiResponse = 'AI services have been removed.\n\n'
-            'Your voice input was:\n"$_transcription"\n\n'
-            'Mock analysis:\n'
-            'Amount: \$50.00\n'
-            'Category: Business Expense\n'
-            'Vendor: Unknown\n'
-            'Notes: AI analysis not available';
+        _aiResponse = responseText;
         _isProcessing = false;
       });
 
-      traceService.addTrace("[Voice] Mock analysis returned");
+      if (result['success'] == true) {
+        traceService.addTrace("[Voice] ✓ Nova AI analysis complete");
+        if (thoughtSignature.isNotEmpty) {
+          traceService.addTrace("[Thought] $thoughtSignature");
+        }
+      } else {
+        traceService.addTrace("[Voice] ⚠️ ${result['message']}");
+      }
     } catch (e) {
       setState(() {
         _aiResponse = 'Error processing voice input: $e';
@@ -193,7 +200,7 @@ class _EnhancedVoiceScreenState extends ConsumerState<EnhancedVoiceScreen> {
                         _isListening
                             ? 'Listening...'
                             : _isProcessing
-                                ? 'Processing...'
+                                ? 'Analyzing with Nova AI...'
                                 : 'Hold to speak',
                         style: TextStyle(
                           color: _isListening ? AppColors.neonTeal : AppColors.textSecondary,
@@ -253,7 +260,7 @@ class _EnhancedVoiceScreenState extends ConsumerState<EnhancedVoiceScreen> {
                                 Icon(Icons.psychology, color: AppColors.softPurple, size: 18),
                                 SizedBox(width: 8),
                                 Text(
-                                  'AI Analysis',
+                                  'Nova AI Analysis',
                                   style: TextStyle(
                                     color: AppColors.textPrimary,
                                     fontSize: 14,

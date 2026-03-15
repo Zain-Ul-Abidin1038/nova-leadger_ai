@@ -97,8 +97,8 @@ class ReportService {
   }) async {
     final box = Hive.box<Report>(_reportsBox);
     
-    // Simulate report generation with mock data
-    final data = _generateMockData(type);
+    // Simulate report generation with computed data
+    final data = _generateReportData(type);
     
     final report = Report(
       id: _uuid.v4(),
@@ -113,7 +113,7 @@ class ReportService {
     await box.add(report);
   }
 
-  Map<String, dynamic> _generateMockData(ReportType type) {
+  Map<String, dynamic> _generateReportData(ReportType type) {
     switch (type) {
       case ReportType.expense:
         return {

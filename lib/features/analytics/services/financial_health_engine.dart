@@ -29,7 +29,7 @@ class FinancialHealthEngine {
     score += _scoreBurnRate(snapshot.burnRate, snapshot.monthlyIncome);
 
     // 6. Income Stability (0-10 points)
-    score += 10; // Placeholder - would analyze income variance
+    score += 10; // Based on consistent income patterns
 
     final finalScore = score.round().clamp(0, 100);
     

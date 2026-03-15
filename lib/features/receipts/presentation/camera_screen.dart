@@ -137,7 +137,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
           if (receipt.thoughtSignature != null) ...[
             const SizedBox(height: 24),
             GlassNotification(
-              title: 'GHOST REASONING',
+              title: 'NOVA REASONING',
               message: receipt.thoughtSignature!,
               icon: Icons.psychology_outlined,
               accentColor: secondaryAccent,
@@ -261,7 +261,7 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                       CircularProgressIndicator(color: accentColor),
                       const SizedBox(height: 24),
                       Text(
-                        'ANALYZING WITH GHOST EYES...',
+                        'ANALYZING WITH NOVA VISION...',
                         style: TextStyle(
                           color: accentColor,
                           fontSize: 12,

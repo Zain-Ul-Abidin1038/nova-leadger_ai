@@ -11,7 +11,7 @@ class NovaTestScreen extends ConsumerStatefulWidget {
 
 class _NovaTestScreenState extends ConsumerState<NovaTestScreen> {
   final TextEditingController _controller = TextEditingController();
-  String _response = "Ask something...";
+  String _response = "Ask Finance OS anything...";
   bool _isLoading = false;
 
   void _send() async {
@@ -19,11 +19,10 @@ class _NovaTestScreenState extends ConsumerState<NovaTestScreen> {
 
     setState(() {
       _isLoading = true;
-      _response = "Thinking (High Level)...";
+      _response = "Nova 2 Lite is thinking...";
     });
 
     final novaService = ref.read(novaServiceProvider);
-    // Use sendRawMessage to test the user's specific logic
     final result = await novaService.sendRawMessage(prompt: _controller.text);
 
     if (mounted) {
@@ -37,7 +36,7 @@ class _NovaTestScreenState extends ConsumerState<NovaTestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Nova 3 Pro Thinking")),
+      appBar: AppBar(title: const Text("Nova 2 Lite - AWS Bedrock")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -53,7 +52,7 @@ class _NovaTestScreenState extends ConsumerState<NovaTestScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: const InputDecoration(
-                      hintText: "Enter a complex math or logic problem",
+                      hintText: "Ask a financial question...",
                       border: OutlineInputBorder(),
                     ),
                   ),

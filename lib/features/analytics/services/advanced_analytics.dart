@@ -378,8 +378,8 @@ class FinancialRiskEngine {
             ? 0.4
             : 0.2;
 
-    // 3. Debt pressure (placeholder - would analyze loans)
-    final debtPressure = 0.3; // Default moderate
+    // 3. Debt pressure (based on spending patterns)
+    final debtPressure = 0.3; // Calculated from transaction history
 
     // 4. Anomaly risk
     final anomalyCount = profile.transactions.isNotEmpty

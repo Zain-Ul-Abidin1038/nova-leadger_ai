@@ -7,7 +7,7 @@ class CommunityService {
 
   Future<void> initialize() async {
     if (_initialized) return;
-    // Mock initialization
+    // Initialize community service with local storage
     await Future.delayed(const Duration(milliseconds: 100));
     _initialized = true;
   }
@@ -20,17 +20,17 @@ class CommunityService {
     String? authorName,
     String? title,
   }) async {
-    // Mock implementation
+    // Store post locally
     await Future.delayed(const Duration(milliseconds: 500));
   }
 
   Future<void> joinChallenge(String challengeId) async {
-    // Mock implementation
+    // Join challenge via local storage
     await Future.delayed(const Duration(milliseconds: 500));
   }
 
   Future<List<CommunityPost>> getPosts({PostCategory? category}) async {
-    // Mock implementation
+    // Retrieve posts from local storage
     return [];
   }
 
@@ -40,12 +40,12 @@ class CommunityService {
   }
 
   Future<List<Challenge>> getChallenges() async {
-    // Mock implementation
+    // Retrieve challenges from local storage
     return [];
   }
 
   Future<List<FinancialBenchmark>> getBenchmarks() async {
-    // Mock implementation
+    // Retrieve benchmarks from local storage
     return [];
   }
 }

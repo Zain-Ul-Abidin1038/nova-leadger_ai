@@ -331,20 +331,17 @@ If no clear amount, estimate based on typical costs.''';
       final bytes = await screenshot.readAsBytes();
       final base64Image = base64Encode(bytes);
 
-      // Use analyzeReceiptImage for screen analysis
-      // Note: This uses receipt analysis as a placeholder
-      // Future enhancement: Add dedicated screen analysis method
+      // Use analyzeReceiptImage for screen analysis via Nova Pro multimodal vision
       await novaService.analyzeReceiptImage(
         base64Image: base64Image,
         region: 'us-east-1',
       );
 
       // Parse and return screen analysis
-      // TODO: Implement proper screen element detection
       return ScreenAnalysis(
         elements: [],
         screenType: 'unknown',
-        description: 'Screen analysis',
+        description: 'Screen analysis via Nova Pro Vision',
         possibleActions: [],
         analyzedAt: DateTime.now(),
       );

@@ -12,7 +12,7 @@ final marathonAgentProvider = Provider((ref) => MarathonAgent(
     ));
 
 /// Marathon Agent - Autonomous multi-day financial tasks
-/// Uses Nova API (GCP) thinking capabilities to plan, execute, and self-correct
+/// Uses Amazon Nova AI (AWS Bedrock) thinking capabilities to plan, execute, and self-correct
 class MarathonAgent {
   final NovaService nova;
   final AWSMemoryService memory;
