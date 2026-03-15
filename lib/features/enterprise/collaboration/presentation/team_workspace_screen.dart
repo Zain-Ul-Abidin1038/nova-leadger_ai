@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/collaboration/domain/team.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/collaboration/services/team_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/enterprise/collaboration/domain/team.dart';
+import 'package:nova_finance_os/features/enterprise/collaboration/services/team_service.dart';
 import 'package:intl/intl.dart';
 
 class TeamWorkspaceScreen extends ConsumerStatefulWidget {
@@ -43,7 +43,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.add, color: AppColors.primary),
+                  icon: const Icon(Icons.add, color: AppColors.neonTeal),
                   onPressed: _showCreateTeamDialog,
                 ),
               ],
@@ -73,7 +73,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
                             icon: const Icon(Icons.add),
                             label: const Text('Create Team'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
+                              backgroundColor: AppColors.neonTeal,
                               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                             ),
                           ),
@@ -94,7 +94,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
                 );
               },
               loading: () => const SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                child: Center(child: CircularProgressIndicator(color: AppColors.neonTeal)),
               ),
               error: (error, stack) => SliverFillRemaining(
                 child: Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error))),
@@ -145,7 +145,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               ),
               PopupMenuButton<String>(
                 icon: const Icon(Icons.more_vert, color: AppColors.textSecondary),
-                color: AppColors.surface,
+                color: AppColors.surfaceDark,
                 onSelected: (value) {
                   if (value == 'delete') {
                     _deleteTeam(team.id);
@@ -199,8 +199,8 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               icon: const Icon(Icons.person_add, size: 18),
               label: const Text('Add Member'),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.primary,
-                side: const BorderSide(color: AppColors.primary),
+                foregroundColor: AppColors.neonTeal,
+                side: const BorderSide(color: AppColors.neonTeal),
               ),
             ),
           ),
@@ -258,7 +258,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
           if (!isOwner)
             PopupMenuButton<String>(
               icon: const Icon(Icons.more_horiz, color: AppColors.textSecondary, size: 20),
-              color: AppColors.surface,
+              color: AppColors.surfaceDark,
               onSelected: (value) {
                 if (value == 'remove') {
                   _removeMember(teamId, member.id);
@@ -293,11 +293,11 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
   Color _getRoleColor(TeamRole role) {
     switch (role) {
       case TeamRole.owner:
-        return AppColors.primary;
+        return AppColors.neonTeal;
       case TeamRole.admin:
         return AppColors.success;
       case TeamRole.member:
-        return AppColors.accent;
+        return AppColors.softPurple;
       case TeamRole.viewer:
         return AppColors.textSecondary;
     }
@@ -310,7 +310,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Create Team', style: TextStyle(color: AppColors.textPrimary)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -321,7 +321,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               decoration: const InputDecoration(
                 labelText: 'Team Name',
                 labelStyle: TextStyle(color: AppColors.textSecondary),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.primary)),
+                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.neonTeal)),
               ),
             ),
             const SizedBox(height: 16),
@@ -332,7 +332,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               decoration: const InputDecoration(
                 labelText: 'Description',
                 labelStyle: TextStyle(color: AppColors.textSecondary),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.primary)),
+                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.neonTeal)),
               ),
             ),
           ],
@@ -358,7 +358,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
             child: const Text('Create'),
           ),
         ],
@@ -375,7 +375,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceDark,
           title: const Text('Add Member', style: TextStyle(color: AppColors.textPrimary)),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -400,7 +400,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
               const SizedBox(height: 16),
               DropdownButtonFormField<TeamRole>(
                 value: selectedRole,
-                dropdownColor: AppColors.surface,
+                dropdownColor: AppColors.surfaceDark,
                 style: const TextStyle(color: AppColors.textPrimary),
                 decoration: const InputDecoration(
                   labelText: 'Role',
@@ -437,7 +437,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
               child: const Text('Add'),
             ),
           ],
@@ -450,7 +450,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Remove Member?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text(
           'Are you sure you want to remove this member?',
@@ -493,7 +493,7 @@ class _TeamWorkspaceScreenState extends ConsumerState<TeamWorkspaceScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Delete Team?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text(
           'This will permanently delete the team and all its data.',

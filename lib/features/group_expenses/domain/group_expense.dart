@@ -1,89 +1,77 @@
-import 'package:hive/hive.dart';
+// Group expense domain model
 
-part 'group_expense.g.dart';
-
-@HiveType(typeId: 32)
-class GroupExpense extends HiveObject {
-  @HiveField(0)
-  final String id;
-
-  @HiveField(1)
+class GroupExpenseParticipant {
+  final String userId;
   final String name;
+  final double shareAmount;
+  final bool paid;
 
-  @HiveField(2)
+  GroupExpenseParticipant({
+    required this.userId,
+    required this.name,
+    required this.shareAmount,
+    this.paid = false,
+  });
+}
+
+class GroupExpense {
+  final String id;
+  final String name;
   final String description;
-
-  @HiveField(3)
+  final double amount;
   final double totalAmount;
-
-  @HiveField(4)
+  final String paidBy;
   final String createdBy;
-
-  @HiveField(5)
-  final List<ExpenseParticipant> participants;
-
-  @HiveField(6)
-  final DateTime createdAt;
-
-  @HiveField(7)
-  final bool isSettled;
+  final List<GroupExpenseParticipant> participants;
+  final DateTime date;
+  final DateTime submittedAt;
 
   GroupExpense({
     required this.id,
-    required this.name,
+    String? name,
     required this.description,
-    required this.totalAmount,
-    required this.createdBy,
+    required this.amount,
+    double? totalAmount,
+    required this.paidBy,
+    String? createdBy,
     required this.participants,
-    required this.createdAt,
-    required this.isSettled,
-  });
+    DateTime? date,
+    DateTime? submittedAt,
+    DateTime? createdAt,
+  }) : name = name ?? description,
+       totalAmount = totalAmount ?? amount,
+       createdBy = createdBy ?? paidBy,
+       date = date ?? DateTime.now(),
+       submittedAt = submittedAt ?? (createdAt ?? (date ?? DateTime.now()));
 
-  double get totalPaid => participants.fold(0.0, (sum, p) => sum + (p.paid ? p.shareAmount : 0));
-  double get totalOwed => totalAmount - totalPaid;
-  bool get isFullyPaid => totalPaid >= totalAmount;
+  double get perPersonAmount => amount / participants.length;
+  
+  bool get isFullyPaid => participants.every((p) => p.paid);
+  bool get isSettled => isFullyPaid;
 
   GroupExpense copyWith({
     String? id,
     String? name,
     String? description,
+    double? amount,
     double? totalAmount,
+    String? paidBy,
     String? createdBy,
-    List<ExpenseParticipant>? participants,
-    DateTime? createdAt,
-    bool? isSettled,
+    List<GroupExpenseParticipant>? participants,
+    DateTime? date,
+    DateTime? submittedAt,
   }) {
     return GroupExpense(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
+      amount: amount ?? this.amount,
       totalAmount: totalAmount ?? this.totalAmount,
+      paidBy: paidBy ?? this.paidBy,
       createdBy: createdBy ?? this.createdBy,
       participants: participants ?? this.participants,
-      createdAt: createdAt ?? this.createdAt,
-      isSettled: isSettled ?? this.isSettled,
+      date: date ?? this.date,
+      submittedAt: submittedAt ?? this.submittedAt,
     );
   }
-}
-
-@HiveType(typeId: 33)
-class ExpenseParticipant extends HiveObject {
-  @HiveField(0)
-  final String userId;
-
-  @HiveField(1)
-  final String name;
-
-  @HiveField(2)
-  final double shareAmount;
-
-  @HiveField(3)
-  final bool paid;
-
-  ExpenseParticipant({
-    required this.userId,
-    required this.name,
-    required this.shareAmount,
-    required this.paid,
-  });
 }

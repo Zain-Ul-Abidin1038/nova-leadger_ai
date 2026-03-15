@@ -1,173 +1,100 @@
-import 'package:hive/hive.dart';
+// Investment domain model
 
-part 'investment.g.dart';
+enum InvestmentType {
+  stocks,
+  bonds,
+  mutualFunds,
+  realEstate,
+  crypto,
+  other,
+}
 
-@HiveType(typeId: 21)
-class Investment extends HiveObject {
-  @HiveField(0)
+class Investment {
   final String id;
-
-  @HiveField(1)
-  final String userId;
-
-  @HiveField(2)
-  final InvestmentType type;
-
-  @HiveField(3)
-  final String symbol;
-
-  @HiveField(4)
   final String name;
-
-  @HiveField(5)
-  final double quantity;
-
-  @HiveField(6)
-  final double purchasePrice;
-
-  @HiveField(7)
-  final double currentPrice;
-
-  @HiveField(8)
+  final String type;
+  final double amount;
+  final double currentValue;
   final DateTime purchaseDate;
-
-  @HiveField(9)
-  final DateTime updatedAt;
-
-  @HiveField(10)
-  final String? notes;
+  final String symbol;
+  final double currentPrice;
+  final double totalInvested;
+  final double profitLossPercentage;
+  final String userId;
 
   Investment({
     required this.id,
-    required this.userId,
-    required this.type,
-    required this.symbol,
     required this.name,
-    required this.quantity,
-    required this.purchasePrice,
-    required this.currentPrice,
+    required this.type,
+    required this.amount,
+    required this.currentValue,
     required this.purchaseDate,
-    required this.updatedAt,
-    this.notes,
-  });
+    required this.symbol,
+    required this.currentPrice,
+    required this.totalInvested,
+    required this.profitLossPercentage,
+    String? userId,
+    double? quantity,
+    DateTime? updatedAt,
+  }) : userId = userId ?? 'current_user';
 
-  double get totalInvested => quantity * purchasePrice;
-  double get currentValue => quantity * currentPrice;
-  double get profitLoss => currentValue - totalInvested;
-  double get profitLossPercentage => (profitLoss / totalInvested) * 100;
-
-  bool get isProfit => profitLoss >= 0;
+  double get returnPercentage => ((currentValue - amount) / amount) * 100;
+  
+  bool get isProfit => profitLossPercentage >= 0;
 
   Investment copyWith({
     String? id,
-    String? userId,
-    InvestmentType? type,
-    String? symbol,
     String? name,
-    double? quantity,
-    double? purchasePrice,
-    double? currentPrice,
+    String? type,
+    double? amount,
+    double? currentValue,
     DateTime? purchaseDate,
-    DateTime? updatedAt,
-    String? notes,
+    String? symbol,
+    double? currentPrice,
+    double? totalInvested,
+    double? profitLossPercentage,
   }) {
     return Investment(
       id: id ?? this.id,
-      userId: userId ?? this.userId,
-      type: type ?? this.type,
-      symbol: symbol ?? this.symbol,
       name: name ?? this.name,
-      quantity: quantity ?? this.quantity,
-      purchasePrice: purchasePrice ?? this.purchasePrice,
-      currentPrice: currentPrice ?? this.currentPrice,
+      type: type ?? this.type,
+      amount: amount ?? this.amount,
+      currentValue: currentValue ?? this.currentValue,
       purchaseDate: purchaseDate ?? this.purchaseDate,
-      updatedAt: updatedAt ?? this.updatedAt,
-      notes: notes ?? this.notes,
+      symbol: symbol ?? this.symbol,
+      currentPrice: currentPrice ?? this.currentPrice,
+      totalInvested: totalInvested ?? this.totalInvested,
+      profitLossPercentage: profitLossPercentage ?? this.profitLossPercentage,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'userId': userId,
-      'type': type.name,
-      'symbol': symbol,
       'name': name,
-      'quantity': quantity,
-      'purchasePrice': purchasePrice,
-      'currentPrice': currentPrice,
+      'type': type,
+      'amount': amount,
+      'currentValue': currentValue,
       'purchaseDate': purchaseDate.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'notes': notes,
+      'symbol': symbol,
+      'currentPrice': currentPrice,
+      'totalInvested': totalInvested,
+      'profitLossPercentage': profitLossPercentage,
     };
   }
 
   factory Investment.fromJson(Map<String, dynamic> json) {
     return Investment(
       id: json['id'] as String,
-      userId: json['userId'] as String,
-      type: InvestmentType.values.firstWhere(
-        (e) => e.name == json['type'],
-        orElse: () => InvestmentType.stock,
-      ),
-      symbol: json['symbol'] as String,
       name: json['name'] as String,
-      quantity: (json['quantity'] as num).toDouble(),
-      purchasePrice: (json['purchasePrice'] as num).toDouble(),
-      currentPrice: (json['currentPrice'] as num).toDouble(),
+      type: json['type'] as String,
+      amount: (json['amount'] as num).toDouble(),
+      currentValue: (json['currentValue'] as num).toDouble(),
       purchaseDate: DateTime.parse(json['purchaseDate'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      notes: json['notes'] as String?,
+      symbol: json['symbol'] as String,
+      currentPrice: (json['currentPrice'] as num).toDouble(),
+      totalInvested: (json['totalInvested'] as num).toDouble(),
+      profitLossPercentage: (json['profitLossPercentage'] as num).toDouble(),
     );
-  }
-}
-
-@HiveType(typeId: 22)
-enum InvestmentType {
-  @HiveField(0)
-  stock,
-
-  @HiveField(1)
-  mutualFund,
-
-  @HiveField(2)
-  bond,
-
-  @HiveField(3)
-  etf,
-
-  @HiveField(4)
-  commodity,
-}
-
-extension InvestmentTypeExtension on InvestmentType {
-  String get displayName {
-    switch (this) {
-      case InvestmentType.stock:
-        return 'Stock';
-      case InvestmentType.mutualFund:
-        return 'Mutual Fund';
-      case InvestmentType.bond:
-        return 'Bond';
-      case InvestmentType.etf:
-        return 'ETF';
-      case InvestmentType.commodity:
-        return 'Commodity';
-    }
-  }
-
-  String get icon {
-    switch (this) {
-      case InvestmentType.stock:
-        return '📈';
-      case InvestmentType.mutualFund:
-        return '💼';
-      case InvestmentType.bond:
-        return '📊';
-      case InvestmentType.etf:
-        return '🎯';
-      case InvestmentType.commodity:
-        return '🥇';
-    }
   }
 }

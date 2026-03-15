@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'receipt.g.dart';
+// part 'receipt.g.dart';
 
 @HiveType(typeId: 4)
 class Receipt {

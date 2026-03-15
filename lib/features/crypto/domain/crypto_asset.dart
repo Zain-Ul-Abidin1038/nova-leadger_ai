@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'crypto_asset.g.dart';
+// part 'crypto_asset.g.dart';
 
 @HiveType(typeId: 23)
 class CryptoAsset extends HiveObject {

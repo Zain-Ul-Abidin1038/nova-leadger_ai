@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/advisors/domain/advisor.dart';
-import 'package:nova_live_nova_finance_os/features/advisors/services/advisor_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/advisors/domain/advisor.dart';
+import 'package:nova_finance_os/features/advisors/services/advisor_service.dart';
 import 'package:intl/intl.dart';
 
 class AdvisorMarketplaceScreen extends ConsumerStatefulWidget {
@@ -58,7 +58,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                         decoration: InputDecoration(
                           hintText: 'Search advisors...',
                           hintStyle: const TextStyle(color: AppColors.textSecondary),
-                          prefixIcon: const Icon(Icons.search, color: AppColors.primary),
+                          prefixIcon: const Icon(Icons.search, color: AppColors.neonTeal),
                           border: InputBorder.none,
                         ),
                       ),
@@ -67,7 +67,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                     bookingsAsync.when(
                       data: (bookings) {
                         final upcoming = bookings.where((b) => 
-                          b.status == BookingStatus.scheduled && 
+                          b.status == BookingStatus.confirmed && 
                           b.scheduledDate.isAfter(DateTime.now())
                         ).toList();
                         
@@ -115,7 +115,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                 );
               },
               loading: () => const SliverToBoxAdapter(
-                child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                child: Center(child: CircularProgressIndicator(color: AppColors.neonTeal)),
               ),
               error: (error, stack) => SliverToBoxAdapter(
                 child: Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error))),
@@ -135,7 +135,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
             width: 4,
             height: 60,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: AppColors.neonTeal,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -178,10 +178,10 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundColor: AppColors.primary.withOpacity(0.2),
+                backgroundColor: AppColors.neonTeal.withOpacity(0.2),
                 child: Text(
                   advisor.name.split(' ').map((n) => n[0]).join(),
-                  style: const TextStyle(color: AppColors.primary, fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: AppColors.neonTeal, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(width: 12),
@@ -195,7 +195,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                     ),
                     Text(
                       advisor.specialty,
-                      style: const TextStyle(color: AppColors.primary, fontSize: 14),
+                      style: const TextStyle(color: AppColors.neonTeal, fontSize: 14),
                     ),
                     Row(
                       children: [
@@ -234,8 +234,8 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
             spacing: 8,
             children: advisor.certifications.map((cert) => Chip(
               label: Text(cert, style: const TextStyle(fontSize: 10)),
-              backgroundColor: AppColors.primary.withOpacity(0.2),
-              labelStyle: const TextStyle(color: AppColors.primary),
+              backgroundColor: AppColors.neonTeal.withOpacity(0.2),
+              labelStyle: const TextStyle(color: AppColors.neonTeal),
               padding: EdgeInsets.zero,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             )).toList(),
@@ -251,7 +251,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
               ElevatedButton(
                 onPressed: advisor.isAvailable ? () => _showBookingDialog(advisor) : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: AppColors.neonTeal,
                   foregroundColor: AppColors.background,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
@@ -273,7 +273,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceDark,
           title: Text('Book ${advisor.name}', style: const TextStyle(color: AppColors.textPrimary)),
           content: SingleChildScrollView(
             child: Column(
@@ -285,7 +285,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                   decoration: const InputDecoration(
                     labelText: 'Session Topic',
                     labelStyle: TextStyle(color: AppColors.textSecondary),
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.primary)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.neonTeal)),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -295,7 +295,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                     DateFormat('MMM dd, yyyy • hh:mm a').format(selectedDate),
                     style: const TextStyle(color: AppColors.textPrimary),
                   ),
-                  trailing: const Icon(Icons.calendar_today, color: AppColors.primary),
+                  trailing: const Icon(Icons.calendar_today, color: AppColors.neonTeal),
                   onTap: () async {
                     final date = await showDatePicker(
                       context: context,
@@ -319,7 +319,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                 const SizedBox(height: 16),
                 DropdownButtonFormField<int>(
                   value: duration,
-                  dropdownColor: AppColors.surface,
+                  dropdownColor: AppColors.surfaceDark,
                   style: const TextStyle(color: AppColors.textPrimary),
                   decoration: const InputDecoration(
                     labelText: 'Duration',
@@ -334,7 +334,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                 const SizedBox(height: 16),
                 Text(
                   'Total Cost: \$${(advisor.hourlyRate * duration / 60).toStringAsFixed(2)}',
-                  style: const TextStyle(color: AppColors.primary, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: AppColors.neonTeal, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -364,7 +364,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
               child: const Text('Confirm Booking'),
             ),
           ],
@@ -377,7 +377,7 @@ class _AdvisorMarketplaceScreenState extends ConsumerState<AdvisorMarketplaceScr
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Cancel Booking?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text(
           'Are you sure you want to cancel this session?',

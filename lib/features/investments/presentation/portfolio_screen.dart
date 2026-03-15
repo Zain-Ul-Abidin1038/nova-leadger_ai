@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/investments/services/portfolio_service.dart';
-import 'package:nova_live_nova_finance_os/features/investments/domain/investment.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/investments/services/portfolio_service.dart';
+import 'package:nova_finance_os/features/investments/domain/investment.dart';
 
 class PortfolioScreen extends ConsumerWidget {
   const PortfolioScreen({super.key});
@@ -145,7 +145,7 @@ class PortfolioScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Text(inv.type.icon, style: const TextStyle(fontSize: 32)),
+              Text(_getInvestmentIcon(inv.type), style: const TextStyle(fontSize: 32)),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -190,5 +190,22 @@ class PortfolioScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  String _getInvestmentIcon(String type) {
+    switch (type.toLowerCase()) {
+      case 'stocks':
+        return '📈';
+      case 'bonds':
+        return '📊';
+      case 'crypto':
+        return '₿';
+      case 'real estate':
+        return '🏠';
+      case 'mutual funds':
+        return '💼';
+      default:
+        return '💰';
+    }
   }
 }

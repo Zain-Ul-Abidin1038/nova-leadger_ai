@@ -34,8 +34,8 @@ class Portfolio {
 
   bool get isProfit => totalProfitLoss >= 0;
 
-  Map<InvestmentType, double> get allocationByType {
-    final allocation = <InvestmentType, double>{};
+  Map<String, double> get allocationByType {
+    final allocation = <String, double>{};
     for (final investment in investments) {
       allocation[investment.type] = 
           (allocation[investment.type] ?? 0.0) + investment.currentValue;
@@ -43,7 +43,7 @@ class Portfolio {
     return allocation;
   }
 
-  Map<InvestmentType, double> get allocationPercentageByType {
+  Map<String, double> get allocationPercentageByType {
     final allocation = allocationByType;
     final total = currentValue;
     if (total == 0) return {};

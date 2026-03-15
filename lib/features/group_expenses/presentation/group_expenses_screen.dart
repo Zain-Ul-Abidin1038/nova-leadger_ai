@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/group_expenses/services/group_expense_service.dart';
-import 'package:nova_live_nova_finance_os/features/group_expenses/domain/group_expense.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/group_expenses/services/group_expense_service.dart';
+import 'package:nova_finance_os/features/group_expenses/domain/group_expense.dart';
 import 'package:uuid/uuid.dart';
 
 class GroupExpensesScreen extends ConsumerWidget {
@@ -293,16 +293,17 @@ class GroupExpensesScreen extends ConsumerWidget {
                     id: const Uuid().v4(),
                     name: name,
                     description: description,
+                    amount: amount,
                     totalAmount: amount,
+                    paidBy: 'current_user',
                     createdBy: 'current_user',
-                    participants: participants.map((p) => ExpenseParticipant(
+                    participants: participants.map((p) => GroupExpenseParticipant(
                       userId: const Uuid().v4(),
                       name: p['name'] as String,
                       shareAmount: p['share'] as double,
                       paid: false,
                     )).toList(),
-                    createdAt: DateTime.now(),
-                    isSettled: false,
+                    date: DateTime.now(),
                   );
                   await service.addExpense(expense);
                   Navigator.pop(context);

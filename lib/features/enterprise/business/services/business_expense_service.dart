@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/business/domain/business_expense.dart';
+import 'package:nova_finance_os/features/enterprise/business/domain/business_expense.dart';
 
 final businessExpenseServiceProvider = Provider((ref) => BusinessExpenseService());
 
@@ -65,14 +65,16 @@ class BusinessExpenseService {
   }
 
   double getTotalByDepartment(String department) {
-    return _expensesBox?.values
+    if (_expensesBox == null) return 0.0;
+    return _expensesBox!.values
         .where((e) => e.department == department && e.isApproved)
-        .fold(0.0, (sum, e) => sum + e.amount) ?? 0.0;
+        .fold(0.0, (sum, e) => sum + e.amount);
   }
 
   double getTotalByProject(String project) {
-    return _expensesBox?.values
+    if (_expensesBox == null) return 0.0;
+    return _expensesBox!.values
         .where((e) => e.project == project && e.isApproved)
-        .fold(0.0, (sum, e) => sum + e.amount) ?? 0.0;
+        .fold(0.0, (sum, e) => sum + e.amount);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/family/services/family_service.dart';
-import 'package:nova_live_nova_finance_os/features/family/domain/family_account.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/family/services/family_service.dart';
+import 'package:nova_finance_os/features/family/domain/family.dart';
 import 'package:uuid/uuid.dart';
 
 class FamilyDashboardScreen extends ConsumerWidget {
@@ -189,8 +189,12 @@ class FamilyDashboardScreen extends ConsumerWidget {
 
   Color _getRoleColor(FamilyRole role) {
     switch (role) {
+      case FamilyRole.owner:
+        return AppColors.neonTeal;
       case FamilyRole.admin:
         return AppColors.neonTeal;
+      case FamilyRole.member:
+        return AppColors.textPrimary;
       case FamilyRole.parent:
         return AppColors.softPurple;
       case FamilyRole.child:
@@ -202,8 +206,12 @@ class FamilyDashboardScreen extends ConsumerWidget {
 
   IconData _getRoleIcon(FamilyRole role) {
     switch (role) {
+      case FamilyRole.owner:
+        return Icons.star;
       case FamilyRole.admin:
         return Icons.admin_panel_settings;
+      case FamilyRole.member:
+        return Icons.person;
       case FamilyRole.parent:
         return Icons.person;
       case FamilyRole.child:
@@ -215,8 +223,12 @@ class FamilyDashboardScreen extends ConsumerWidget {
 
   String _getRoleLabel(FamilyRole role) {
     switch (role) {
+      case FamilyRole.owner:
+        return 'Owner';
       case FamilyRole.admin:
         return 'Admin';
+      case FamilyRole.member:
+        return 'Member';
       case FamilyRole.parent:
         return 'Parent';
       case FamilyRole.child:

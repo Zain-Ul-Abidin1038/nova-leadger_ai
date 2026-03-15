@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/collaboration/domain/team.dart';
+import 'package:nova_finance_os/features/enterprise/collaboration/domain/team.dart';
 import 'package:uuid/uuid.dart';
 
 final teamServiceProvider = Provider((ref) => TeamService());
@@ -84,8 +84,7 @@ class TeamService {
 
   Stream<List<Team>> watchTeams() {
     final box = Hive.box<Team>(_teamsBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Future<void> createTeam({

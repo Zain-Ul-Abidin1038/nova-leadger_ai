@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/real_estate/services/property_service.dart';
-import 'package:nova_live_nova_finance_os/features/real_estate/domain/property.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/real_estate/services/property_service.dart';
+import 'package:nova_finance_os/features/real_estate/domain/property.dart';
 import 'package:uuid/uuid.dart';
 
 class PropertyPortfolioScreen extends ConsumerWidget {
@@ -162,14 +162,14 @@ class PropertyPortfolioScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text('Equity', style: TextStyle(color: AppColors.textSecondary, fontSize: 11)),
-                      Text('\$${property.equity.toStringAsFixed(0)}', style: const TextStyle(color: AppColors.success, fontSize: 14)),
+                      Text('\$${property.equity?.toStringAsFixed(0) ?? '0'}', style: const TextStyle(color: AppColors.success, fontSize: 14)),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text('Appreciation', style: TextStyle(color: AppColors.textSecondary, fontSize: 11)),
-                      Text('${property.appreciationPercentage.toStringAsFixed(1)}%', style: const TextStyle(color: AppColors.neonTeal, fontSize: 14)),
+                      Text('${property.appreciationPercentage?.toStringAsFixed(1) ?? '0'}%', style: const TextStyle(color: AppColors.neonTeal, fontSize: 14)),
                     ],
                   ),
                   if (property.rentalIncome != null)
@@ -281,13 +281,14 @@ class PropertyPortfolioScreen extends ConsumerWidget {
                   final service = ref.read(propertyServiceProvider);
                   final property = Property(
                     id: const Uuid().v4(),
-                    userId: 'current_user',
+                    name: address,
                     address: address,
                     type: selectedType,
                     purchasePrice: purchasePrice,
                     currentValue: currentValue,
                     purchaseDate: DateTime.now(),
-                    updatedAt: DateTime.now(),
+                    equity: currentValue - purchasePrice,
+                    appreciationPercentage: ((currentValue - purchasePrice) / purchasePrice) * 100,
                   );
                   await service.addProperty(property);
                   Navigator.pop(context);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/reporting/domain/report.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/reporting/services/report_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/enterprise/reporting/domain/report.dart';
+import 'package:nova_finance_os/features/enterprise/reporting/services/report_service.dart';
 import 'package:intl/intl.dart';
 
 class ReportsScreen extends ConsumerStatefulWidget {
@@ -42,7 +42,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
               title: const Text('Advanced Reports', style: TextStyle(color: AppColors.textPrimary, fontSize: 20, fontWeight: FontWeight.bold)),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.add, color: AppColors.primary),
+                  icon: const Icon(Icons.add, color: AppColors.neonTeal),
                   onPressed: _showGenerateReportDialog,
                 ),
               ],
@@ -56,9 +56,9 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                     children: [
                       _buildFilterChip('All', null),
                       _buildFilterChip('Expense', ReportType.expense),
-                      _buildFilterChip('Income', ReportType.income),
-                      _buildFilterChip('P&L', ReportType.profitLoss),
-                      _buildFilterChip('Cash Flow', ReportType.cashFlow),
+                      _buildFilterChip('Income', ReportType.revenue),
+                      _buildFilterChip('P&L', ReportType.financial),
+                      _buildFilterChip('Cash Flow', ReportType.financial),
                       _buildFilterChip('Tax', ReportType.tax),
                     ],
                   ),
@@ -96,7 +96,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                   ),
                 );
               },
-              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.primary))),
+              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.neonTeal))),
               error: (error, stack) => SliverFillRemaining(child: Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error)))),
             ),
           ],
@@ -113,9 +113,9 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
         label: Text(label),
         selected: isSelected,
         onSelected: (selected) => setState(() => _filterType = selected ? type : null),
-        backgroundColor: AppColors.surface,
-        selectedColor: AppColors.primary.withOpacity(0.3),
-        labelStyle: TextStyle(color: isSelected ? AppColors.primary : AppColors.textSecondary),
+        backgroundColor: AppColors.surfaceDark,
+        selectedColor: AppColors.neonTeal.withOpacity(0.3),
+        labelStyle: TextStyle(color: isSelected ? AppColors.neonTeal : AppColors.textSecondary),
       ),
     );
   }
@@ -172,8 +172,8 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                   icon: const Icon(Icons.download, size: 18),
                   label: const Text('Export'),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.primary,
-                    side: const BorderSide(color: AppColors.primary),
+                    foregroundColor: AppColors.neonTeal,
+                    side: const BorderSide(color: AppColors.neonTeal),
                   ),
                 ),
               ),
@@ -220,12 +220,12 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
     switch (type) {
       case ReportType.expense:
         return AppColors.error;
-      case ReportType.income:
+      case ReportType.revenue:
         return AppColors.success;
-      case ReportType.profitLoss:
-        return AppColors.primary;
-      case ReportType.cashFlow:
-        return AppColors.accent;
+      case ReportType.financial:
+        return AppColors.neonTeal;
+      case ReportType.financial:
+        return AppColors.softPurple;
       case ReportType.tax:
         return AppColors.warning;
       case ReportType.custom:
@@ -237,11 +237,11 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
     switch (type) {
       case ReportType.expense:
         return Icons.trending_down;
-      case ReportType.income:
+      case ReportType.revenue:
         return Icons.trending_up;
-      case ReportType.profitLoss:
+      case ReportType.financial:
         return Icons.analytics;
-      case ReportType.cashFlow:
+      case ReportType.financial:
         return Icons.water_drop;
       case ReportType.tax:
         return Icons.receipt_long;
@@ -260,7 +260,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceDark,
           title: const Text('Generate Report', style: TextStyle(color: AppColors.textPrimary)),
           content: SingleChildScrollView(
             child: Column(
@@ -277,7 +277,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                 const SizedBox(height: 16),
                 DropdownButtonFormField<ReportType>(
                   value: selectedType,
-                  dropdownColor: AppColors.surface,
+                  dropdownColor: AppColors.surfaceDark,
                   style: const TextStyle(color: AppColors.textPrimary),
                   decoration: const InputDecoration(
                     labelText: 'Report Type',
@@ -293,7 +293,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                 ListTile(
                   title: const Text('Start Date', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                   subtitle: Text(DateFormat('MMM dd, yyyy').format(startDate), style: const TextStyle(color: AppColors.textPrimary)),
-                  trailing: const Icon(Icons.calendar_today, color: AppColors.primary, size: 20),
+                  trailing: const Icon(Icons.calendar_today, color: AppColors.neonTeal, size: 20),
                   onTap: () async {
                     final date = await showDatePicker(
                       context: context,
@@ -307,7 +307,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                 ListTile(
                   title: const Text('End Date', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                   subtitle: Text(DateFormat('MMM dd, yyyy').format(endDate), style: const TextStyle(color: AppColors.textPrimary)),
-                  trailing: const Icon(Icons.calendar_today, color: AppColors.primary, size: 20),
+                  trailing: const Icon(Icons.calendar_today, color: AppColors.neonTeal, size: 20),
                   onTap: () async {
                     final date = await showDatePicker(
                       context: context,
@@ -344,7 +344,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
               child: const Text('Generate'),
             ),
           ],
@@ -357,7 +357,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Delete Report?', style: TextStyle(color: AppColors.textPrimary)),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),

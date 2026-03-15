@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/white_label/domain/tenant.dart';
+import 'package:nova_finance_os/features/enterprise/white_label/domain/tenant.dart';
 import 'package:uuid/uuid.dart';
 
 final whiteLabelServiceProvider = Provider((ref) => WhiteLabelService());
@@ -30,12 +30,13 @@ class WhiteLabelService {
           createdAt: DateTime.now().subtract(const Duration(days: 120)),
           isActive: true,
           userCount: 245,
-          branding: BrandConfig(
-            appName: 'Acme Finance',
-            primaryColor: '#FF5722',
-            secondaryColor: '#FFC107',
-            logoUrl: '',
-          ),
+          branding: {
+            'appName': 'Acme Finance',
+            'primaryColor': '#FF5722',
+            'secondaryColor': '#FFC107',
+            'logoUrl': '',
+            'tagline': 'Your Financial Partner',
+          },
           features: {
             'receipts': true,
             'chat': true,
@@ -51,12 +52,13 @@ class WhiteLabelService {
           createdAt: DateTime.now().subtract(const Duration(days: 45)),
           isActive: true,
           userCount: 87,
-          branding: BrandConfig(
-            appName: 'TechStart Money',
-            primaryColor: '#2196F3',
-            secondaryColor: '#00BCD4',
-            logoUrl: '',
-          ),
+          branding: {
+            'appName': 'TechStart Money',
+            'primaryColor': '#2196F3',
+            'secondaryColor': '#00BCD4',
+            'logoUrl': '',
+            'tagline': 'Smart Money Management',
+          },
           features: {
             'receipts': true,
             'chat': true,
@@ -75,8 +77,7 @@ class WhiteLabelService {
 
   Stream<List<Tenant>> watchTenants() {
     final box = Hive.box<Tenant>(_tenantsBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Future<void> createTenant({
@@ -94,12 +95,13 @@ class WhiteLabelService {
       createdAt: DateTime.now(),
       isActive: true,
       userCount: 0,
-      branding: BrandConfig(
-        appName: appName,
-        primaryColor: primaryColor,
-        secondaryColor: secondaryColor,
-        logoUrl: '',
-      ),
+      branding: {
+        'appName': appName,
+        'primaryColor': primaryColor,
+        'secondaryColor': secondaryColor,
+        'logoUrl': '',
+        'tagline': 'Finance Management',
+      },
       features: {
         'receipts': true,
         'chat': true,
@@ -130,7 +132,7 @@ class WhiteLabelService {
     await box.putAt(index, updated);
   }
 
-  Future<void> updateBranding(String tenantId, BrandConfig branding) async {
+  Future<void> updateBranding(String tenantId, Map<String, dynamic> branding) async {
     final box = Hive.box<Tenant>(_tenantsBox);
     final tenant = box.values.firstWhere((t) => t.id == tenantId);
     final index = box.values.toList().indexOf(tenant);

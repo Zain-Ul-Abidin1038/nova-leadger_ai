@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'life_event.g.dart';
+// part 'life_event.g.dart';
 
 /// Life Event Model
 /// Represents detected major financial transitions

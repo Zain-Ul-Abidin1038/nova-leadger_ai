@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'financial_goal.g.dart';
+// part 'financial_goal.g.dart';
 
 /// Financial Goal Model
 /// Represents user's financial objectives

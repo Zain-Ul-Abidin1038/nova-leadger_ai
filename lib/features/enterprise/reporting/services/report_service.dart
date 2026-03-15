@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/reporting/domain/report.dart';
+import 'package:nova_finance_os/features/enterprise/reporting/domain/report.dart';
 import 'package:uuid/uuid.dart';
 
 final reportServiceProvider = Provider((ref) => ReportService());
@@ -47,7 +47,7 @@ class ReportService {
         Report(
           id: _uuid.v4(),
           name: 'Q1 2026 P&L Statement',
-          type: ReportType.profitLoss,
+          type: ReportType.financial,
           startDate: DateTime(2026, 1, 1),
           endDate: DateTime(2026, 3, 31),
           createdAt: now.subtract(const Duration(days: 15)),
@@ -63,7 +63,7 @@ class ReportService {
         Report(
           id: _uuid.v4(),
           name: 'Cash Flow Analysis',
-          type: ReportType.cashFlow,
+          type: ReportType.financial,
           startDate: DateTime(now.year, now.month - 1, 1),
           endDate: DateTime(now.year, now.month, 0),
           createdAt: now.subtract(const Duration(days: 3)),
@@ -86,8 +86,7 @@ class ReportService {
 
   Stream<List<Report>> watchReports() {
     final box = Hive.box<Report>(_reportsBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Future<void> generateReport({
@@ -125,7 +124,7 @@ class ReportService {
             'Utilities': 1200.00,
           },
         };
-      case ReportType.income:
+      case ReportType.revenue:
         return {
           'totalIncome': 50000.00 + (DateTime.now().millisecond % 10000),
           'sources': {
@@ -133,14 +132,14 @@ class ReportService {
             'Freelance': 5000.00,
           },
         };
-      case ReportType.profitLoss:
+      case ReportType.financial:
         return {
           'revenue': 120000.00,
           'expenses': 80000.00,
           'netIncome': 40000.00,
           'profitMargin': 33.3,
         };
-      case ReportType.cashFlow:
+      case ReportType.financial:
         return {
           'openingBalance': 40000.00,
           'closingBalance': 48000.00,

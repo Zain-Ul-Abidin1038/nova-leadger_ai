@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/shared_goals/services/shared_goal_service.dart';
-import 'package:nova_live_nova_finance_os/features/shared_goals/domain/shared_goal.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/shared_goals/services/shared_goal_service.dart';
+import 'package:nova_finance_os/features/shared_goals/domain/shared_goal.dart';
 import 'package:uuid/uuid.dart';
 
 class SharedGoalsScreen extends ConsumerWidget {
@@ -68,13 +68,13 @@ class SharedGoalsScreen extends ConsumerWidget {
                       if (activeGoals.isNotEmpty) ...[
                         const Text('Active Goals', style: TextStyle(color: AppColors.softPurple, fontSize: 18, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 16),
-                        ...activeGoals.map((goal) => _buildGoalCard(goal, ref)),
+                        ...activeGoals.map((goal) => _buildGoalCard(context, goal, ref)),
                       ],
                       if (completedGoals.isNotEmpty) ...[
                         const SizedBox(height: 24),
                         const Text('Completed Goals', style: TextStyle(color: AppColors.success, fontSize: 18, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 16),
-                        ...completedGoals.map((goal) => _buildGoalCard(goal, ref)),
+                        ...completedGoals.map((goal) => _buildGoalCard(context, goal, ref)),
                       ],
                     ]),
                   ),
@@ -89,7 +89,7 @@ class SharedGoalsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildGoalCard(SharedGoal goal, WidgetRef ref) {
+  Widget _buildGoalCard(BuildContext context, SharedGoal goal, WidgetRef ref) {
     final progress = goal.progressPercentage.clamp(0.0, 100.0);
     final isCompleted = goal.isCompleted;
     final color = isCompleted ? AppColors.success : AppColors.softPurple;
@@ -238,8 +238,7 @@ class SharedGoalsScreen extends ConsumerWidget {
                   targetAmount: target,
                   currentAmount: 0,
                   deadline: DateTime.now().add(const Duration(days: 365)),
-                  createdAt: DateTime.now(),
-                  contributorIds: [],
+                  participants: [],
                 );
                 await service.addGoal(goal);
                 Navigator.pop(context);

@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'income_entry.g.dart';
+// part 'income_entry.g.dart';
 
 @HiveType(typeId: 10)
 class IncomeEntry extends HiveObject {

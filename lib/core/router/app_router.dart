@@ -9,12 +9,12 @@ import 'package:nova_finance_os/features/auth/presentation/glassmorphic_auth_scr
 import 'package:nova_finance_os/features/analytics/presentation/analytics_screen.dart';
 import 'package:nova_finance_os/features/profile/presentation/profile_screen.dart';
 import 'package:nova_finance_os/features/profile/presentation/edit_profile_screen.dart';
-import 'package:nova_finance_os/features/nova_test/presentation/nova_test_screen.dart';
+import 'package:nova_finance_os/features/nova_test/presentation/gemini_test_screen.dart';
 import 'package:nova_finance_os/features/marathon/presentation/marathon_screen.dart';
 import 'package:nova_finance_os/features/finance/presentation/income_screen.dart';
 import 'package:nova_finance_os/features/finance/presentation/expense_screen.dart';
 import 'package:nova_finance_os/features/finance/presentation/ledger_screen.dart';
-import 'package:nova_finance_os/features/vision_nova/presentation/vision_nova_screen.dart';
+import 'package:nova_finance_os/features/nova_vision/presentation/nova_vision_screen.dart';
 import 'package:nova_finance_os/features/nova_navigator/presentation/nova_navigator_screen.dart';
 import 'package:nova_finance_os/features/currency/presentation/currency_converter_screen.dart';
 import 'package:nova_finance_os/features/investments/presentation/portfolio_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/real_estate/domain/property.dart';
+import 'package:nova_finance_os/features/real_estate/domain/property.dart';
 
 final propertyServiceProvider = Provider((ref) => PropertyService());
 
@@ -48,14 +48,17 @@ class PropertyService {
   }
 
   double getTotalEquity() {
-    return _propertiesBox?.values.fold(0.0, (sum, p) => sum + p.equity) ?? 0.0;
+    if (_propertiesBox == null) return 0.0;
+    return _propertiesBox!.values.fold(0.0, (sum, p) => sum + (p.equity ?? 0.0));
   }
 
   double getTotalValue() {
-    return _propertiesBox?.values.fold(0.0, (sum, p) => sum + p.currentValue) ?? 0.0;
+    if (_propertiesBox == null) return 0.0;
+    return _propertiesBox!.values.fold(0.0, (sum, p) => sum + p.currentValue);
   }
 
   double getTotalRentalIncome() {
-    return _propertiesBox?.values.fold(0.0, (sum, p) => sum + p.annualRentalIncome) ?? 0.0;
+    if (_propertiesBox == null) return 0.0;
+    return _propertiesBox!.values.fold(0.0, (sum, p) => sum + (p.annualRentalIncome ?? 0.0));
   }
 }

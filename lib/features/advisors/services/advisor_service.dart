@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/advisors/domain/advisor.dart';
+import 'package:nova_finance_os/features/advisors/domain/advisor.dart';
 import 'package:uuid/uuid.dart';
 
 final advisorServiceProvider = Provider((ref) => AdvisorService());
@@ -88,14 +88,12 @@ class AdvisorService {
 
   Stream<List<FinancialAdvisor>> watchAdvisors() {
     final box = Hive.box<FinancialAdvisor>(_advisorsBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Stream<List<AdvisorBooking>> watchBookings() {
     final box = Hive.box<AdvisorBooking>(_bookingsBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Future<void> bookAdvisor({
@@ -114,7 +112,7 @@ class AdvisorService {
       scheduledDate: scheduledDate,
       durationMinutes: durationMinutes,
       topic: topic,
-      status: BookingStatus.scheduled,
+      status: BookingStatus.confirmed,
       cost: cost,
       meetingLink: 'https://meet.novaaccountant.com/${_uuid.v4().substring(0, 8)}',
     );

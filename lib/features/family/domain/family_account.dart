@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'family_account.g.dart';
+// part 'family_account.g.dart';
 
 @HiveType(typeId: 28)
 class FamilyAccount extends HiveObject {
@@ -22,10 +22,12 @@ class FamilyAccount extends HiveObject {
   FamilyAccount({
     required this.id,
     required this.name,
-    required this.createdBy,
-    required this.memberIds,
-    required this.createdAt,
-  });
+    String? createdBy,
+    List<String>? memberIds,
+    DateTime? createdAt,
+  }) : createdBy = createdBy ?? 'current_user',
+       memberIds = memberIds ?? [],
+       createdAt = createdAt ?? DateTime.now();
 
   FamilyAccount copyWith({
     String? id,
@@ -67,24 +69,30 @@ class FamilyMember extends HiveObject {
   FamilyMember({
     required this.id,
     required this.familyAccountId,
-    required this.userId,
+    String? userId,
     required this.name,
     required this.role,
     this.allowance,
-  });
+  }) : userId = userId ?? 'user_${id.substring(0, 8)}';
 }
 
 @HiveType(typeId: 30)
 enum FamilyRole {
   @HiveField(0)
-  admin,
+  owner,
 
   @HiveField(1)
-  parent,
+  admin,
 
   @HiveField(2)
-  child,
+  parent,
 
   @HiveField(3)
+  member,
+
+  @HiveField(4)
+  child,
+
+  @HiveField(5)
   viewer,
 }

@@ -28,6 +28,9 @@ class BrainState {
   bool get isHealthy => healthScore >= 70;
 
   int get urgentActionCount => coachActions.where((a) => a.isUrgent).length;
+  
+  // Alias for predictions
+  List<CashflowPoint> get cashflowPrediction => predictions;
 
   Map<String, dynamic> toJson() {
     return {

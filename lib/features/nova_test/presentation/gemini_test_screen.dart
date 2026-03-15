@@ -24,12 +24,12 @@ class _NovaTestScreenState extends ConsumerState<NovaTestScreen> {
 
     final novaService = ref.read(novaServiceProvider);
     // Use sendRawMessage to test the user's specific logic
-    final result = await novaService.sendRawMessage(_controller.text);
+    final result = await novaService.sendRawMessage(prompt: _controller.text);
 
     if (mounted) {
       setState(() {
         _isLoading = false;
-        _response = result ?? "No response";
+        _response = result['text'] ?? result['message'] ?? "No response";
       });
     }
   }

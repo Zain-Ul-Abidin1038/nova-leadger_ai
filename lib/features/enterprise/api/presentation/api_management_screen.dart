@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/api/domain/api_key.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/api/services/api_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/enterprise/api/domain/api_key.dart';
+import 'package:nova_finance_os/features/enterprise/api/services/api_service.dart';
 import 'package:intl/intl.dart';
 
 class ApiManagementScreen extends ConsumerStatefulWidget {
@@ -41,7 +41,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
               title: const Text('API Management', style: TextStyle(color: AppColors.textPrimary, fontSize: 20, fontWeight: FontWeight.bold)),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.add, color: AppColors.primary),
+                  icon: const Icon(Icons.add, color: AppColors.neonTeal),
                   onPressed: _showCreateApiKeyDialog,
                 ),
               ],
@@ -55,7 +55,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.info_outline, color: AppColors.primary, size: 20),
+                          const Icon(Icons.info_outline, color: AppColors.neonTeal, size: 20),
                           const SizedBox(width: 8),
                           const Text('API Documentation', style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold)),
                         ],
@@ -104,7 +104,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   ),
                 );
               },
-              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.primary))),
+              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.neonTeal))),
               error: (error, stack) => SliverFillRemaining(child: Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error)))),
             ),
           ],
@@ -159,7 +159,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: AppColors.surfaceDark,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -173,7 +173,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy, size: 18, color: AppColors.primary),
+                  icon: const Icon(Icons.copy, size: 18, color: AppColors.neonTeal),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: apiKey.key));
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -189,8 +189,8 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
             spacing: 6,
             children: apiKey.permissions.map((perm) => Chip(
               label: Text(perm, style: const TextStyle(fontSize: 10)),
-              backgroundColor: AppColors.primary.withOpacity(0.2),
-              labelStyle: const TextStyle(color: AppColors.primary),
+              backgroundColor: AppColors.neonTeal.withOpacity(0.2),
+              labelStyle: const TextStyle(color: AppColors.neonTeal),
               padding: EdgeInsets.zero,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             )).toList(),
@@ -277,7 +277,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceDark,
           title: const Text('Create API Key', style: TextStyle(color: AppColors.textPrimary)),
           content: SingleChildScrollView(
             child: Column(
@@ -299,7 +299,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   onChanged: (value) => setState(() {
                     if (value!) selectedPermissions.add('read'); else selectedPermissions.remove('read');
                   }),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.neonTeal,
                 ),
                 CheckboxListTile(
                   title: const Text('Write', style: TextStyle(color: AppColors.textPrimary, fontSize: 14)),
@@ -307,7 +307,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   onChanged: (value) => setState(() {
                     if (value!) selectedPermissions.add('write'); else selectedPermissions.remove('write');
                   }),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.neonTeal,
                 ),
                 CheckboxListTile(
                   title: const Text('Delete', style: TextStyle(color: AppColors.textPrimary, fontSize: 14)),
@@ -315,7 +315,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   onChanged: (value) => setState(() {
                     if (value!) selectedPermissions.add('delete'); else selectedPermissions.remove('delete');
                   }),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.neonTeal,
                 ),
               ],
             ),
@@ -337,7 +337,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('API key created!')));
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
               child: const Text('Create'),
             ),
           ],
@@ -350,7 +350,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Regenerate API Key?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text('This will invalidate the old key.', style: TextStyle(color: AppColors.textSecondary)),
         actions: [
@@ -374,7 +374,7 @@ class _ApiManagementScreenState extends ConsumerState<ApiManagementScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Delete API Key?', style: TextStyle(color: AppColors.textPrimary)),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),

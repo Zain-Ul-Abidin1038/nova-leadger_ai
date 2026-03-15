@@ -1,41 +1,39 @@
-import 'package:hive/hive.dart';
+// Community domain models
 
-part 'community.g.dart';
+enum PostCategory {
+  general,
+  budgeting,
+  investing,
+  saving,
+  debt,
+  taxes,
+}
 
-@HiveType(typeId: 47)
-class CommunityPost extends HiveObject {
-  @HiveField(0)
+enum ChallengeType {
+  savings,
+  noSpend,
+  debtPayoff,
+  budgetStreak,
+}
+
+class CommunityPost {
   final String id;
-
-  @HiveField(1)
+  final String authorId;
   final String authorName;
-
-  @HiveField(2)
-  final String title;
-
-  @HiveField(3)
   final String content;
-
-  @HiveField(4)
+  final String? title;
   final PostCategory category;
-
-  @HiveField(5)
   final DateTime createdAt;
-
-  @HiveField(6)
   final int likes;
-
-  @HiveField(7)
   final int comments;
-
-  @HiveField(8)
   final bool isAnonymous;
 
   CommunityPost({
     required this.id,
+    required this.authorId,
     required this.authorName,
-    required this.title,
     required this.content,
+    this.title,
     required this.category,
     required this.createdAt,
     this.likes = 0,
@@ -44,41 +42,23 @@ class CommunityPost extends HiveObject {
   });
 }
 
-@HiveType(typeId: 48)
-enum PostCategory {
-  @HiveField(0)
-  budgeting,
-  @HiveField(1)
-  investing,
-  @HiveField(2)
-  taxes,
-  @HiveField(3)
-  debt,
-  @HiveField(4)
-  savings,
-  @HiveField(5)
-  general,
-}
-
-@HiveType(typeId: 49)
-class FinancialBenchmark extends HiveObject {
-  @HiveField(0)
+class FinancialBenchmark {
+  final String id;
+  final String name;
+  final double value;
   final String category;
-
-  @HiveField(1)
+  final String description;
   final double userValue;
-
-  @HiveField(2)
   final double communityAverage;
-
-  @HiveField(3)
   final double percentile;
-
-  @HiveField(4)
   final String insight;
 
   FinancialBenchmark({
+    required this.id,
+    required this.name,
+    required this.value,
     required this.category,
+    required this.description,
     required this.userValue,
     required this.communityAverage,
     required this.percentile,
@@ -86,60 +66,32 @@ class FinancialBenchmark extends HiveObject {
   });
 }
 
-@HiveType(typeId: 50)
-class Challenge extends HiveObject {
-  @HiveField(0)
+class Challenge {
   final String id;
-
-  @HiveField(1)
+  final String name;
   final String title;
-
-  @HiveField(2)
-  final String description;
-
-  @HiveField(3)
   final ChallengeType type;
-
-  @HiveField(4)
-  final double targetAmount;
-
-  @HiveField(5)
-  final int durationDays;
-
-  @HiveField(6)
+  final String description;
   final DateTime startDate;
-
-  @HiveField(7)
+  final DateTime endDate;
   final int participants;
-
-  @HiveField(8)
   final bool isJoined;
-
-  @HiveField(9)
-  final double currentProgress;
+  final double? targetAmount;
+  final double? currentProgress;
 
   Challenge({
     required this.id,
-    required this.title,
-    required this.description,
+    required this.name,
     required this.type,
-    required this.targetAmount,
-    required this.durationDays,
+    required this.description,
     required this.startDate,
+    required this.endDate,
     this.participants = 0,
+    String? title,
     this.isJoined = false,
-    this.currentProgress = 0.0,
-  });
-}
+    this.targetAmount,
+    this.currentProgress,
+  }) : title = title ?? name;
 
-@HiveType(typeId: 51)
-enum ChallengeType {
-  @HiveField(0)
-  savings,
-  @HiveField(1)
-  noSpend,
-  @HiveField(2)
-  debtPayoff,
-  @HiveField(3)
-  budgetStreak,
+  int get durationDays => endDate.difference(startDate).inDays;
 }

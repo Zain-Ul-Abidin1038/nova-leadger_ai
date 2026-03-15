@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'currency_rate.g.dart';
+// part 'currency_rate.g.dart';
 
 @HiveType(typeId: 20)
 class CurrencyRate extends HiveObject {

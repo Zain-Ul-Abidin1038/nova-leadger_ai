@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/family/domain/family_account.dart';
+import 'package:nova_finance_os/features/family/domain/family_account.dart';
 
 final familyServiceProvider = Provider((ref) => FamilyService());
 
@@ -67,6 +67,7 @@ class FamilyService {
   }
 
   double getTotalAllowances() {
-    return _membersBox?.values.fold(0.0, (sum, m) => sum + (m.allowance ?? 0)) ?? 0.0;
+    if (_membersBox == null) return 0.0;
+    return _membersBox!.values.fold<double>(0.0, (sum, m) => sum + (m.allowance ?? 0.0));
   }
 }

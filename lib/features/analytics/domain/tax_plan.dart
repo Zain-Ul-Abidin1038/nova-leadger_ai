@@ -13,6 +13,9 @@ class TaxPlan {
     required this.estimatedTaxSavings,
   });
 
+  // Alias for estimatedTaxSavings
+  double get estimatedSavings => estimatedTaxSavings;
+
   Map<String, dynamic> toJson() {
     return {
       'deductibleTotal': deductibleTotal,

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/api/domain/api_key.dart';
+import 'package:nova_finance_os/features/enterprise/api/domain/api_key.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:math';
 
@@ -62,8 +62,7 @@ class ApiService {
 
   Stream<List<ApiKey>> watchApiKeys() {
     final box = Hive.box<ApiKey>(_apiKeysBox);
-    return Stream.value(box.values.toList())
-        .asyncExpand((initial) => box.watch().map((_) => box.values.toList()).startWith(initial));
+    return box.watch().map((_) => box.values.toList());
   }
 
   Future<void> createApiKey({

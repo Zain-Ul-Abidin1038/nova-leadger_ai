@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/white_label/domain/tenant.dart';
-import 'package:nova_live_nova_finance_os/features/enterprise/white_label/services/white_label_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/enterprise/white_label/domain/tenant.dart';
+import 'package:nova_finance_os/features/enterprise/white_label/services/white_label_service.dart';
 import 'package:intl/intl.dart';
 
 class WhiteLabelScreen extends ConsumerStatefulWidget {
@@ -40,7 +40,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
               title: const Text('White-Label Solution', style: TextStyle(color: AppColors.textPrimary, fontSize: 20, fontWeight: FontWeight.bold)),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.add, color: AppColors.primary),
+                  icon: const Icon(Icons.add, color: AppColors.neonTeal),
                   onPressed: _showCreateTenantDialog,
                 ),
               ],
@@ -74,7 +74,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                   ),
                 );
               },
-              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.primary))),
+              loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator(color: AppColors.neonTeal))),
               error: (error, stack) => SliverFillRemaining(child: Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error)))),
             ),
           ],
@@ -84,8 +84,8 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
   }
 
   Widget _buildTenantCard(Tenant tenant) {
-    final primaryColor = _parseColor(tenant.branding.primaryColor);
-    final secondaryColor = _parseColor(tenant.branding.secondaryColor);
+    final primaryColor = _parseColor(tenant.branding['primaryColor'] as String? ?? '#00F2FF');
+    final secondaryColor = _parseColor(tenant.branding['secondaryColor'] as String? ?? '#B388FF');
 
     return GlassCard(
       child: Column(
@@ -122,7 +122,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: AppColors.surfaceDark,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -137,7 +137,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('App Name', style: TextStyle(color: AppColors.textSecondary, fontSize: 11)),
-                          Text(tenant.branding.appName, style: const TextStyle(color: AppColors.textPrimary, fontSize: 13)),
+                          Text(tenant.branding['appName'] as String? ?? 'Finance OS', style: const TextStyle(color: AppColors.textPrimary, fontSize: 13)),
                         ],
                       ),
                     ),
@@ -175,7 +175,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: entry.value ? AppColors.success.withOpacity(0.2) : AppColors.surface,
+                    color: entry.value ? AppColors.success.withOpacity(0.2) : AppColors.surfaceDark,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: entry.value ? AppColors.success : AppColors.textSecondary,
@@ -243,8 +243,8 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                   icon: const Icon(Icons.edit, size: 16),
                   label: const Text('Edit Branding', style: TextStyle(fontSize: 12)),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.primary,
-                    side: const BorderSide(color: AppColors.primary),
+                    foregroundColor: AppColors.neonTeal,
+                    side: const BorderSide(color: AppColors.neonTeal),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                 ),
@@ -265,7 +265,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
     try {
       return Color(int.parse(hexColor.replaceFirst('#', '0xFF')));
     } catch (e) {
-      return AppColors.primary;
+      return AppColors.neonTeal;
     }
   }
 
@@ -279,7 +279,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Create Tenant', style: TextStyle(color: AppColors.textPrimary)),
         content: SingleChildScrollView(
           child: Column(
@@ -355,7 +355,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Tenant created!')));
               }
             },
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
             child: const Text('Create'),
           ),
         ],
@@ -364,14 +364,14 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
   }
 
   void _showEditBrandingDialog(Tenant tenant) {
-    final appNameController = TextEditingController(text: tenant.branding.appName);
-    final primaryColorController = TextEditingController(text: tenant.branding.primaryColor);
-    final secondaryColorController = TextEditingController(text: tenant.branding.secondaryColor);
+    final appNameController = TextEditingController(text: tenant.branding['appName'] as String? ?? 'Finance OS');
+    final primaryColorController = TextEditingController(text: tenant.branding['primaryColor'] as String? ?? '#00F2FF');
+    final secondaryColorController = TextEditingController(text: tenant.branding['secondaryColor'] as String? ?? '#B388FF');
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Edit Branding', style: TextStyle(color: AppColors.textPrimary)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -408,12 +408,13 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () async {
-              final branding = BrandConfig(
-                appName: appNameController.text,
-                primaryColor: primaryColorController.text,
-                secondaryColor: secondaryColorController.text,
-                logoUrl: tenant.branding.logoUrl,
-              );
+              final branding = {
+                'appName': appNameController.text,
+                'primaryColor': primaryColorController.text,
+                'secondaryColor': secondaryColorController.text,
+                'logoUrl': tenant.branding['logoUrl'] as String? ?? '',
+                'tagline': tenant.branding['tagline'] as String? ?? 'Finance Management',
+              };
               
               await ref.read(whiteLabelServiceProvider).updateBranding(tenant.id, branding);
               
@@ -422,7 +423,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Branding updated!')));
               }
             },
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
             child: const Text('Save'),
           ),
         ],
@@ -434,7 +435,7 @@ class _WhiteLabelScreenState extends ConsumerState<WhiteLabelScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.surfaceDark,
         title: const Text('Delete Tenant?', style: TextStyle(color: AppColors.textPrimary)),
         content: const Text('This will permanently delete the tenant.', style: TextStyle(color: AppColors.textSecondary)),
         actions: [

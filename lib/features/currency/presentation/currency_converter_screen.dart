@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/currency/services/currency_service.dart';
-import 'package:nova_live_nova_finance_os/features/currency/domain/currency_rate.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/currency/services/currency_service.dart';
+import 'package:nova_finance_os/features/currency/domain/currency_models.dart';
 
 class CurrencyConverterScreen extends ConsumerStatefulWidget {
   const CurrencyConverterScreen({super.key});
@@ -27,7 +27,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
     
     // Update rates if needed
     if (service.needsUpdate()) {
-      await ref.read(currencyConverterProvider.notifier).updateRates();
+      await ref.read(currencyConverterProvider).updateRates();
     }
   }
 
@@ -39,7 +39,8 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
 
   @override
   Widget build(BuildContext context) {
-    final converterState = ref.watch(currencyConverterProvider);
+    final converter = ref.watch(currencyConverterProvider);
+    final converterState = converter.state;
     final currencyService = ref.watch(currencyServiceProvider);
     final availableCurrencies = currencyService.getAllRates();
 
@@ -79,7 +80,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
                       : const Icon(Icons.refresh, color: AppColors.neonTeal),
                   onPressed: converterState.isLoading
                       ? null
-                      : () => ref.read(currencyConverterProvider.notifier).updateRates(),
+                      : () => ref.read(currencyConverterProvider).updateRates(),
                 ),
               ],
             ),
@@ -103,7 +104,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
                     selectedCurrency: converterState.fromCurrency,
                     currencies: availableCurrencies,
                     onChanged: (currency) {
-                      ref.read(currencyConverterProvider.notifier).setFromCurrency(currency);
+                      ref.read(currencyConverterProvider).setFromCurrency(currency);
                     },
                   ),
                   const SizedBox(height: 16),
@@ -118,7 +119,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
                     selectedCurrency: converterState.toCurrency,
                     currencies: availableCurrencies,
                     onChanged: (currency) {
-                      ref.read(currencyConverterProvider.notifier).setToCurrency(currency);
+                      ref.read(currencyConverterProvider).setToCurrency(currency);
                     },
                   ),
                   const SizedBox(height: 32),
@@ -200,7 +201,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
             ),
             onChanged: (value) {
               final amount = double.tryParse(value) ?? 0.0;
-              ref.read(currencyConverterProvider.notifier).setAmount(amount);
+              ref.read(currencyConverterProvider).setAmount(amount);
             },
           ),
         ],
@@ -314,7 +315,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
             color: AppColors.neonTeal,
           ),
           onPressed: () {
-            ref.read(currencyConverterProvider.notifier).swapCurrencies();
+            ref.read(currencyConverterProvider).swapCurrencies();
           },
         ),
       ),
@@ -327,9 +328,8 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
     }
 
     final formattedAmount = service.formatAmount(
-      amount: state.convertedAmount!,
-      currencyCode: state.toCurrency,
-      decimals: 2,
+      state.convertedAmount!,
+      state.toCurrency,
     );
 
     return GlassCard(
@@ -375,7 +375,7 @@ class _CurrencyConverterScreenState extends ConsumerState<CurrencyConverterScree
       return const SizedBox.shrink();
     }
 
-    final rate = toRate.exchangeRate / fromRate.exchangeRate;
+    final rate = toRate / fromRate;
 
     return GlassCard(
       padding: const EdgeInsets.all(16),

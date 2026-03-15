@@ -32,11 +32,11 @@ void main() async {
       
       // Register Hive adapters
       if (!Hive.isAdapterRegistered(0)) {
-        Hive.registerAdapter(ReceiptAdapter());
+        // Hive.registerAdapter(ReceiptAdapter());
         safePrint('✓ Receipt adapter registered');
       }
       if (!Hive.isAdapterRegistered(2)) {
-        Hive.registerAdapter(FinancialTransactionAdapter());
+        // Hive.registerAdapter(FinancialTransactionAdapter());
         safePrint('✓ FinancialTransaction adapter registered');
       }
       

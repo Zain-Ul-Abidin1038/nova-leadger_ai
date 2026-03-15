@@ -165,8 +165,6 @@ Return ONLY valid JSON.''';
       final result = await novaService.sendMessage(
         prompt: prompt,
         systemInstruction: 'You are a task planning AI. Return only valid JSON.',
-        deepReasoning: true,
-        isParsing: true,
       );
 
       if (result['success'] == true) {
@@ -271,8 +269,6 @@ If no clear amount, estimate based on typical costs.''';
       final result = await novaService.sendMessage(
         prompt: prompt,
         systemInstruction: 'Extract transaction details. Return only JSON.',
-        deepReasoning: false,
-        isParsing: true,
       );
 
       if (result['success'] == true) {
@@ -340,6 +336,7 @@ If no clear amount, estimate based on typical costs.''';
       // Future enhancement: Add dedicated screen analysis method
       await novaService.analyzeReceiptImage(
         base64Image: base64Image,
+        region: 'us-east-1',
       );
 
       // Parse and return screen analysis

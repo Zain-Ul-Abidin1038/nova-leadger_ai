@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/group_expenses/domain/group_expense.dart';
+import 'package:nova_finance_os/features/group_expenses/domain/group_expense.dart';
 
 final groupExpenseServiceProvider = Provider((ref) => GroupExpenseService());
 
@@ -53,7 +53,7 @@ class GroupExpenseService {
     if (expense != null) {
       final updatedParticipants = expense.participants.map((p) {
         if (p.userId == userId) {
-          return ExpenseParticipant(
+          return GroupExpenseParticipant(
             userId: p.userId,
             name: p.name,
             shareAmount: p.shareAmount,

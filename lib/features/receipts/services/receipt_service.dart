@@ -70,8 +70,7 @@ class ReceiptService {
     traceService.addTrace("[Nova Agent] 🤖 Analyzing with Nova API...");
     final analysisResult = await novaService.analyzeReceiptImage(
       base64Image: base64Image,
-      memoryContext: memoryStories,
-      region: region,
+      region: region ?? 'Unknown',
     );
     
     final thoughtSignature = analysisResult['thoughtSignature'] as String;

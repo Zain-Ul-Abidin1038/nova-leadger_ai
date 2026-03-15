@@ -182,8 +182,6 @@ For financial commands, users can say things like:
 - "Add 500 rupees given to bilal"
 - "Show my balance"
 ''',
-        deepReasoning: false, // Fast conversational response
-        isParsing: false,
       );
 
       return {
@@ -285,9 +283,6 @@ Rules:
 4. No explanations, no markdown, just the JSON array
 5. Look for keywords like "and", "also", "then" to identify separate transactions
 6. Can handle up to 50+ transactions in one message''',
-        isParsing: true,
-        deepReasoning: false,
-        isMultiTransaction: true, // Use higher token limit for large arrays
       );
 
       if (splitResponse['success'] != true) {
@@ -455,7 +450,6 @@ CRITICAL:
 - "X have to give me Y" = add_receivable (X owes you)
 - "I have to give X Y" = add_payable (you owe X)
 - "X took Y from me" = add_receivable (X owes you)''',
-        isParsing: true,
       );
 
       if (response['success'] == true) {

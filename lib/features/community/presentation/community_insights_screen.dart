@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nova_live_nova_finance_os/core/theme/app_colors.dart';
-import 'package:nova_live_nova_finance_os/core/theme/glass_widgets.dart';
-import 'package:nova_live_nova_finance_os/features/community/domain/community.dart';
-import 'package:nova_live_nova_finance_os/features/community/services/community_service.dart';
+import 'package:nova_finance_os/core/theme/app_colors.dart';
+import 'package:nova_finance_os/core/theme/glass_widgets.dart';
+import 'package:nova_finance_os/features/community/domain/community.dart';
+import 'package:nova_finance_os/features/community/services/community_service.dart';
 import 'package:intl/intl.dart';
 
 class CommunityInsightsScreen extends ConsumerStatefulWidget {
@@ -54,8 +54,8 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
             ),
             TabBar(
               controller: _tabController,
-              indicatorColor: AppColors.primary,
-              labelColor: AppColors.primary,
+              indicatorColor: AppColors.neonTeal,
+              labelColor: AppColors.neonTeal,
               unselectedLabelColor: AppColors.textSecondary,
               tabs: const [
                 Tab(text: 'Discussions'),
@@ -79,7 +79,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
       floatingActionButton: _tabController.index == 0
           ? FloatingActionButton(
               onPressed: _showCreatePostDialog,
-              backgroundColor: AppColors.primary,
+              backgroundColor: AppColors.neonTeal,
               child: const Icon(Icons.add),
             )
           : null,
@@ -102,7 +102,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                 _buildCategoryChip('Investing', PostCategory.investing),
                 _buildCategoryChip('Taxes', PostCategory.taxes),
                 _buildCategoryChip('Debt', PostCategory.debt),
-                _buildCategoryChip('Savings', PostCategory.savings),
+                _buildCategoryChip('Savings', PostCategory.saving),
               ],
             ),
           ),
@@ -112,7 +112,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
             data: (posts) {
               final filtered = _selectedCategory == null
                   ? posts
-                  : ref.read(communityServiceProvider).filterPosts(_selectedCategory);
+                  : ref.read(communityServiceProvider).filterPosts(posts, _selectedCategory);
               
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -120,7 +120,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                 itemBuilder: (context, index) => _buildPostCard(filtered[index]),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+            loading: () => const Center(child: CircularProgressIndicator(color: AppColors.neonTeal)),
             error: (error, stack) => Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error))),
           ),
         ),
@@ -136,9 +136,9 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
         label: Text(label),
         selected: isSelected,
         onSelected: (selected) => setState(() => _selectedCategory = selected ? category : null),
-        backgroundColor: AppColors.surface,
-        selectedColor: AppColors.primary.withOpacity(0.3),
-        labelStyle: TextStyle(color: isSelected ? AppColors.primary : AppColors.textSecondary),
+        backgroundColor: AppColors.surfaceDark,
+        selectedColor: AppColors.neonTeal.withOpacity(0.3),
+        labelStyle: TextStyle(color: isSelected ? AppColors.neonTeal : AppColors.textSecondary),
       ),
     );
   }
@@ -152,11 +152,11 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
             children: [
               CircleAvatar(
                 radius: 16,
-                backgroundColor: post.isAnonymous ? AppColors.textSecondary.withOpacity(0.3) : AppColors.primary.withOpacity(0.3),
+                backgroundColor: post.isAnonymous ? AppColors.textSecondary.withOpacity(0.3) : AppColors.neonTeal.withOpacity(0.3),
                 child: Icon(
                   post.isAnonymous ? Icons.person_off : Icons.person,
                   size: 16,
-                  color: post.isAnonymous ? AppColors.textSecondary : AppColors.primary,
+                  color: post.isAnonymous ? AppColors.textSecondary : AppColors.neonTeal,
                 ),
               ),
               const SizedBox(width: 8),
@@ -189,11 +189,12 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            post.title,
-            style: const TextStyle(color: AppColors.textPrimary, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
+          if (post.title != null)
+            Text(
+              post.title!,
+              style: const TextStyle(color: AppColors.textPrimary, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          if (post.title != null) const SizedBox(height: 8),
           Text(
             post.content,
             style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
@@ -237,7 +238,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
           ...benchmarks.map((benchmark) => _buildBenchmarkCard(benchmark)),
         ],
       ),
-      loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+      loading: () => const Center(child: CircularProgressIndicator(color: AppColors.neonTeal)),
       error: (error, stack) => Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error))),
     );
   }
@@ -283,7 +284,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                     const Text('You', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                     Text(
                       benchmark.userValue.toStringAsFixed(1),
-                      style: const TextStyle(color: AppColors.primary, fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: AppColors.neonTeal, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -305,7 +306,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
           const SizedBox(height: 12),
           LinearProgressIndicator(
             value: benchmark.percentile / 100,
-            backgroundColor: AppColors.surface,
+            backgroundColor: AppColors.surfaceDark,
             valueColor: AlwaysStoppedAnimation(isAboveAverage ? AppColors.success : AppColors.warning),
           ),
           const SizedBox(height: 8),
@@ -338,7 +339,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
           ...challenges.map((challenge) => _buildChallengeCard(challenge)),
         ],
       ),
-      loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+      loading: () => const Center(child: CircularProgressIndicator(color: AppColors.neonTeal)),
       error: (error, stack) => Center(child: Text('Error: $error', style: const TextStyle(color: AppColors.error))),
     );
   }
@@ -399,27 +400,27 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
               Icon(Icons.attach_money, size: 14, color: AppColors.textSecondary),
               const SizedBox(width: 4),
               Text(
-                '\$${challenge.targetAmount.toStringAsFixed(0)} goal',
+                '\$${challenge.targetAmount?.toStringAsFixed(0) ?? '0'} goal',
                 style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
               ),
               const Spacer(),
               if (isActive)
                 Text(
                   '$daysLeft days left',
-                  style: const TextStyle(color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: AppColors.neonTeal, fontSize: 12, fontWeight: FontWeight.bold),
                 ),
             ],
           ),
           if (challenge.isJoined) ...[
             const SizedBox(height: 12),
             LinearProgressIndicator(
-              value: challenge.currentProgress / challenge.targetAmount,
-              backgroundColor: AppColors.surface,
+              value: (challenge.currentProgress ?? 0) / (challenge.targetAmount ?? 1),
+              backgroundColor: AppColors.surfaceDark,
               valueColor: AlwaysStoppedAnimation(_getChallengeColor(challenge.type)),
             ),
             const SizedBox(height: 4),
             Text(
-              '\$${challenge.currentProgress.toStringAsFixed(0)} / \$${challenge.targetAmount.toStringAsFixed(0)}',
+              '\$${challenge.currentProgress?.toStringAsFixed(0) ?? '0'} / \$${challenge.targetAmount?.toStringAsFixed(0) ?? '0'}',
               style: const TextStyle(color: AppColors.textSecondary, fontSize: 11),
             ),
           ],
@@ -429,7 +430,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
             child: ElevatedButton(
               onPressed: challenge.isJoined ? null : () => _joinChallenge(challenge.id),
               style: ElevatedButton.styleFrom(
-                backgroundColor: challenge.isJoined ? AppColors.surface : AppColors.primary,
+                backgroundColor: challenge.isJoined ? AppColors.surfaceDark : AppColors.neonTeal,
                 foregroundColor: challenge.isJoined ? AppColors.textSecondary : AppColors.background,
               ),
               child: Text(challenge.isJoined ? 'Joined' : 'Join Challenge'),
@@ -443,15 +444,15 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
   Color _getCategoryColor(PostCategory category) {
     switch (category) {
       case PostCategory.budgeting:
-        return AppColors.primary;
+        return AppColors.neonTeal;
       case PostCategory.investing:
         return AppColors.success;
       case PostCategory.taxes:
         return AppColors.warning;
       case PostCategory.debt:
         return AppColors.error;
-      case PostCategory.savings:
-        return AppColors.accent;
+      case PostCategory.saving:
+        return AppColors.softPurple;
       case PostCategory.general:
         return AppColors.textSecondary;
     }
@@ -462,11 +463,11 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
       case ChallengeType.savings:
         return AppColors.success;
       case ChallengeType.noSpend:
-        return AppColors.primary;
+        return AppColors.neonTeal;
       case ChallengeType.debtPayoff:
         return AppColors.warning;
       case ChallengeType.budgetStreak:
-        return AppColors.accent;
+        return AppColors.softPurple;
     }
   }
 
@@ -508,7 +509,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceDark,
           title: const Text('Create Post', style: TextStyle(color: AppColors.textPrimary)),
           content: SingleChildScrollView(
             child: Column(
@@ -535,7 +536,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                 const SizedBox(height: 16),
                 DropdownButtonFormField<PostCategory>(
                   value: selectedCategory,
-                  dropdownColor: AppColors.surface,
+                  dropdownColor: AppColors.surfaceDark,
                   style: const TextStyle(color: AppColors.textPrimary),
                   decoration: const InputDecoration(
                     labelText: 'Category',
@@ -552,7 +553,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                   title: const Text('Post anonymously', style: TextStyle(color: AppColors.textPrimary)),
                   value: isAnonymous,
                   onChanged: (value) => setState(() => isAnonymous = value!),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.neonTeal,
                 ),
               ],
             ),
@@ -581,7 +582,7 @@ class _CommunityInsightsScreenState extends ConsumerState<CommunityInsightsScree
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonTeal),
               child: const Text('Post'),
             ),
           ],

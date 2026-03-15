@@ -8,7 +8,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'dart:io';
 import 'dart:convert';
 
-part 'simple_chat_service.g.dart';
+// part 'simple_chat_service.g.dart';
 
 final simpleChatServiceProvider = Provider((ref) => SimpleChatService(
       novaService: ref.read(novaServiceV3Provider),
@@ -57,7 +57,7 @@ class SimpleChatService {
 
   Future<void> initialize() async {
     if (!Hive.isAdapterRegistered(3)) {
-      Hive.registerAdapter(ChatMessageAdapter());
+      // Hive.registerAdapter(ChatMessageAdapter());
     }
     _box = await Hive.openBox<ChatMessage>(_boxName);
   }
@@ -219,7 +219,6 @@ Examples:
 - If they ask about savings, suggest specific strategies based on their expenses
 - If they mention a person, ask if it's a loan or expense
 - Always be proactive and helpful''',
-        isParsing: false, // Conversational response
       );
 
       final responseText = response['text'] ?? 'How can I help you with your finances?';

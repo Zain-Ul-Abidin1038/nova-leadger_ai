@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'ledger_entry.g.dart';
+// part 'ledger_entry.g.dart';
 
 @HiveType(typeId: 12)
 enum LedgerType {

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/investments/domain/investment.dart';
-import 'package:nova_live_nova_finance_os/features/investments/domain/portfolio.dart';
+import 'package:nova_finance_os/features/investments/domain/investment.dart';
+import 'package:nova_finance_os/features/investments/domain/portfolio.dart';
 import 'package:uuid/uuid.dart';
 
 final portfolioServiceProvider = Provider((ref) => PortfolioService());
@@ -94,18 +94,19 @@ class PortfolioService {
     required double purchasePrice,
     String? notes,
   }) async {
+    final totalAmount = quantity * purchasePrice;
     final investment = Investment(
       id: const Uuid().v4(),
       userId: 'current_user',
-      type: type,
+      type: type.toString(),
       symbol: symbol,
       name: name,
-      quantity: quantity,
-      purchasePrice: purchasePrice,
+      amount: totalAmount,
+      currentValue: totalAmount,
       currentPrice: purchasePrice,
       purchaseDate: DateTime.now(),
-      updatedAt: DateTime.now(),
-      notes: notes,
+      totalInvested: totalAmount,
+      profitLossPercentage: 0.0,
     );
 
     await addInvestment(investment);
@@ -118,9 +119,12 @@ class PortfolioService {
     for (final investment in _investmentsBox!.values) {
       final newPrice = prices[investment.symbol];
       if (newPrice != null && newPrice != investment.currentPrice) {
+        final newValue = (investment.amount / investment.currentPrice) * newPrice;
+        final profitLoss = ((newValue - investment.amount) / investment.amount) * 100;
         final updated = investment.copyWith(
           currentPrice: newPrice,
-          updatedAt: DateTime.now(),
+          currentValue: newValue,
+          profitLossPercentage: profitLoss,
         );
         await updateInvestment(updated);
       }

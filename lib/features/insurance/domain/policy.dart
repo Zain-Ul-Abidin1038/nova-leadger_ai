@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'policy.g.dart';
+// part 'policy.g.dart';
 
 @HiveType(typeId: 26)
 class InsurancePolicy extends HiveObject {

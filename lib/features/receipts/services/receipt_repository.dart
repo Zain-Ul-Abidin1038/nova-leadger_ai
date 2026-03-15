@@ -11,7 +11,7 @@ class ReceiptRepository {
 
   Future<void> initialize() async {
     if (!Hive.isAdapterRegistered(4)) {
-      Hive.registerAdapter(ReceiptAdapter());
+      // Hive.registerAdapter(ReceiptAdapter());
     }
     _box = await Hive.openBox<Receipt>(_boxName);
   }

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-part 'ai_audit_logger.g.dart';
+// part 'ai_audit_logger.g.dart';
 
 final aiAuditLoggerProvider = Provider((ref) => AIAuditLogger());
 
@@ -131,6 +131,29 @@ class AIAuditLogger {
     await _box?.add(record);
 
     safePrint('[AIAuditLogger] Recorded: $action ($model) - ${success ? "✓" : "✗"}');
+  }
+
+  /// Log a financial decision (alias for record)
+  Future<void> logDecision({
+    required String action,
+    required String model,
+    required Map<String, dynamic> input,
+    required Map<String, dynamic> output,
+    int tokenCount = 0,
+    double cost = 0.0,
+    String? thoughtSignature,
+    bool success = true,
+  }) async {
+    return await record(
+      action: action,
+      model: model,
+      input: input,
+      output: output,
+      tokenCount: tokenCount,
+      cost: cost,
+      thoughtSignature: thoughtSignature,
+      success: success,
+    );
   }
 
   /// Get all audit records

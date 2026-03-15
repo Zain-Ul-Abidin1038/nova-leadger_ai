@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:nova_live_nova_finance_os/features/insurance/domain/policy.dart';
+import 'package:nova_finance_os/features/insurance/domain/policy.dart';
 
 final insuranceServiceProvider = Provider((ref) => InsuranceService());
 
@@ -48,11 +48,13 @@ class InsuranceService {
   }
 
   double getTotalAnnualPremium() {
-    return _policiesBox?.values.fold(0.0, (sum, p) => sum + p.annualPremium) ?? 0.0;
+    if (_policiesBox == null) return 0.0;
+    return _policiesBox!.values.fold(0.0, (sum, p) => sum + p.annualPremium);
   }
 
   double getTotalCoverage() {
-    return _policiesBox?.values.fold(0.0, (sum, p) => sum + p.coverage) ?? 0.0;
+    if (_policiesBox == null) return 0.0;
+    return _policiesBox!.values.fold(0.0, (sum, p) => sum + p.coverage);
   }
 
   List<InsurancePolicy> getExpiringPolicies() {

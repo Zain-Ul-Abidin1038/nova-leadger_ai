@@ -51,16 +51,16 @@ class UnifiedFinanceService {
     
     // Register adapters
     if (!Hive.isAdapterRegistered(10)) {
-      Hive.registerAdapter(IncomeEntryAdapter());
+      // Hive.registerAdapter(IncomeEntryAdapter());
     }
     if (!Hive.isAdapterRegistered(11)) {
-      Hive.registerAdapter(ExpenseEntryAdapter());
+      // Hive.registerAdapter(ExpenseEntryAdapter());
     }
     if (!Hive.isAdapterRegistered(12)) {
-      Hive.registerAdapter(LedgerTypeAdapter());
+      // Hive.registerAdapter(LedgerTypeAdapter());
     }
     if (!Hive.isAdapterRegistered(13)) {
-      Hive.registerAdapter(LedgerEntryAdapter());
+      // Hive.registerAdapter(LedgerEntryAdapter());
     }
 
     // Open boxes

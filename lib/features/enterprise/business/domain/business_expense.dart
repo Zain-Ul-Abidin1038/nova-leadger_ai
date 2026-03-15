@@ -1,100 +1,75 @@
-import 'package:hive/hive.dart';
+// Business expense domain model
 
-part 'business_expense.g.dart';
+enum ApprovalStatus {
+  pending,
+  approved,
+  rejected,
+}
 
-@HiveType(typeId: 34)
-class BusinessExpense extends HiveObject {
-  @HiveField(0)
+class BusinessExpense {
   final String id;
-
-  @HiveField(1)
-  final String businessEntityId;
-
-  @HiveField(2)
-  final String department;
-
-  @HiveField(3)
-  final String project;
-
-  @HiveField(4)
-  final String category;
-
-  @HiveField(5)
-  final double amount;
-
-  @HiveField(6)
   final String description;
-
-  @HiveField(7)
-  final String submittedBy;
-
-  @HiveField(8)
-  final ApprovalStatus status;
-
-  @HiveField(9)
+  final double amount;
+  final String category;
+  final DateTime date;
   final DateTime submittedAt;
-
-  @HiveField(10)
-  final String? receiptUrl;
+  final String employeeId;
+  final bool isApproved;
+  final ApprovalStatus status;
+  final String department;
+  final String project;
+  final String submittedBy;
+  final String businessEntityId;
 
   BusinessExpense({
     required this.id,
-    required this.businessEntityId,
-    required this.department,
-    required this.project,
-    required this.category,
-    required this.amount,
     required this.description,
-    required this.submittedBy,
-    required this.status,
-    required this.submittedAt,
-    this.receiptUrl,
-  });
+    required this.amount,
+    required this.category,
+    DateTime? date,
+    DateTime? submittedAt,
+    String? employeeId,
+    this.isApproved = false,
+    ApprovalStatus? status,
+    this.department = '',
+    this.project = '',
+    this.submittedBy = '',
+    this.businessEntityId = '',
+  }) : date = date ?? DateTime.now(),
+       employeeId = employeeId ?? 'current_user',
+       status = status ?? (isApproved ? ApprovalStatus.approved : ApprovalStatus.pending),
+       submittedAt = submittedAt ?? (date ?? DateTime.now());
 
   bool get isPending => status == ApprovalStatus.pending;
-  bool get isApproved => status == ApprovalStatus.approved;
   bool get isRejected => status == ApprovalStatus.rejected;
 
   BusinessExpense copyWith({
     String? id,
-    String? businessEntityId,
+    String? description,
+    double? amount,
+    String? category,
+    DateTime? date,
+    String? employeeId,
+    bool? isApproved,
+    ApprovalStatus? status,
     String? department,
     String? project,
-    String? category,
-    double? amount,
-    String? description,
     String? submittedBy,
-    ApprovalStatus? status,
-    DateTime? submittedAt,
-    String? receiptUrl,
+    String? businessEntityId,
   }) {
     return BusinessExpense(
       id: id ?? this.id,
-      businessEntityId: businessEntityId ?? this.businessEntityId,
+      description: description ?? this.description,
+      amount: amount ?? this.amount,
+      category: category ?? this.category,
+      date: date ?? this.date,
+      employeeId: employeeId ?? this.employeeId,
+      isApproved: isApproved ?? this.isApproved,
+      status: status ?? this.status,
       department: department ?? this.department,
       project: project ?? this.project,
-      category: category ?? this.category,
-      amount: amount ?? this.amount,
-      description: description ?? this.description,
       submittedBy: submittedBy ?? this.submittedBy,
-      status: status ?? this.status,
-      submittedAt: submittedAt ?? this.submittedAt,
-      receiptUrl: receiptUrl ?? this.receiptUrl,
+      businessEntityId: businessEntityId ?? this.businessEntityId,
     );
   }
-}
-
-@HiveType(typeId: 35)
-enum ApprovalStatus {
-  @HiveField(0)
-  pending,
-
-  @HiveField(1)
-  approved,
-
-  @HiveField(2)
-  rejected,
-
-  @HiveField(3)
-  needsReview,
 }
